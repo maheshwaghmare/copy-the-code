@@ -87,6 +87,11 @@ Extend the plugin on [Github](https://github.com/maheshwaghmare/copy-the-code/)
 
 ### Changelog
 
+
+** 1.1.0 **
+
+- Fix: Removed `Copy` button markup from the copied content from the clipboard.
+
 **1.0.0**
 
 - Initial release.
