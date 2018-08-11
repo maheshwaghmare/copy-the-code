@@ -2,7 +2,7 @@
 Contributors: Mahesh901122
 Tags: Copy to Clipboard, Copy the Code, Copy, Clipboard, Code, Copy Code
 Tested up to: 4.9.6
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 Requires at least: 4.4
 
 Copy the code into 📋 (clipboard). Default support added for <code>&lt;pre&gt;</code> tag. Documentations and more visit <a href="https://github.com/maheshwaghmare/copy-the-code/"> on GitHub</a>.
@@ -15,11 +15,11 @@ Plugin add the `Copy` button within the `<pre>` tag and it copy the content of `
 
 Simply, It search the `<pre>` tag within the page and add the `Copy` button within it.
 
-= 2. It add `Copy` button for each `<pre>` tag? =
+= 2. It add `Copy` button for each `&lt;pre&gt;` tag? =
 
 Yes, Once you activate the plugin it add search the `<pre>` tag and add the `Copy` button in it.
 
-= 3. Can I use another selector instead of `<pre>` tag? =
+= 3. Can I use another selector instead of `&lt;pre&gt;` tag? =
 
 Yes, You can change the selector though filter `copy_the_code_localize_vars`.
 
