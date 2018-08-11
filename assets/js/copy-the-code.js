@@ -2,6 +2,8 @@
 
     CopyTheCode = {
 
+        selector: copyTheCode.settings.selector || copyTheCode.selector || 'pre',
+
         /**
          * Init
          */
@@ -24,12 +26,12 @@
          */
         _initialize: function()
         {
-            if( ! $( copyTheCode.selector ).length )
+            if( ! $( CopyTheCode.selector ).length )
             {
                 return;
             }
 
-            $( copyTheCode.selector ).each(function(index, el) {
+            $( CopyTheCode.selector ).each(function(index, el) {
                 $( el ).append( CopyTheCode._getButtonMarkup() );
             });
         },
@@ -48,15 +50,15 @@
         copyCode: function( event )
         {
             var btn     = $( this ),
-                input   = btn.parents('pre'),
-                html    = input.html(),
+                source   = btn.parents( CopyTheCode.selector ),
+                html    = source.html(),
                 oldText = btn.text();
 
             // Remove the <copy> button.
             var tempHTML = html.replace(CopyTheCode._getButtonMarkup(), '');
 
             // Copy the Code.
-            var tempPre = $("<pre id='temp-pre'>"),
+            var tempPre = $("<textarea id='temp-pre'>"),
                 temp    = $("<textarea>"),
                 brRegex = '/<br\s*[/\]?>/gi';
 
