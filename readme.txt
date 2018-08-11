@@ -2,7 +2,7 @@
 Contributors: Mahesh901122
 Tags: Copy to Clipboard, Copy the Code, Copy, Clipboard, Code, Copy Code
 Tested up to: 4.9.6
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 Requires at least: 4.4
 
 Copy the code into 📋 (clipboard). Default support added for <code>&lt;pre&gt;</code> tag. Documentations and more visit <a href="https://github.com/maheshwaghmare/copy-the-code/"> on GitHub</a>.
@@ -72,6 +72,9 @@ Extend the plugin on [Github](https://github.com/maheshwaghmare/copy-the-code/)
 1. Install the <code>Copy the Code</code> plugin either via the WordPress plugin directory, or by uploading the files to your server at <code>wp-content/plugins</code>.
 
 == Changelog ==
+
+= 1.2.0 =
+* New: Added settings page for customizing the plugin. Added option `selector` to set the JS selector. Default its `<pre>` html tag.
 
 = 1.1.0 =
 * Fix: Removed `Copy` button markup from the copied content from the clipboard.
