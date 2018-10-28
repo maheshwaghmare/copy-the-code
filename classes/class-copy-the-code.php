@@ -43,6 +43,7 @@ if ( ! class_exists( 'Copy_The_Code' ) ) :
 		public function __construct() {
 			if ( apply_filters( 'copy_the_code_enabled', true ) ) {
 				require_once COPY_THE_CODE_DIR . 'classes/class-copy-the-code-page.php';
+				require_once COPY_THE_CODE_DIR . 'classes/class-copy-the-code-freemius.php';
 			}
 		}
 
