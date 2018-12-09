@@ -1,10 +1,10 @@
-# Copy the Code
+# Copy Anything to Clipboard
 
-Copy the code into 📋 (clipboard). Default support added for <code>&lt;pre&gt;</code> tag.
+Copy Anything to Clipboard into 📋 (clipboard). Default support added for <code>&lt;pre&gt;</code> tag.
 
 ### Installation
 
-1. Install the <code>Copy the Code</code> plugin either via the WordPress plugin directory, or by uploading the files to your server at <code>wp-content/plugins</code>.
+1. Install the <code>Copy Anything to Clipboard</code> plugin either via the WordPress plugin directory, or by uploading the files to your server at <code>wp-content/plugins</code>.
 
 ### Documentation
 
@@ -86,6 +86,14 @@ Yes, We have added `!important` for the Copy button to keep the button style sam
 Extend the plugin on [Github](https://github.com/maheshwaghmare/copy-the-code/)
 
 ### Changelog
+
+** 1.3.1 **
+
+* Improvement: Updated the strings and compatibility for WordPress 5.0.
+
+** 1.3.0 **
+
+* New: Added support, contact links.
 
 ** 1.2.0 **
 
