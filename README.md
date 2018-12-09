@@ -87,6 +87,10 @@ Extend the plugin on [Github](https://github.com/maheshwaghmare/copy-the-code/)
 
 ### Changelog
 
+** 1.3.0 **
+
+* New: Added support, contact links.
+
 ** 1.2.0 **
 
 * New: Added settings page for customizing the plugin. Added option `selector` to set the JS selector. Default its `<pre>` html tag.

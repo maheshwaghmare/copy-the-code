@@ -1,8 +1,9 @@
-=== Copy the Code ===
+=== Copy Anything to Clipboard ===
 Contributors: Mahesh901122
-Tags: Copy to Clipboard, Copy the Code, Copy, Clipboard, Code, Copy Code
-Tested up to: 4.9.6
-Stable tag: 1.2.0
+Donate link: https://www.paypal.me/mwaghmare7/
+Tags: Copy to Clipboard, Copy the Code, Copy, Clipboard, Code, Copy Code, Copy Anything to Clipboard
+Tested up to: 5.0.0
+Stable tag: 1.3.0
 Requires at least: 4.4
 
 Copy the code into 📋 (clipboard). Default support added for <code>&lt;pre&gt;</code> tag. Documentations and more visit <a href="https://github.com/maheshwaghmare/copy-the-code/"> on GitHub</a>.
@@ -40,30 +41,17 @@ function my_slug_copy_the_code_localize_vars( $defaults )
 
 Yes, We have added `!important` for the Copy button to keep the button style same for each theme. We have tested below themes.
 
-Theme: Bhari
+== Supported Themes
 
-![Theme Bhari](https://i.imgur.com/1besqBgl.jpg)
-
-Theme: Astra
-![Theme Astra](https://i.imgur.com/EvlMrMHl.jpg)
-
-Theme: AwesomePress
-![Theme AwesomePress](https://i.imgur.com/ZODBLeO.png)
-
-Theme: Storefront
-![Theme Storefront](https://i.imgur.com/tTCQKW4l.jpg)
-
-Theme: OceanWP
-![Theme OceanWP](https://i.imgur.com/jmFoqFxl.jpg)
-
-Theme: Twenty Twelve
-![Theme Twenty Twelve](https://i.imgur.com/CkeCs3Yl.jpg)
-
-Theme: Twenty Sixteen
-![Theme Twenty Sixteen](https://i.imgur.com/yyXlL9Vl.jpg)
-
-Theme: Twenty Seventeen
-![Theme Twenty Seventeen](https://i.imgur.com/JpxA9ALl.jpg)
+- Bhari
+- Astra
+- AwesomePress
+- Storefront
+- OceanWP
+- Twenty Twelve
+- Twenty Sixteen
+- Twenty Seventeen
+- Twenty Nineteen
 
 Extend the plugin on [Github](https://github.com/maheshwaghmare/copy-the-code/)
 
@@ -72,6 +60,9 @@ Extend the plugin on [Github](https://github.com/maheshwaghmare/copy-the-code/)
 1. Install the <code>Copy the Code</code> plugin either via the WordPress plugin directory, or by uploading the files to your server at <code>wp-content/plugins</code>.
 
 == Changelog ==
+
+= 1.3.0 =
+* New: Added support, contact links.
 
 = 1.2.0 =
 * New: Added settings page for customizing the plugin. Added option `selector` to set the JS selector. Default its `<pre>` html tag.
