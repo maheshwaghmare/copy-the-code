@@ -67,7 +67,7 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 						'selector' => 'pre', // Selector in which have the actual `<code>`.
 						'settings' => $this->get_page_settings(),
 						'string'   => array(
-							'title'  => __( 'Copy the Code', 'copy-the-code' ),
+							'title'  => __( 'Copy to Clipboard', 'copy-the-code' ),
 							'copy'   => __( 'Copy', 'copy-the-code' ),
 							'copied' => __( 'Copied!', 'copy-the-code' ),
 						),
@@ -147,7 +147,7 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 		 * @return void
 		 */
 		function register_admin_menu() {
-			add_submenu_page( 'options-general.php', __( 'Copy the Code', 'copy-the-code' ), __( 'Copy the Code', 'copy-the-code' ), 'manage_options', 'copy-the-code', array( $this, 'options_page' ) );
+			add_submenu_page( 'options-general.php', __( 'Copy to Clipboard', 'copy-the-code' ), __( 'Copy to Clipboard', 'copy-the-code' ), 'manage_options', 'copy-the-code', array( $this, 'options_page' ) );
 		}
 
 		/**
@@ -160,7 +160,7 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 			$data = $this->get_page_settings();
 			?>
 			<div class="wrap copy-the-code" id="sync-post">
-				<h1><?php _e( 'Copy the Code', 'copy-the-code' ); ?></h1>
+				<h1><?php _e( 'Copy to Clipboard', 'copy-the-code' ); ?></h1>
 				<hr>
 				<div class="wrap">
 					<div id="poststuff">

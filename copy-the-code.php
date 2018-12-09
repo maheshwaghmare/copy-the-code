@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: Copy the Code
+ * Plugin Name: Copy Anything to Clipboard
  * Plugin URI: https://github.com/maheshwaghmare/copy-the-code/
- * Description: Copy the code into 📋 (clipboard). Default support added for <code>&lt;pre&gt;</code> tag. Change it from settings page. Documentations and more visit <a href="https://github.com/maheshwaghmare/copy-the-code/"> on GitHub</a>.
+ * Description: Copy anything into 📋 (clipboard). Default support added for <code>&lt;pre&gt;</code> tag. Change it from settings page. Documentations and more visit <a href="https://github.com/maheshwaghmare/copy-the-code/"> on GitHub</a>.
  * Version: 1.3.0
  * Author: Mahesh M. Waghmare
  * Author URI: https://maheshwaghmare.wordpress.com/
