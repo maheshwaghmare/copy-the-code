@@ -3,6 +3,7 @@
     CopyTheCode = {
 
         selector: copyTheCode.settings.selector || copyTheCode.selector || 'pre',
+        copy_as: copyTheCode.settings['copy-as'] || 'html',
 
         /**
          * Init
@@ -51,11 +52,21 @@
         {
             var btn     = $( this ),
                 source   = btn.parents( CopyTheCode.selector ),
-                html    = source.html(),
                 oldText = btn.text();
 
-            // Remove the <copy> button.
-            var tempHTML = html.replace(CopyTheCode._getButtonMarkup(), '');
+            if( 'text' === CopyTheCode.copy_as ) {
+                var html = source.text();
+
+                // Remove the 'copy' text.
+                var tempHTML = html.replace(copyTheCode.string.copy, '');
+    
+            } else {
+                var html = source.html();
+
+                // Remove the <copy> button.
+                var tempHTML = html.replace(CopyTheCode._getButtonMarkup(), '');
+            }
+
 
             // Copy the Code.
             var tempPre = $("<textarea id='temp-pre'>"),

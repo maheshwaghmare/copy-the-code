@@ -99,6 +99,7 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 					// New settings.
 					$new_data = array(
 						'selector' => ( isset( $_REQUEST['selector'] ) ) ? $_REQUEST['selector'] : 'pre',
+						'copy-as' => ( isset( $_REQUEST['copy-as'] ) ) ? $_REQUEST['copy-as'] : 'html',
 					);
 
 					// Merge settings.
@@ -118,6 +119,7 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 		function get_page_settings() {
 			$defaults = array(
 				'selector' => 'pre',
+				'copy-as'  => 'html',
 			);
 
 			$stored = get_option( 'copy-the-code-settings', $defaults );
@@ -175,6 +177,18 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 												<fieldset>
 													<input type="text" name="selector" class="regular-text" value="<?php echo esc_attr( $data['selector'] ); ?>" />
 													<p class="description"><?php _e( 'Set the selector in which you want to copy the content.<br/>Default its &lt;pre&gt; html tag.', 'copy-the-code' ); ?></p>
+												</fieldset>
+											</td>
+										</tr>
+										<tr>
+											<th scope="row"><?php _e( 'Copy Content As', 'copy-the-code' ); ?></th>
+											<td>
+												<fieldset>
+													<select name="copy-as">
+														<option value="html" <?php selected( $data['copy-as'], 'html'); ?>><?php echo 'HTML'; ?></option>
+														<option value="text" <?php selected( $data['copy-as'], 'text'); ?>><?php echo 'Text'; ?></option>
+													</select>
+													<p class="description"><?php _e( 'Copy the content as Text or HTML.', 'copy-the-code' ); ?></p>
 												</fieldset>
 											</td>
 										</tr>

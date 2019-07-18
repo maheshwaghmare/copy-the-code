@@ -87,6 +87,10 @@ Extend the plugin on [Github](https://github.com/maheshwaghmare/copy-the-code/)
 
 ### Changelog
 
+** 1.4.0 **
+
+* New: Added option `Copy Content As` to copy the content as either HTML or Text. 
+
 ** 1.3.1 **
 
 * Improvement: Updated the strings and compatibility for WordPress 5.0.
