@@ -87,6 +87,10 @@ Extend the plugin on [Github](https://github.com/maheshwaghmare/copy-the-code/)
 
 ### Changelog
 
+** 1.4.1 **
+
+* Fix: Added support for IOS devices. Reported by @radiocure1
+
 ** 1.4.0 **
 
 * New: Added option `Copy Content As` to copy the content as either HTML or Text. 

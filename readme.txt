@@ -3,7 +3,7 @@ Contributors: Mahesh901122
 Donate link: https://www.paypal.me/mwaghmare7/
 Tags: Copy to Clipboard, Copy, Clipboard, Code, Copy Code, Copy Anything to Clipboard
 Tested up to: 5.2
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 Requires at least: 4.4
 
 Copy Anything to Clipboard into 📋 (clipboard). Default support added for <code>&lt;pre&gt;</code> tag. Documentations and more visit <a href="https://github.com/maheshwaghmare/copy-the-code/"> on GitHub</a>.
@@ -60,6 +60,10 @@ Extend the plugin on [Github](https://github.com/maheshwaghmare/copy-the-code/)
 1. Install the <code>Copy Anything to Clipboard</code> plugin either via the WordPress plugin directory, or by uploading the files to your server at <code>wp-content/plugins</code>.
 
 == Changelog ==
+
+= 1.4.1 =
+
+* Fix: Added support for IOS devices. Reported by @radiocure1
 
 = 1.4.0 =
 * New: Added option 'Copy Content As' to copy the content as either HTML or Text. 

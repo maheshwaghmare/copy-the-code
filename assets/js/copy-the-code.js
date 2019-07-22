@@ -1,3 +1,49 @@
+window.CopyTheCodeToClipboard = (function(window, document, navigator) {
+    var textArea,
+        copy;
+
+    function isOS() {
+        return navigator.userAgent.match(/ipad|iphone/i);
+    }
+
+    function createTextArea(text) {
+        textArea = document.createElement('textArea');
+        textArea.value = text;
+        document.body.appendChild(textArea);
+    }
+
+    function selectText() {
+        var range,
+            selection;
+
+        if (isOS()) {
+            range = document.createRange();
+            range.selectNodeContents(textArea);
+            selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            textArea.setSelectionRange(0, 999999);
+        } else {
+            textArea.select();
+        }
+    }
+
+    function copyToClipboard() {        
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+    }
+
+    copy = function(text) {
+        createTextArea(text);
+        selectText();
+        copyToClipboard();
+    };
+
+    return {
+        copy: copy
+    };
+})(window, document, navigator);
+
 (function($) {
 
     CopyTheCode = {
@@ -82,7 +128,9 @@
 
             // Format the HTML markup.
             temp.val( tempPre.text().replace(brRegex, "\r\n" ) ).select();
-            document.execCommand("copy");
+
+            // Support for IOS devices too.
+            CopyTheCodeToClipboard.copy( tempPre.text().replace(brRegex, "\r\n" ) );
 
             // Remove temporary elements.
             temp.remove();
