@@ -2,8 +2,8 @@
 Contributors: Mahesh901122
 Donate link: https://www.paypal.me/mwaghmare7/
 Tags: Copy to Clipboard, Copy, Clipboard, Code, Copy Code, Copy Anything to Clipboard
-Tested up to: 5.2
-Stable tag: 1.4.1
+Tested up to: 5.2.3
+Stable tag: 1.5.0
 Requires at least: 4.4
 
 Copy Anything to Clipboard into 📋 (clipboard). Default support added for <code>&lt;pre&gt;</code> tag. Documentations and more visit <a href="https://github.com/maheshwaghmare/copy-the-code/"> on GitHub</a>.
@@ -60,6 +60,14 @@ Extend the plugin on [Github](https://github.com/maheshwaghmare/copy-the-code/)
 1. Install the <code>Copy Anything to Clipboard</code> plugin either via the WordPress plugin directory, or by uploading the files to your server at <code>wp-content/plugins</code>.
 
 == Changelog ==
+
+= 1.5.0 =
+
+* New: Added option 'Button Text' to set the default button text. Default 'Copy'.
+* New: Added option 'Button Copy Text' to set the button text after click on copy. Default 'Copied!'.
+* New: Added option 'Button Title' to set the default button title which appear on hover on button. Default 'Copy to Clipboard'.
+* New: Added option 'Button Position' to set the button position. Inside or outside the selector. Default 'inside'.
+* Improvement: Added support for Internet Explorer devices. Reported by @rambo3000
 
 = 1.4.1 =
 
