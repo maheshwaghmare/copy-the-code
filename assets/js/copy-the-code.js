@@ -50,6 +50,7 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
 
         selector: copyTheCode.settings.selector || copyTheCode.selector || 'pre',
         copy_as: copyTheCode.settings['copy-as'] || 'html',
+        button_position: copyTheCode.settings['button-position'] || 'inside',
 
         /**
          * Init
@@ -79,14 +80,20 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
             }
 
             $( CopyTheCode.selector ).each(function(index, el) {
-                $( el ).append( CopyTheCode._getButtonMarkup() );
+                if( 'outside' === CopyTheCode.button_position ) {
+                    $( el ).wrap( '<span class="copy-the-code-wrap copy-the-code-outside-wrap"></span>' );
+                    $( el ).parent().prepend('<div class="copy-the-code-outside">' + CopyTheCode._getButtonMarkup() + '</div>');
+                } else {
+                    $( el ).wrap( '<span class="copy-the-code-wrap copy-the-code-inside-wrap"></span>' );
+                    $( el ).append( CopyTheCode._getButtonMarkup() );
+                }
             });
         },
 
         /**
          * Get Copy Button Markup
          */
-        _getButtonMarkup()
+        _getButtonMarkup: function()
         {
             return '<button class="copy-the-code-button" title="' + copyTheCode.string.title + '">' + copyTheCode.string.copy + '</button>';
         },
@@ -97,7 +104,7 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
         copyCode: function( event )
         {
             var btn     = $( this ),
-                source   = btn.parents( CopyTheCode.selector ),
+                source   = btn.parents('.copy-the-code-wrap').find( CopyTheCode.selector ),
                 oldText = btn.text();
 
             if( 'text' === CopyTheCode.copy_as ) {

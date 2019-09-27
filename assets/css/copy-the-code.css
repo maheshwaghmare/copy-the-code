@@ -5,10 +5,13 @@ pre {
 }
 
 /** 'Copy' button and JS. */
-.copy-the-code-button {
+.copy-the-code-inside-wrap .copy-the-code-button {
     position: absolute !important;
     right: 0 !important;
     top: 0 !important;
+}
+
+.copy-the-code-button {
     background: #e1e3e8 !important;
     padding: 10px 20px !important;
     cursor: pointer !important;
@@ -20,6 +23,15 @@ pre {
     text-transform: capitalize !important;
     border: none !important;
 }
+
 .copy-the-code-button:hover {
     background: #d0d1d6 !important;
+}
+
+.copy-the-code-outside + * {
+    margin-top: 0;
+}
+
+.copy-the-code-outside {
+    text-align: right;
 }
