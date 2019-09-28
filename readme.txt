@@ -59,6 +59,38 @@ Extend the plugin on [Github](https://github.com/maheshwaghmare/copy-the-code/)
 
 1. Install the <code>Copy Anything to Clipboard</code> plugin either via the WordPress plugin directory, or by uploading the files to your server at <code>wp-content/plugins</code>.
 
+== Frequently Asked Questions ==
+
+= How it Works? =
+
+After plugin install and activate, By default on front-end the `Copy` button is added for all the `<pre>` tags.
+
+On click on it the content within the `pre` tags is copy in clipboard.
+
+= What is selector? =
+
+Selector is the target element in which we want to add the copy button. It should be any valid CSS selector.
+
+= Some Examples of Selectors? =
+
+Lets check below some selectors which are valid to use:
+
+- `pre` - Copy button added all the `pre` tags.
+- `.single pre` - Copy button added only if its parent have CSS class `.single`.
+- `#my-account-section-1 pre` - Copy button added only if its parent have CSS class `#my-account-section-1`.
+
+= Can I change the copied content? =
+
+Yes, By default the content are copied as HTML. We can change it as Text so content copied without HTML tags.
+
+= Can I default copy button string's? =
+
+Yes, We can change the default strings of the button text, button copied text and the title of the button too.
+
+= Can I change the copy button position?
+
+Yes, By default the button is added within the selector. But, We can change it outside the selector.
+
 == Changelog ==
 
 = 1.5.0 =
