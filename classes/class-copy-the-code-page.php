@@ -139,18 +139,21 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 		 * @return array Settings.
 		 */
 		function get_page_settings() {
-			$defaults = array(
-				'selector'         => 'pre',
-				'copy-as'          => 'html',
-				'button-text'      => 'Copy',
-				'button-title'     => 'Copy to Clipboard',
-				'button-copy-text' => 'Copied!',
-				'button-position'  => 'inside',
+			$defaults = apply_filters(
+				'copy_the_code_default_page_settings',
+				array(
+					'selector'         => 'pre',
+					'copy-as'          => 'html',
+					'button-text'      => __( 'Copy', 'copy-the-code' ),
+					'button-title'     => __( 'Copy to Clipboard', 'copy-the-code' ),
+					'button-copy-text' => __( 'Copied!', 'copy-the-code' ),
+					'button-position'  => 'inside',
+				)
 			);
 
 			$stored = get_option( 'copy-the-code-settings', $defaults );
 
-			return wp_parse_args( $stored, $defaults );
+			return apply_filters( 'copy_the_code_page_settings', wp_parse_args( $stored, $defaults ) );
 		}
 
 		/**

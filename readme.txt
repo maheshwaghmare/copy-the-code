@@ -3,7 +3,7 @@ Contributors: Mahesh901122
 Donate link: https://www.paypal.me/mwaghmare7/
 Tags: Copy to Clipboard, Copy, Clipboard, Code, Copy Code, Copy Anything to Clipboard
 Tested up to: 5.2.3
-Stable tag: 1.5.0
+Stable tag: 1.6.0
 Requires at least: 4.4
 
 Copy Anything to Clipboard into 📋 (clipboard). Default support added for <code>&lt;pre&gt;</code> tag. Documentations and more visit <a href="https://github.com/maheshwaghmare/copy-the-code/"> on GitHub</a>.
@@ -12,46 +12,33 @@ Copy Anything to Clipboard into 📋 (clipboard). Default support added for <cod
 
 Plugin add the `Copy` button within the `<pre>` tag and it copy the content of `<pre>` tag into the clipboard.
 
-= 1. How it Works? =
+Few Tested Themes:
 
-Simply, It search the `<pre>` tag within the page and add the `Copy` button within it.
-
-= 2. It add `Copy` button for each `&lt;pre&gt;` tag? =
-
-Yes, Once you activate the plugin it add search the `<pre>` tag and add the `Copy` button in it.
-
-= 3. Can I use another selector instead of `&lt;pre&gt;` tag? =
-
-Yes, You can change the selector though filter `copy_the_code_localize_vars`.
-
-Eg. If you want to enable the `Copy` button for only single page, post etc. Then You can change the selector `body.single pre` though filter.
-
-<pre>
-add_filter( 'copy_the_code_localize_vars', 'my_slug_copy_the_code_localize_vars' );
-function my_slug_copy_the_code_localize_vars( $defaults )
-{
-	// `single class is added to the `<body>` tag for the single page, post etc.
-	$defaults['selector'] = 'body.single pre';
-
-	return $defaults;	
-}
-</pre>
-
-= 4. Plugin compatible for all themes? =
-
-Yes, We have added `!important` for the Copy button to keep the button style same for each theme. We have tested below themes.
-
-== Supported Themes
-
-- Bhari
-- Astra
-- AwesomePress
-- Storefront
-- OceanWP
-- Twenty Twelve
-- Twenty Sixteen
-- Twenty Seventeen
-- Twenty Nineteen
+- Twenty Twelve – By WordPress.org
+- Twenty Sixteen – By WordPress.org
+- Twenty Seventeen – By WordPress.org
+- Twenty Nineteen – By WordPress.org
+- Velux – By GoDaddy
+- Hello Elementor – By Elementor
+- OceanWP – By oceanwp
+- Astra – By Brainstorm Force
+- Ascension – By GoDaddy
+- Twenty Sixteen – By WordPress.org
+- Twenty Fifteen – By WordPress.org
+- Hestia – By Themeisle
+- Neve – By Themeisle
+- Escapade – By GoDaddy
+- Shapely – By Silkalns
+- Sydney – By athemes
+- Storefront – By Automattic
+- Twenty Fourteen – By WordPress.org
+- Futurio – By FuturioWP
+- Zakra – By ThemeGrill
+- GeneratePress – By Tom
+- Mesmerize – By Extend Themes
+- Highlight – By Extend Themes
+- Customify – By PressMaximum
+- Ashe – By WP Royal
 
 Extend the plugin on [Github](https://github.com/maheshwaghmare/copy-the-code/)
 
@@ -91,7 +78,33 @@ Yes, We can change the default strings of the button text, button copied text an
 
 Yes, By default the button is added within the selector. But, We can change it outside the selector.
 
+= Can I change the selector with filter? =
+
+Yes, We can use the `copy_the_code_localize_vars` selector to change the currently stored selector.
+
+E.g.
+
+<pre>
+add_filter( 'copy_the_code_localize_vars', 'my_slug_copy_the_code_localize_vars' );
+function my_slug_copy_the_code_localize_vars( $defaults )
+{
+	// `single class is added to the `<body>` tag for the single page, post etc.
+	$defaults['selector'] = 'body.single pre';
+
+	return $defaults;	
+}
+</pre>
+
+= Is plugin compatible for all the themes? =
+
+Yes, We have added `!important` for the Copy button to keep the button style same for each theme. We have tested below themes.
+
 == Changelog ==
+
+= 1.6.0 =
+
+* New: Added filter `copy_the_code_default_page_settings` to change the default page settings.
+* New: Added filter `copy_the_code_page_settings` to change the page settings.
 
 = 1.5.0 =
 
