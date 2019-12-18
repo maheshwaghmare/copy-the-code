@@ -180,6 +180,10 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 			add_submenu_page( 'options-general.php', __( 'Copy to Clipboard', 'copy-the-code' ), __( 'Copy to Clipboard', 'copy-the-code' ), 'manage_options', 'copy-the-code', array( $this, 'options_page' ) );
 		}
 
+		function get_connect_url() {
+			return 'http://maheshwaghmare.wordpress.com/user-connect/';
+		}
+
 		/**
 		 * Option Page
 		 *
@@ -272,6 +276,12 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 
 							<div class="postbox-container" id="postbox-container-1">
 								<div id="side-sortables" style="">
+									<div class="postbox">
+										<h2 class="hndle"><span><?php _e( 'Connect', 'copy-the-code' ); ?></span></h2>
+										<div class="inside">
+											<p><?php printf( __( 'Get important notifications, support and updates. <a href="%s">let\'s connect »</a>', 'copy-the-code' ), $this->get_connect_url() ); ?></p>
+										</div>
+									</div>
 									<div class="postbox">
 										<h2 class="hndle"><span><?php _e( 'Getting Started', 'copy-the-code' ); ?></span></h2>
 										<div class="inside">
