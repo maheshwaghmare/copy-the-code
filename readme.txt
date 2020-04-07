@@ -2,7 +2,7 @@
 Contributors: Mahesh901122
 Donate link: https://www.paypal.me/mwaghmare7/
 Tags: Copy to Clipboard, Copy, Clipboard, Code, Copy Code, Copy Anything to Clipboard
-Tested up to: 5.6
+Tested up to: 5.4
 Stable tag: 1.6.1
 Requires at least: 4.4
 
