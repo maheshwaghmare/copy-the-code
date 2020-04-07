@@ -2,45 +2,43 @@
 Contributors: Mahesh901122
 Donate link: https://www.paypal.me/mwaghmare7/
 Tags: Copy to Clipboard, Copy, Clipboard, Code, Copy Code, Copy Anything to Clipboard
-Tested up to: 5.4
-Stable tag: 1.6.0
+Tested up to: 5.6
+Stable tag: 1.6.1
 Requires at least: 4.4
 
-Copy Anything to Clipboard into ðŸ“‹ (clipboard). Default support added for <code>&lt;pre&gt;</code> tag. Documentations and more visit <a href="https://github.com/maheshwaghmare/copy-the-code/"> on GitHub</a>.
+Copy Anything to Clipboard into 📋 (clipboard). Default support added for <code>&lt;pre&gt;</code> tag. Documentations and more visit <a href="https://github.com/maheshwaghmare/copy-the-code/"> on GitHub</a>.
 
 == Description ==
 
-Copy anything into 📋 (clipboard). By default it add a copy button to the <code>&lt;pre&gt;</code> tag and copy the content from it. We can change the selector and add the copy button anywhere from settings page.
+Plugin add the `Copy` button within the `<pre>` tag and it copy the content of `<pre>` tag into the clipboard.
 
-It works with any theme and any plugin.
+Few Tested Themes:
 
-Below are some tested Themes:
-
-- Twenty Twelve
-- Twenty Sixteen
-- Twenty Seventeen
-- Twenty Nineteen
-- Velux
-- Hello Elementor
-- OceanWP
-- Astra
-- Ascension
-- Twenty Sixteen
-- Twenty Fifteen
-- Hestia
-- Neve
-- Escapade
-- Shapely
-- Sydney
-- Storefront
-- Twenty Fourteen
-- Futurio
-- Zakra
-- GeneratePress
-- Mesmerize
-- Highlight
-- Customify
-- Ashe
+- Twenty Twelve – By WordPress.org
+- Twenty Sixteen – By WordPress.org
+- Twenty Seventeen – By WordPress.org
+- Twenty Nineteen – By WordPress.org
+- Velux – By GoDaddy
+- Hello Elementor – By Elementor
+- OceanWP – By oceanwp
+- Astra – By Brainstorm Force
+- Ascension – By GoDaddy
+- Twenty Sixteen – By WordPress.org
+- Twenty Fifteen – By WordPress.org
+- Hestia – By Themeisle
+- Neve – By Themeisle
+- Escapade – By GoDaddy
+- Shapely – By Silkalns
+- Sydney – By athemes
+- Storefront – By Automattic
+- Twenty Fourteen – By WordPress.org
+- Futurio – By FuturioWP
+- Zakra – By ThemeGrill
+- GeneratePress – By Tom
+- Mesmerize – By Extend Themes
+- Highlight – By Extend Themes
+- Customify – By PressMaximum
+- Ashe – By WP Royal
 
 Extend the plugin on [Github](https://github.com/maheshwaghmare/copy-the-code/)
 
@@ -103,11 +101,14 @@ Yes, We have added `!important` for the Copy button to keep the button style sam
 
 == Changelog ==
 
+= 1.6.1 =
+
+* Improvement: Added WordPress 5.4 compatibility.
+
 = 1.6.0 =
 
 * New: Added filter `copy_the_code_default_page_settings` to change the default page settings.
 * New: Added filter `copy_the_code_page_settings` to change the page settings.
-* Improvement: Added WordPress compatibility for version 5.4.
 
 = 1.5.0 =
 

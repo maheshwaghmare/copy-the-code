@@ -204,7 +204,7 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 											<td>
 												<fieldset>
 													<input type="text" name="selector" class="regular-text" value="<?php echo esc_attr( $data['selector'] ); ?>" />
-													<p class="description"><?php _e( 'Add your selector where you want to add copy button.<br/>For the <code>pre</code> selector it add the copy button to the the &lt;pre&gt; tag.', 'copy-the-code' ); ?></p>
+													<p class="description"><?php _e( 'It is the selector which contain the content  which you want to copy.<br/>Default its &lt;pre&gt; html tag.', 'copy-the-code' ); ?></p>
 												</fieldset>
 											</td>
 										</tr>
@@ -225,7 +225,7 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 											<td>
 												<fieldset>
 													<input type="text" name="button-text" class="regular-text" value="<?php echo esc_attr( $data['button-text'] ); ?>" />
-													<p class="description"><?php _e( 'Copy button text.', 'copy-the-code' ); ?></p>
+													<p class="description"><?php _e( 'Copy button text. Default \'Copy\'.', 'copy-the-code' ); ?></p>
 												</fieldset>
 											</td>
 										</tr>
@@ -234,7 +234,7 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 											<td>
 												<fieldset>
 													<input type="text" name="button-copy-text" class="regular-text" value="<?php echo esc_attr( $data['button-copy-text'] ); ?>" />
-													<p class="description"><?php _e( 'Copy button text which appear after click on it.', 'copy-the-code' ); ?></p>
+													<p class="description"><?php _e( 'Copy button text which appear after click on it. Default \'Copied!\'.', 'copy-the-code' ); ?></p>
 												</fieldset>
 											</td>
 										</tr>
@@ -243,7 +243,7 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 											<td>
 												<fieldset>
 													<input type="text" name="button-title" class="regular-text" value="<?php echo esc_attr( $data['button-title'] ); ?>" />
-													<p class="description"><?php _e( 'It is showing on hover on the button.', 'copy-the-code' ); ?></p>
+													<p class="description"><?php _e( 'It is showing on hover on the button. Default \'Copy to Clipboard\'.', 'copy-the-code' ); ?></p>
 												</fieldset>
 											</td>
 										</tr>
@@ -255,7 +255,7 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 														<option value="inside" <?php selected( $data['button-position'], 'inside' ); ?>><?php echo 'Inside'; ?></option>
 														<option value="outside" <?php selected( $data['button-position'], 'outside' ); ?>><?php echo 'Outside'; ?></option>
 													</select>
-													<p class="description"><?php _e( 'Copy Button Position Inside or Outside.', 'copy-the-code' ); ?></p>
+													<p class="description"><?php _e( 'Button Position Inside/Outside. Default Inside.', 'copy-the-code' ); ?></p>
 												</fieldset>
 											</td>
 										</tr>
@@ -275,27 +275,8 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 									<div class="postbox">
 										<h2 class="hndle"><span><?php _e( 'Getting Started', 'copy-the-code' ); ?></span></h2>
 										<div class="inside">
-											<p><b><?php _e( 'What is a selector?', 'copy-the-code' ); ?></b></p>
-											<p><?php _e( 'Selector is any valid CSS selector where  we want to add the copy button.', 'copy-the-code' ); ?></p>
-											<p><b><?php _e( 'Using CSS Class selector?', 'copy-the-code' ); ?></b></p>
-											<p>Suppose you want to add the copy button on web-page where the content are wrapped in CSS class <code>site-title</code>. Then you can add selector <code>.site-title</code>.
-											</p>
-											<p><b><?php _e( 'Using CSS ID selector?', 'copy-the-code' ); ?></b></p>
-											<p>If content wrapped in specific CSS ID <code>primary</code> then you can add selector <code>#primary</code></p>
-											<p><b><?php _e( 'Using multiple CSS selectors?', 'copy-the-code' ); ?></b></p>
-											<p>You can add multiple selectors with comma seperated. E.g. <code>.single .post-content pre, .title, #my-code h2</code>
-											</p>
-											<p><b><?php _e( 'What are the example CSS selectors?', 'copy-the-code' ); ?></b></p>
-											<p>Below is the list of some selectors:
-												<ol>
-													<li>pre</li>
-													<li>.title h2</li>
-													<li>.headings</li>
-													<li>.site-content</li>
-													<li>#section-1 .site-content</li>
-													<li>#section-4 h3</li>
-												</ol>
-											</p>
+											<p><?php _e( 'Plugin copy the content from the provided selector. Default it enabled for &lt;pre&gt; tag.<br/><br/>E.g. If we set selector <code>.my-class</code> then the copy button appear for all the elements which contain the CSS class <code>.my-class</code><br/><br/>We can target the specific elements e.g. If we use <code>.single .post-content pre</code> then the copy button appear only for the single page, post and custom post type which have the class <code>.post-content</code>', 'copy-the-code' ); ?></p>
+											<p><?php _e( 'You can change the selector with your own with setting <b>Selector</b>.', 'copy-the-code' ); ?></p>
 										</div>
 									</div>
 									<div class="postbox">
