@@ -62,14 +62,17 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 			wp_enqueue_style( 'copy-the-code', COPY_THE_CODE_URI . 'assets/css/copy-the-code.css', null, COPY_THE_CODE_VER, 'all' );
 			wp_enqueue_script( 'copy-the-code', COPY_THE_CODE_URI . 'assets/js/copy-the-code.js', array( 'jquery' ), COPY_THE_CODE_VER, true );
 			wp_localize_script(
-				'copy-the-code', 'copyTheCode', apply_filters(
-					'copy_the_code_localize_vars', array(
+				'copy-the-code',
+				'copyTheCode',
+				apply_filters(
+					'copy_the_code_localize_vars',
+					array(
 						'selector' => 'pre', // Selector in which have the actual `<code>`.
 						'settings' => $this->get_page_settings(),
 						'string'   => array(
-							'title'  => __( 'Copy to Clipboard', 'copy-the-code' ),
-							'copy'   => __( 'Copy', 'copy-the-code' ),
-							'copied' => __( 'Copied!', 'copy-the-code' ),
+							'title'  => $this->get_page_setting( 'button-title', __( 'Copy to Clipboard', 'copy-the-code' ) ),
+							'copy'   => $this->get_page_setting( 'button-text', __( 'Copy', 'copy-the-code' ) ),
+							'copied' => $this->get_page_setting( 'button-copy-text', __( 'Copied!', 'copy-the-code' ) ),
 						),
 					)
 				)
@@ -98,7 +101,12 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 
 					// New settings.
 					$new_data = array(
-						'selector' => ( isset( $_REQUEST['selector'] ) ) ? $_REQUEST['selector'] : 'pre',
+						'selector'         => ( isset( $_REQUEST['selector'] ) ) ? $_REQUEST['selector'] : 'pre',
+						'copy-as'          => ( isset( $_REQUEST['copy-as'] ) ) ? $_REQUEST['copy-as'] : 'html',
+						'button-text'      => ( isset( $_REQUEST['button-text'] ) ) ? $_REQUEST['button-text'] : 'Copy',
+						'button-title'     => ( isset( $_REQUEST['button-title'] ) ) ? $_REQUEST['button-title'] : 'Copy',
+						'button-copy-text' => ( isset( $_REQUEST['button-copy-text'] ) ) ? $_REQUEST['button-copy-text'] : 'Copied!',
+						'button-position'  => ( isset( $_REQUEST['button-position'] ) ) ? $_REQUEST['button-position'] : 'inside',
 					);
 
 					// Merge settings.
@@ -111,20 +119,42 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 		}
 
 		/**
+		 * Get Setting
+		 *
+		 * @return mixed Single Setting.
+		 */
+		function get_page_setting( $key = '', $default_value = '' ) {
+			$settings = $this->get_page_settings();
+
+			if ( array_key_exists( $key, $settings ) ) {
+				return $settings[ $key ];
+			}
+
+			return $default_value;
+		}
+
+		/**
 		 * Settings
 		 *
 		 * @return array Settings.
 		 */
 		function get_page_settings() {
-			$defaults = array(
-				'selector' => 'pre',
+			$defaults = apply_filters(
+				'copy_the_code_default_page_settings',
+				array(
+					'selector'         => 'pre',
+					'copy-as'          => 'html',
+					'button-text'      => __( 'Copy', 'copy-the-code' ),
+					'button-title'     => __( 'Copy to Clipboard', 'copy-the-code' ),
+					'button-copy-text' => __( 'Copied!', 'copy-the-code' ),
+					'button-position'  => 'inside',
+				)
 			);
 
 			$stored = get_option( 'copy-the-code-settings', $defaults );
 
-			return wp_parse_args( $stored, $defaults );
+			return apply_filters( 'copy_the_code_page_settings', wp_parse_args( $stored, $defaults ) );
 		}
-
 
 		/**
 		 * Show action links on the plugin screen.
@@ -160,7 +190,7 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 			$data = $this->get_page_settings();
 			?>
 			<div class="wrap copy-the-code" id="sync-post">
-				<h1><?php _e( 'Copy to Clipboard', 'copy-the-code' ); ?></h1>
+				<h1><?php echo esc_html( COPY_THE_CODE_TITLE ); ?></h1>
 				<hr>
 				<div class="wrap">
 					<div id="poststuff">
@@ -174,7 +204,58 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 											<td>
 												<fieldset>
 													<input type="text" name="selector" class="regular-text" value="<?php echo esc_attr( $data['selector'] ); ?>" />
-													<p class="description"><?php _e( 'Set the selector in which you want to copy the content.<br/>Default its &lt;pre&gt; html tag.', 'copy-the-code' ); ?></p>
+													<p class="description"><?php _e( 'It is the selector which contain the content  which you want to copy.<br/>Default its &lt;pre&gt; html tag.', 'copy-the-code' ); ?></p>
+												</fieldset>
+											</td>
+										</tr>
+										<tr>
+											<th scope="row"><?php _e( 'Copy Content As', 'copy-the-code' ); ?></th>
+											<td>
+												<fieldset>
+													<select name="copy-as">
+														<option value="html" <?php selected( $data['copy-as'], 'html' ); ?>><?php echo 'HTML'; ?></option>
+														<option value="text" <?php selected( $data['copy-as'], 'text' ); ?>><?php echo 'Text'; ?></option>
+													</select>
+													<p class="description"><?php _e( 'Copy the content as Text or HTML.', 'copy-the-code' ); ?></p>
+												</fieldset>
+											</td>
+										</tr>
+										<tr>
+											<th scope="row"><?php _e( 'Button Text', 'copy-the-code' ); ?></th>
+											<td>
+												<fieldset>
+													<input type="text" name="button-text" class="regular-text" value="<?php echo esc_attr( $data['button-text'] ); ?>" />
+													<p class="description"><?php _e( 'Copy button text. Default \'Copy\'.', 'copy-the-code' ); ?></p>
+												</fieldset>
+											</td>
+										</tr>
+										<tr>
+											<th scope="row"><?php _e( 'Button Copy Text', 'copy-the-code' ); ?></th>
+											<td>
+												<fieldset>
+													<input type="text" name="button-copy-text" class="regular-text" value="<?php echo esc_attr( $data['button-copy-text'] ); ?>" />
+													<p class="description"><?php _e( 'Copy button text which appear after click on it. Default \'Copied!\'.', 'copy-the-code' ); ?></p>
+												</fieldset>
+											</td>
+										</tr>
+										<tr>
+											<th scope="row"><?php _e( 'Button Title', 'copy-the-code' ); ?></th>
+											<td>
+												<fieldset>
+													<input type="text" name="button-title" class="regular-text" value="<?php echo esc_attr( $data['button-title'] ); ?>" />
+													<p class="description"><?php _e( 'It is showing on hover on the button. Default \'Copy to Clipboard\'.', 'copy-the-code' ); ?></p>
+												</fieldset>
+											</td>
+										</tr>
+										<tr>
+											<th scope="row"><?php _e( 'Button Position', 'copy-the-code' ); ?></th>
+											<td>
+												<fieldset>
+													<select name="button-position">
+														<option value="inside" <?php selected( $data['button-position'], 'inside' ); ?>><?php echo 'Inside'; ?></option>
+														<option value="outside" <?php selected( $data['button-position'], 'outside' ); ?>><?php echo 'Outside'; ?></option>
+													</select>
+													<p class="description"><?php _e( 'Button Position Inside/Outside. Default Inside.', 'copy-the-code' ); ?></p>
 												</fieldset>
 											</td>
 										</tr>
@@ -194,7 +275,7 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 									<div class="postbox">
 										<h2 class="hndle"><span><?php _e( 'Getting Started', 'copy-the-code' ); ?></span></h2>
 										<div class="inside">
-											<p><?php _e( 'Plugin copy the content from the provided selector. Default it enabled for &lt;pre&gt; tag.', 'copy-the-code' ); ?></p>
+											<p><?php _e( 'Plugin copy the content from the provided selector. Default it enabled for &lt;pre&gt; tag.<br/><br/>E.g. If we set selector <code>.my-class</code> then the copy button appear for all the elements which contain the CSS class <code>.my-class</code><br/><br/>We can target the specific elements e.g. If we use <code>.single .post-content pre</code> then the copy button appear only for the single page, post and custom post type which have the class <code>.post-content</code>', 'copy-the-code' ); ?></p>
 											<p><?php _e( 'You can change the selector with your own with setting <b>Selector</b>.', 'copy-the-code' ); ?></p>
 										</div>
 									</div>
