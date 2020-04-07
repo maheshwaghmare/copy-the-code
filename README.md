@@ -1,90 +1,26 @@
-=== Copy Anything to Clipboard ===
-Contributors: Mahesh901122
-Donate link: https://www.paypal.me/mwaghmare7/
-Tags: Copy to Clipboard, Copy, Clipboard, Code, Copy Code, Copy Anything to Clipboard
-Tested up to: 5.4
-Stable tag: 1.6.0
-Requires at least: 4.4
+# Copy Anything to Clipboard
 
-Copy Anything to Clipboard into ðŸ“‹ (clipboard). Default support added for <code>&lt;pre&gt;</code> tag. Documentations and more visit <a href="https://github.com/maheshwaghmare/copy-the-code/"> on GitHub</a>.
+Copy Anything to Clipboard into 📋 (clipboard). Default support added for <code>&lt;pre&gt;</code> tag.
 
-== Description ==
-
-Copy anything into 📋 (clipboard). By default it add a copy button to the <code>&lt;pre&gt;</code> tag and copy the content from it. We can change the selector and add the copy button anywhere from settings page.
-
-It works with any theme and any plugin.
-
-Below are some tested Themes:
-
-- Twenty Twelve
-- Twenty Sixteen
-- Twenty Seventeen
-- Twenty Nineteen
-- Velux
-- Hello Elementor
-- OceanWP
-- Astra
-- Ascension
-- Twenty Sixteen
-- Twenty Fifteen
-- Hestia
-- Neve
-- Escapade
-- Shapely
-- Sydney
-- Storefront
-- Twenty Fourteen
-- Futurio
-- Zakra
-- GeneratePress
-- Mesmerize
-- Highlight
-- Customify
-- Ashe
-
-Extend the plugin on [Github](https://github.com/maheshwaghmare/copy-the-code/)
-
-== Installation ==
+### Installation
 
 1. Install the <code>Copy Anything to Clipboard</code> plugin either via the WordPress plugin directory, or by uploading the files to your server at <code>wp-content/plugins</code>.
 
-== Frequently Asked Questions ==
+### Documentation
 
-= How it Works? =
+**1. How it Works?**
 
-After plugin install and activate, By default on front-end the `Copy` button is added for all the `<pre>` tags.
+Simply, It search the `<pre>` tag within the page and add the `Copy` button within it.
 
-On click on it the content within the `pre` tags is copy in clipboard.
+**2. It add `Copy` button for each `<pre>` tag?**
 
-= What is selector? =
+Yes, Once you activate the plugin it add search the `<pre>` tag and add the `Copy` button in it.
 
-Selector is the target element in which we want to add the copy button. It should be any valid CSS selector.
+**3. Can I use another selector instead of `<pre>` tag?**
 
-= Some Examples of Selectors? =
+Yes, You can change the selector though filter `copy_the_code_localize_vars`.
 
-Lets check below some selectors which are valid to use:
-
-- `pre` - Copy button added all the `pre` tags.
-- `.single pre` - Copy button added only if its parent have CSS class `.single`.
-- `#my-account-section-1 pre` - Copy button added only if its parent have CSS class `#my-account-section-1`.
-
-= Can I change the copied content? =
-
-Yes, By default the content are copied as HTML. We can change it as Text so content copied without HTML tags.
-
-= Can I default copy button string's? =
-
-Yes, We can change the default strings of the button text, button copied text and the title of the button too.
-
-= Can I change the copy button position?
-
-Yes, By default the button is added within the selector. But, We can change it outside the selector.
-
-= Can I change the selector with filter? =
-
-Yes, We can use the `copy_the_code_localize_vars` selector to change the currently stored selector.
-
-E.g.
+Eg. If you want to enable the `Copy` button for only single page, post etc. Then You can change the selector `body.single pre` though filter.
 
 <pre>
 add_filter( 'copy_the_code_localize_vars', 'my_slug_copy_the_code_localize_vars' );
@@ -97,44 +33,84 @@ function my_slug_copy_the_code_localize_vars( $defaults )
 }
 </pre>
 
-= Is plugin compatible for all the themes? =
+**4. Plugin compatible for all themes?**
 
 Yes, We have added `!important` for the Copy button to keep the button style same for each theme. We have tested below themes.
 
-== Changelog ==
+> **Theme: Bhari**
 
-= 1.6.0 =
+![Theme Bhari](https://i.imgur.com/1besqBgl.jpg)
 
-* New: Added filter `copy_the_code_default_page_settings` to change the default page settings.
-* New: Added filter `copy_the_code_page_settings` to change the page settings.
-* Improvement: Added WordPress compatibility for version 5.4.
+---
 
-= 1.5.0 =
+> **Theme: Astra**
 
-* New: Added option 'Button Text' to set the default button text. Default 'Copy'.
-* New: Added option 'Button Copy Text' to set the button text after click on copy. Default 'Copied!'.
-* New: Added option 'Button Title' to set the default button title which appear on hover on button. Default 'Copy to Clipboard'.
-* New: Added option 'Button Position' to set the button position. Inside or outside the selector. Default 'inside'.
-* Improvement: Added support for Internet Explorer devices. Reported by @rambo3000
+![Theme Astra](https://i.imgur.com/EvlMrMHl.jpg)
 
-= 1.4.1 =
+---
+
+> **Theme: AwesomePress**
+
+![Theme AwesomePress](https://i.imgur.com/ZODBLeO.png)
+
+---
+
+> **Theme: Storefront**
+
+![Theme Storefront](https://i.imgur.com/tTCQKW4l.jpg)
+
+---
+
+> **Theme: OceanWP**
+
+![Theme OceanWP](https://i.imgur.com/jmFoqFxl.jpg)
+
+---
+
+> **Theme: Twenty Twelve**
+
+![Theme Twenty Twelve](https://i.imgur.com/CkeCs3Yl.jpg)
+
+---
+
+> **Theme: Twenty Sixteen**
+
+![Theme Twenty Sixteen](https://i.imgur.com/yyXlL9Vl.jpg)
+
+---
+
+> **Theme: Twenty Seventeen**
+
+![Theme Twenty Seventeen](https://i.imgur.com/JpxA9ALl.jpg)
+
+Extend the plugin on [Github](https://github.com/maheshwaghmare/copy-the-code/)
+
+### Changelog
+
+** 1.4.1 **
 
 * Fix: Added support for IOS devices. Reported by @radiocure1
 
-= 1.4.0 =
-* New: Added option 'Copy Content As' to copy the content as either HTML or Text. 
+** 1.4.0 **
 
-= 1.3.1 =
+* New: Added option `Copy Content As` to copy the content as either HTML or Text. 
+
+** 1.3.1 **
+
 * Improvement: Updated the strings and compatibility for WordPress 5.0.
 
-= 1.3.0 =
+** 1.3.0 **
+
 * New: Added support, contact links.
 
-= 1.2.0 =
+** 1.2.0 **
+
 * New: Added settings page for customizing the plugin. Added option `selector` to set the JS selector. Default its `<pre>` html tag.
 
-= 1.1.0 =
-* Fix: Removed `Copy` button markup from the copied content from the clipboard.
+** 1.1.0 **
 
-= 1.0.0 =
-* Initial release.
+- Fix: Removed `Copy` button markup from the copied content from the clipboard.
+
+**1.0.0**
+
+- Initial release.
