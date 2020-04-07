@@ -2,7 +2,7 @@
 Contributors: Mahesh901122
 Donate link: https://www.paypal.me/mwaghmare7/
 Tags: Copy to Clipboard, Copy, Clipboard, Code, Copy Code, Copy Anything to Clipboard
-Tested up to: 5.2.3
+Tested up to: 5.4
 Stable tag: 1.6.0
 Requires at least: 4.4
 
@@ -10,35 +10,37 @@ Copy Anything to Clipboard into ðŸ“‹ (clipboard). Default support added fo
 
 == Description ==
 
-Plugin add the `Copy` button within the `<pre>` tag and it copy the content of `<pre>` tag into the clipboard.
+Copy anything into 📋 (clipboard). By default it add a copy button to the <code>&lt;pre&gt;</code> tag and copy the content from it. We can change the selector and add the copy button anywhere from settings page.
 
-Few Tested Themes:
+It works with any theme and any plugin.
 
-- Twenty Twelve â€“ By WordPress.org
-- Twenty Sixteen â€“ By WordPress.org
-- Twenty Seventeen â€“ By WordPress.org
-- Twenty Nineteen â€“ By WordPress.org
-- Velux â€“ By GoDaddy
-- Hello Elementor â€“ By Elementor
-- OceanWP â€“ By oceanwp
-- Astra â€“ By Brainstorm Force
-- Ascension â€“ By GoDaddy
-- Twenty Sixteen â€“ By WordPress.org
-- Twenty Fifteen â€“ By WordPress.org
-- Hestia â€“ By Themeisle
-- Neve â€“ By Themeisle
-- Escapade â€“ By GoDaddy
-- Shapely â€“ By Silkalns
-- Sydney â€“ By athemes
-- Storefront â€“ By Automattic
-- Twenty Fourteen â€“ By WordPress.org
-- Futurio â€“ By FuturioWP
-- Zakra â€“ By ThemeGrill
-- GeneratePress â€“ By Tom
-- Mesmerize â€“ By Extend Themes
-- Highlight â€“ By Extend Themes
-- Customify â€“ By PressMaximum
-- Ashe â€“ By WP Royal
+Below are some tested Themes:
+
+- Twenty Twelve
+- Twenty Sixteen
+- Twenty Seventeen
+- Twenty Nineteen
+- Velux
+- Hello Elementor
+- OceanWP
+- Astra
+- Ascension
+- Twenty Sixteen
+- Twenty Fifteen
+- Hestia
+- Neve
+- Escapade
+- Shapely
+- Sydney
+- Storefront
+- Twenty Fourteen
+- Futurio
+- Zakra
+- GeneratePress
+- Mesmerize
+- Highlight
+- Customify
+- Ashe
 
 Extend the plugin on [Github](https://github.com/maheshwaghmare/copy-the-code/)
 
@@ -105,6 +107,7 @@ Yes, We have added `!important` for the Copy button to keep the button style sam
 
 * New: Added filter `copy_the_code_default_page_settings` to change the default page settings.
 * New: Added filter `copy_the_code_page_settings` to change the page settings.
+* Improvement: Added WordPress compatibility for version 5.4.
 
 = 1.5.0 =
 
