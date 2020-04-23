@@ -3,16 +3,18 @@ Contributors: Mahesh901122
 Donate link: https://www.paypal.me/mwaghmare7/
 Tags: Copy to Clipboard, Copy, Clipboard, Code, Copy Code, Copy Anything to Clipboard
 Tested up to: 5.4
-Stable tag: 1.6.1
+Stable tag: 1.7.0
 Requires at least: 4.4
 
-Copy Anything to Clipboard into 📋 (clipboard). Default support added for <code>&lt;pre&gt;</code> tag. Documentations and more visit <a href="https://github.com/maheshwaghmare/copy-the-code/"> on GitHub</a>.
+Copy the Text or HTML into the clipboard 📋 (clipboard). You can use it for code snippets, special symbols, discount codes, or anything which you want. By default it add the copy to clipboard button to the <code>&lt;pre&gt;</code> tag. Documentations and more visit <a href="https://github.com/maheshwaghmare/copy-the-code/"> on GitHub</a>.
 
 == Description ==
 
-Plugin add the `Copy` button within the `<pre>` tag and it copy the content of `<pre>` tag into the clipboard.
+Copy the Text or HTML into the clipboard 📋 (clipboard). You can use it for code snippets, special symbols, discount codes, or anything which you want. By default it add the copy to clipboard button to the <code>&lt;pre&gt;</code> tag. Documentations and more visit <a href="https://github.com/maheshwaghmare/copy-the-code/"> on GitHub</a>.
 
-Few Tested Themes:
+It works with any theme and plugin.
+
+Below is the list of manually testing themes:
 
 - Twenty Twelve – By WordPress.org
 - Twenty Sixteen – By WordPress.org
@@ -100,6 +102,10 @@ function my_slug_copy_the_code_localize_vars( $defaults )
 Yes, We have added `!important` for the Copy button to keep the button style same for each theme. We have tested below themes.
 
 == Changelog ==
+
+= 1.7.0 =
+
+* New: Added General & Style tabs.
 
 = 1.6.1 =
 
