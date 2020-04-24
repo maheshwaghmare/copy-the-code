@@ -482,5 +482,5 @@
         'module_slug'    => $slug,
         'module_version' => $fs->get_plugin_version(),
     );
-    // fs_require_template( 'powered-by.php', $params );
+    fs_require_template( 'powered-by.php', $params );
 ?>

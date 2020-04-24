@@ -57,6 +57,11 @@
 		'plugin_version'    => $fs->get_plugin_version(),
 	);
 
+	$bundle_id = $fs->get_bundle_id();
+	if ( ! is_null( $bundle_id ) ) {
+	    $context_params['bundle_id'] = $bundle_id;
+    }
+
 	// Get site context secure params.
 	if ( $fs->is_registered() ) {
 		$context_params = array_merge( $context_params, FS_Security::instance()->get_context_params(
@@ -83,6 +88,7 @@
 		// Billing cycle.
 		'billing_cycle'    => fs_request_get( 'billing_cycle', WP_FS__PERIOD_ANNUALLY ),
 		'is_network_admin' => fs_is_network_admin() ? 'true' : 'false',
+		'currency'         => $fs->apply_filters( 'default_currency', 'usd' ),
 	) );
 
 	if ( ! $fs->is_registered() ) {
@@ -105,7 +111,7 @@
 	}
 ?>
 	<div id="fs_pricing" class="wrap fs-section fs-full-size-wrapper">
-		<div id="frame"></div>
+		<div id="fs_frame"></div>
 		<form action="" method="POST">
 			<input type="hidden" name="user_id"/>
 			<input type="hidden" name="user_email"/>
@@ -128,7 +134,7 @@
 
 					// Append the I-frame into the DOM.
 					frame = $('<i' + 'frame " src="' + src + '" width="100%" height="' + frame_height + 'px" scrolling="no" frameborder="0" style="background: transparent; width: 1px; min-width: 100%;"><\/i' + 'frame>')
-						.appendTo('#frame');
+						.appendTo('#fs_frame');
 
 					FS.PostMessage.init(base_url, [frame[0]]);
 
@@ -168,4 +174,4 @@
 		'module_slug'    => $slug,
 		'module_version' => $fs->get_plugin_version(),
 	);
-	// fs_require_template( 'powered-by.php', $params );
+	fs_require_template( 'powered-by.php', $params );
