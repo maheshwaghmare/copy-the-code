@@ -216,7 +216,7 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 			?>
 			<div class="wrap copy-the-code" id="sync-post">
 				<div class="wrap">
-					<h1><?php echo esc_html( COPY_THE_CODE_TITLE ); ?></h1>
+					<h1><?php echo esc_html( COPY_THE_CODE_TITLE ); ?> <small>v<?php echo esc_html( COPY_THE_CODE_VER ); ?></small></h1>
 					<div id="poststuff">
 						<div id="post-body" class="columns-2">
 							<div id="post-body-content">
@@ -229,73 +229,75 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 								</div>	
 
 								<form enctype="multipart/form-data" method="post">
-									<div id="tab-general" style="padding: 30px;">
-										<table class="form-table">
-											<tr>
-												<th scope="row"><?php _e( 'Selector', 'copy-the-code' ); ?></th>
-												<td>
-													<fieldset>
-														<input type="text" name="selector" class="regular-text" value="<?php echo esc_attr( $data['selector'] ); ?>" />
-														<p class="description"><?php _e( 'It is the selector which contain the content  which you want to copy.<br/>Default its &lt;pre&gt; html tag.', 'copy-the-code' ); ?></p>
-													</fieldset>
-												</td>
-											</tr>
-											<tr>
-												<th scope="row"><?php _e( 'Copy Content As', 'copy-the-code' ); ?></th>
-												<td>
-													<fieldset>
-														<select name="copy-as">
-															<option value="html" <?php selected( $data['copy-as'], 'html' ); ?>><?php echo 'HTML'; ?></option>
-															<option value="text" <?php selected( $data['copy-as'], 'text' ); ?>><?php echo 'Text'; ?></option>
-														</select>
-														<p class="description"><?php _e( 'Copy the content as Text or HTML.', 'copy-the-code' ); ?></p>
-													</fieldset>
-												</td>
-											</tr>
-										</table>
-									</div>
-									<div id="tab-style" style="padding: 30px; display: none;">
-										<table class="form-table">
-											<tr>
-												<th scope="row"><?php _e( 'Button Text', 'copy-the-code' ); ?></th>
-												<td>
-													<fieldset>
-														<input type="text" name="button-text" class="regular-text" value="<?php echo esc_attr( $data['button-text'] ); ?>" />
-														<p class="description"><?php _e( 'Copy button text. Default \'Copy\'.', 'copy-the-code' ); ?></p>
-													</fieldset>
-												</td>
-											</tr>
-											<tr>
-												<th scope="row"><?php _e( 'Button Copy Text', 'copy-the-code' ); ?></th>
-												<td>
-													<fieldset>
-														<input type="text" name="button-copy-text" class="regular-text" value="<?php echo esc_attr( $data['button-copy-text'] ); ?>" />
-														<p class="description"><?php _e( 'Copy button text which appear after click on it. Default \'Copied!\'.', 'copy-the-code' ); ?></p>
-													</fieldset>
-												</td>
-											</tr>
-											<tr>
-												<th scope="row"><?php _e( 'Button Title', 'copy-the-code' ); ?></th>
-												<td>
-													<fieldset>
-														<input type="text" name="button-title" class="regular-text" value="<?php echo esc_attr( $data['button-title'] ); ?>" />
-														<p class="description"><?php _e( 'It is showing on hover on the button. Default \'Copy to Clipboard\'.', 'copy-the-code' ); ?></p>
-													</fieldset>
-												</td>
-											</tr>
-											<tr>
-												<th scope="row"><?php _e( 'Button Position', 'copy-the-code' ); ?></th>
-												<td>
-													<fieldset>
-														<select name="button-position">
-															<option value="inside" <?php selected( $data['button-position'], 'inside' ); ?>><?php echo 'Inside'; ?></option>
-															<option value="outside" <?php selected( $data['button-position'], 'outside' ); ?>><?php echo 'Outside'; ?></option>
-														</select>
-														<p class="description"><?php _e( 'Button Position Inside/Outside. Default Inside.', 'copy-the-code' ); ?></p>
-													</fieldset>
-												</td>
-											</tr>
-										</table>
+									<div class="tabs">
+										<div id="tab-general" style="padding: 30px;">
+											<table class="form-table">
+												<tr>
+													<th scope="row"><?php _e( 'Selector', 'copy-the-code' ); ?></th>
+													<td>
+														<fieldset>
+															<input type="text" name="selector" class="regular-text" value="<?php echo esc_attr( $data['selector'] ); ?>" />
+															<p class="description"><?php _e( 'It is the selector which contain the content  which you want to copy.<br/>Default its &lt;pre&gt; html tag.', 'copy-the-code' ); ?></p>
+														</fieldset>
+													</td>
+												</tr>
+												<tr>
+													<th scope="row"><?php _e( 'Copy Content As', 'copy-the-code' ); ?></th>
+													<td>
+														<fieldset>
+															<select name="copy-as">
+																<option value="html" <?php selected( $data['copy-as'], 'html' ); ?>><?php echo 'HTML'; ?></option>
+																<option value="text" <?php selected( $data['copy-as'], 'text' ); ?>><?php echo 'Text'; ?></option>
+															</select>
+															<p class="description"><?php _e( 'Copy the content as Text or HTML.', 'copy-the-code' ); ?></p>
+														</fieldset>
+													</td>
+												</tr>
+											</table>
+										</div>
+										<div id="tab-style" style="padding: 30px; display: none;">
+											<table class="form-table">
+												<tr>
+													<th scope="row"><?php _e( 'Button Text', 'copy-the-code' ); ?></th>
+													<td>
+														<fieldset>
+															<input type="text" name="button-text" class="regular-text" value="<?php echo esc_attr( $data['button-text'] ); ?>" />
+															<p class="description"><?php _e( 'Copy button text. Default \'Copy\'.', 'copy-the-code' ); ?></p>
+														</fieldset>
+													</td>
+												</tr>
+												<tr>
+													<th scope="row"><?php _e( 'Button Copy Text', 'copy-the-code' ); ?></th>
+													<td>
+														<fieldset>
+															<input type="text" name="button-copy-text" class="regular-text" value="<?php echo esc_attr( $data['button-copy-text'] ); ?>" />
+															<p class="description"><?php _e( 'Copy button text which appear after click on it. Default \'Copied!\'.', 'copy-the-code' ); ?></p>
+														</fieldset>
+													</td>
+												</tr>
+												<tr>
+													<th scope="row"><?php _e( 'Button Title', 'copy-the-code' ); ?></th>
+													<td>
+														<fieldset>
+															<input type="text" name="button-title" class="regular-text" value="<?php echo esc_attr( $data['button-title'] ); ?>" />
+															<p class="description"><?php _e( 'It is showing on hover on the button. Default \'Copy to Clipboard\'.', 'copy-the-code' ); ?></p>
+														</fieldset>
+													</td>
+												</tr>
+												<tr>
+													<th scope="row"><?php _e( 'Button Position', 'copy-the-code' ); ?></th>
+													<td>
+														<fieldset>
+															<select name="button-position">
+																<option value="inside" <?php selected( $data['button-position'], 'inside' ); ?>><?php echo 'Inside'; ?></option>
+																<option value="outside" <?php selected( $data['button-position'], 'outside' ); ?>><?php echo 'Outside'; ?></option>
+															</select>
+															<p class="description"><?php _e( 'Button Position Inside/Outside. Default Inside.', 'copy-the-code' ); ?></p>
+														</fieldset>
+													</td>
+												</tr>
+											</table>
+										</div>
 									</div>
 
 									<input type="hidden" name="message" value="saved" />
