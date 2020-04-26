@@ -14,13 +14,13 @@ Documentations and more visit <a href="https://maheshwaghmare.com/doc/copy-anyth
 
 Simply copy the content into the clipboard.
 
-Copy the Text or HTML into the clipboard 📋 (clipboard). You can use it for code snippets, special symbols, discount codes, or anything which you want. By default it add the copy to clipboard button to the <code>&lt;pre&gt;</code> tag.
+Copy the Text or HTML into the clipboard 📋 (clipboard). You can use it for code snippets, special symbols, discount codes, or anything which you want. By default it add the copy to clipboard button to the `<pre>` tag.
 
 Documentations and more visit <a href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/"> on Quick Guide</a>.
 
-By default, the Copy to Clipboard button is added to the <pre> tag. So, After plugin installs and activates the plugin add the Copy to Clipboard button to all pre tags.
+By default, the Copy to Clipboard button is added to the `<pre>` tag. So, After plugin installs and activates the plugin add the Copy to Clipboard button to all pre tags.
 
-In plugin we have a setting page in which we can change the <pre> selector.
+In plugin we have a setting page in which we can change the `<pre>` selector.
 
 Below is the list of manually testing themes:
 
@@ -119,7 +119,7 @@ Yes, We have added `!important` for the Copy button to keep the button style sam
 
 * Improvement: Updated Freemius SDK library with version 2.3.2.
 * Improvement: Added the latest new section.
-* Fix: The submit button is not visible form the settings page.
+* Fix: The submit button is not visible form the settings page. Reported by Nicolas Tizio
 
 = 1.7.0 =
 
