@@ -23,7 +23,7 @@ function ctc_fs() {
 				'is_premium'      => false,
 				'has_addons'      => false,
 				'has_paid_plans'  => false,
-				'has_affiliation' => 'selected',
+				// 'has_affiliation' => 'selected',
 				'menu'            => array(
 					'slug'           => 'copy-the-code',
 					'override_exact' => true,
