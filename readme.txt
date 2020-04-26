@@ -1,18 +1,26 @@
 === Copy Anything to Clipboard ===
 Contributors: Mahesh901122
 Donate link: https://www.paypal.me/mwaghmare7/
-Tags: Copy to Clipboard, Copy, Clipboard, Code, Copy Code, Copy Anything to Clipboard
+Tags: Copy to Clipboard, Clipboard, Copy Anything to Clipboard
 Tested up to: 5.4
-Stable tag: 1.7.0
+Stable tag: 1.7.1
 Requires at least: 4.4
 
-Copy the Text or HTML into the clipboard 📋 (clipboard). You can use it for code snippets, special symbols, discount codes, or anything which you want. By default it add the copy to clipboard button to the <code>&lt;pre&gt;</code> tag. Documentations and more visit <a href="https://github.com/maheshwaghmare/copy-the-code/"> on GitHub</a>.
+Copy the Text or HTML into the clipboard 📋 (clipboard). You can use it for code snippets, special symbols, discount codes, or anything which you want. By default it add the copy to clipboard button to the <code>&lt;pre&gt;</code> tag.
+
+Documentations and more visit <a href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/"> on Quick Guide</a>.
 
 == Description ==
 
-Copy the Text or HTML into the clipboard 📋 (clipboard). You can use it for code snippets, special symbols, discount codes, or anything which you want. By default it add the copy to clipboard button to the <code>&lt;pre&gt;</code> tag. Documentations and more visit <a href="https://github.com/maheshwaghmare/copy-the-code/"> on GitHub</a>.
+Simply copy the content into the clipboard.
 
-It works with any theme and plugin.
+Copy the Text or HTML into the clipboard 📋 (clipboard). You can use it for code snippets, special symbols, discount codes, or anything which you want. By default it add the copy to clipboard button to the <code>&lt;pre&gt;</code> tag.
+
+Documentations and more visit <a href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/"> on Quick Guide</a>.
+
+By default, the Copy to Clipboard button is added to the <pre> tag. So, After plugin installs and activates the plugin add the Copy to Clipboard button to all pre tags.
+
+In plugin we have a setting page in which we can change the <pre> selector.
 
 Below is the list of manually testing themes:
 
@@ -50,15 +58,17 @@ Extend the plugin on [Github](https://github.com/maheshwaghmare/copy-the-code/)
 
 == Frequently Asked Questions ==
 
-= How it Works? =
+= How does it Works? =
 
 After plugin install and activate, By default on front-end the `Copy` button is added for all the `<pre>` tags.
 
 On click on it the content within the `pre` tags is copy in clipboard.
 
-= What is selector? =
+= What is the selector? =
 
 Selector is the target element in which we want to add the copy button. It should be any valid CSS selector.
+
+<a href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#what-is-the-selector/">Read more about selectors »</a>
 
 = Some Examples of Selectors? =
 
@@ -67,6 +77,8 @@ Lets check below some selectors which are valid to use:
 - `pre` - Copy button added all the `pre` tags.
 - `.single pre` - Copy button added only if its parent have CSS class `.single`.
 - `#my-account-section-1 pre` - Copy button added only if its parent have CSS class `#my-account-section-1`.
+
+<a href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#what-is-the-selector/">Read more about selectors »</a>
 
 = Can I change the copied content? =
 
@@ -102,6 +114,12 @@ function my_slug_copy_the_code_localize_vars( $defaults )
 Yes, We have added `!important` for the Copy button to keep the button style same for each theme. We have tested below themes.
 
 == Changelog ==
+
+= 1.7.1 =
+
+* Improvement: Updated Freemius SDK library with version 2.3.2.
+* Improvement: Added the latest new section.
+* Fix: The submit button is not visible form the settings page.
 
 = 1.7.0 =
 
