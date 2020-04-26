@@ -295,9 +295,7 @@ if ( ! class_exists( 'WP_Dev_Remote_Request' ) ) :
 
 	}
 
-	/**
-	 * Initialize class object with 'get_instance()' method
-	 */
+	// Initialize class object with 'get_instance()' method.
 	WP_Dev_Remote_Request::get_instance();
 
 endif;
@@ -307,23 +305,3 @@ if( ! function_exists( 'wp_dev_remote_request_get' ) ) :
 		return WP_Dev_Remote_Request::get_instance()->remote_get( $args );
 	}
 endif;
-
-/*
-add_action( 'admin_head', function() {
-	$response = wp_dev_remote_request_get( 'https://maheshwaghmare.com/wp-json/wp/v2/posts/?_fields=id,title,link' );
-	
-	if( $response['success'] ) {
-		?>
-		<ul>
-		<?php foreach ($response['data'] as $key => $item) { ?>
-			<li data-id="<?php echo esc_attr( $item['id'] ); ?>">
-				<a href="<?php echo esc_attr( $item['link'] ); ?>" target="_blank"><?php echo esc_html( $item['title']['rendered'] ); ?>
-				</a>
-			</li>
-		<?php } ?>
-		</ul>
-		<?php
-	}
-	wp_die();
-});
-*/
