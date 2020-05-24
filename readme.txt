@@ -3,7 +3,7 @@ Contributors: Mahesh901122
 Donate link: https://www.paypal.me/mwaghmare7/
 Tags: Copy to Clipboard, Copy, Clipboard, Code, Copy Code, Copy Anything to Clipboard
 Tested up to: 5.4
-Stable tag: 1.6.0
+Stable tag: 1.6.1
 Requires at least: 4.4
 
 Copy Anything to Clipboard into ðŸ“‹ (clipboard). Default support added for <code>&lt;pre&gt;</code> tag. Documentations and more visit <a href="https://github.com/maheshwaghmare/copy-the-code/"> on GitHub</a>.
@@ -102,6 +102,10 @@ function my_slug_copy_the_code_localize_vars( $defaults )
 Yes, We have added `!important` for the Copy button to keep the button style same for each theme. We have tested below themes.
 
 == Changelog ==
+
+= 1.6.1 =
+
+* Fix: The `<br>` tags was not copied as new line.  Reported by @psanger.
 
 = 1.6.0 =
 
