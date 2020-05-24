@@ -124,7 +124,7 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
             // Copy the Code.
             var tempPre = $("<textarea id='temp-pre'>"),
                 temp    = $("<textarea>"),
-                brRegex = '/<br\s*[/\]?>/gi';
+                brRegex = /<br\s*[\/]?>/gi;
 
             // Append temporary elements to DOM.
             $("body").append(temp);
