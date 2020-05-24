@@ -3,7 +3,7 @@ Contributors: Mahesh901122
 Donate link: https://www.paypal.me/mwaghmare7/
 Tags: Copy to Clipboard, Clipboard, Copy Anything to Clipboard
 Tested up to: 5.4
-Stable tag: 1.7.2
+Stable tag: 1.7.3
 Requires at least: 4.4
 
 Copy the Text or HTML into the clipboard 📋 (clipboard). You can use it for code snippets, special symbols, discount codes, or anything which you want. By default it add the copy to clipboard button to the <code>&lt;pre&gt;</code> tag.
@@ -114,6 +114,10 @@ function my_slug_copy_the_code_localize_vars( $defaults )
 Yes, We have added `!important` for the Copy button to keep the button style same for each theme. We have tested below themes.
 
 == Changelog ==
+
+= 1.7.3 =
+
+* Fix: The `<br>` tags was not copied as new line.  Reported by @psanger.
 
 = 1.7.2 =
 
