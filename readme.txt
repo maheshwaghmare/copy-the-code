@@ -1,46 +1,54 @@
 === Copy Anything to Clipboard ===
 Contributors: Mahesh901122
 Donate link: https://www.paypal.me/mwaghmare7/
-Tags: Copy to Clipboard, Copy, Clipboard, Code, Copy Code, Copy Anything to Clipboard
+Tags: Copy to Clipboard, Clipboard, Copy Anything to Clipboard
 Tested up to: 5.4
-Stable tag: 1.6.1
+Stable tag: 1.7.3
 Requires at least: 4.4
 
-Copy Anything to Clipboard into ðŸ“‹ (clipboard). Default support added for <code>&lt;pre&gt;</code> tag. Documentations and more visit <a href="https://github.com/maheshwaghmare/copy-the-code/"> on GitHub</a>.
+Copy the Text or HTML into the clipboard 📋 (clipboard). You can use it for code snippets, special symbols, discount codes, or anything which you want. By default it add the copy to clipboard button to the <code>&lt;pre&gt;</code> tag.
+
+Documentations and more visit <a href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/"> on Quick Guide</a>.
 
 == Description ==
 
-Copy anything into 📋 (clipboard). By default it add a copy button to the <code>&lt;pre&gt;</code> tag and copy the content from it. We can change the selector and add the copy button anywhere from settings page.
+Simply copy the content into the clipboard.
 
-It works with any theme and any plugin.
+Copy the Text or HTML into the clipboard 📋 (clipboard). You can use it for code snippets, special symbols, discount codes, or anything which you want. By default it add the copy to clipboard button to the `<pre>` tag.
 
-Below are some tested Themes:
+Documentations and more visit <a href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/"> on Quick Guide</a>.
 
-- Twenty Twelve
-- Twenty Sixteen
-- Twenty Seventeen
-- Twenty Nineteen
-- Velux
-- Hello Elementor
-- OceanWP
-- Astra
-- Ascension
-- Twenty Sixteen
-- Twenty Fifteen
-- Hestia
-- Neve
-- Escapade
-- Shapely
-- Sydney
-- Storefront
-- Twenty Fourteen
-- Futurio
-- Zakra
-- GeneratePress
-- Mesmerize
-- Highlight
-- Customify
-- Ashe
+By default, the Copy to Clipboard button is added to the `<pre>` tag. So, After plugin installs and activates the plugin add the Copy to Clipboard button to all pre tags.
+
+In plugin we have a setting page in which we can change the `<pre>` selector.
+
+Below is the list of manually testing themes:
+
+- Twenty Twelve – By WordPress.org
+- Twenty Sixteen – By WordPress.org
+- Twenty Seventeen – By WordPress.org
+- Twenty Nineteen – By WordPress.org
+- Velux – By GoDaddy
+- Hello Elementor – By Elementor
+- OceanWP – By oceanwp
+- Astra – By Brainstorm Force
+- Ascension – By GoDaddy
+- Twenty Sixteen – By WordPress.org
+- Twenty Fifteen – By WordPress.org
+- Hestia – By Themeisle
+- Neve – By Themeisle
+- Escapade – By GoDaddy
+- Shapely – By Silkalns
+- Sydney – By athemes
+- Storefront – By Automattic
+- Twenty Fourteen – By WordPress.org
+- Futurio – By FuturioWP
+- Zakra – By ThemeGrill
+- GeneratePress – By Tom
+- Mesmerize – By Extend Themes
+- Highlight – By Extend Themes
+- Customify – By PressMaximum
+- Ashe – By WP Royal
 
 Extend the plugin on [Github](https://github.com/maheshwaghmare/copy-the-code/)
 
@@ -50,15 +58,17 @@ Extend the plugin on [Github](https://github.com/maheshwaghmare/copy-the-code/)
 
 == Frequently Asked Questions ==
 
-= How it Works? =
+= How does it Works? =
 
 After plugin install and activate, By default on front-end the `Copy` button is added for all the `<pre>` tags.
 
 On click on it the content within the `pre` tags is copy in clipboard.
 
-= What is selector? =
+= What is the selector? =
 
 Selector is the target element in which we want to add the copy button. It should be any valid CSS selector.
+
+<a href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#what-is-the-selector/">Read more about selectors »</a>
 
 = Some Examples of Selectors? =
 
@@ -67,6 +77,8 @@ Lets check below some selectors which are valid to use:
 - `pre` - Copy button added all the `pre` tags.
 - `.single pre` - Copy button added only if its parent have CSS class `.single`.
 - `#my-account-section-1 pre` - Copy button added only if its parent have CSS class `#my-account-section-1`.
+
+<a href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#what-is-the-selector/">Read more about selectors »</a>
 
 = Can I change the copied content? =
 
@@ -103,15 +115,32 @@ Yes, We have added `!important` for the Copy button to keep the button style sam
 
 == Changelog ==
 
-= 1.6.1 =
+= 1.7.3 =
 
 * Fix: The `<br>` tags was not copied as new line.  Reported by @psanger.
+
+= 1.7.2 =
+
+* Improvement: Removed unwanted code.
+
+= 1.7.1 =
+
+* Improvement: Updated Freemius SDK library with version 2.3.2.
+* Improvement: Added the latest new section.
+* Fix: The submit button is not visible form the settings page. Reported by Nicolas Tizio
+
+= 1.7.0 =
+
+* New: Added General & Style tabs.
+
+= 1.6.1 =
+
+* Improvement: Added WordPress 5.4 compatibility.
 
 = 1.6.0 =
 
 * New: Added filter `copy_the_code_default_page_settings` to change the default page settings.
 * New: Added filter `copy_the_code_page_settings` to change the page settings.
-* Improvement: Added WordPress compatibility for version 5.4.
 
 = 1.5.0 =
 

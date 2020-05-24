@@ -181,11 +181,6 @@
 
                     // @deprecated
                     $this->_type = $this->get_option( $menu, 'type', 'page' );
-
-                    $this->_first_time_path = $this->get_option( $menu, 'first-path', false );
-                    if ( ! empty( $this->_first_time_path ) && is_string( $this->_first_time_path ) ) {
-                        $this->_first_time_path = admin_url( $this->_first_time_path, 'admin' );
-                    }
                 }
 
 				$this->_is_override_exact = $this->get_bool_option( $menu, 'override_exact' );
@@ -208,6 +203,12 @@
 //						'page'
 //					) );
 				}
+
+				$first_path = $this->get_option( $menu, 'first-path', false );
+
+                if ( ! empty( $first_path ) && is_string( $first_path ) ) {
+                    $this->_first_time_path = $first_path;
+                }
 			}
 		}
 
@@ -236,17 +237,27 @@
 		}
 
 
-		/**
-		 * Get the path of the page the user should be forwarded to after first activation.
-		 *
-		 * @author Vova Feldman (@svovaf)
-		 * @since  1.1.3
-		 *
-		 * @return string
-		 */
-		function get_first_time_path() {
-			return $this->_first_time_path;
-		}
+        /**
+         * Get the path of the page the user should be forwarded to after first activation.
+         *
+         * @author Vova Feldman (@svovaf)
+         * @since  1.1.3
+         *
+         * @param bool $is_network Since 2.4.5
+         *
+         * @return string
+         */
+        function get_first_time_path( $is_network = false ) {
+            if ( empty ( $this->_first_time_path ) ) {
+                return $this->_first_time_path;
+            }
+
+            if ( $is_network ) {
+                return network_admin_url( $this->_first_time_path );
+            } else {
+                return admin_url( $this->_first_time_path );
+            }
+        }
 
 		/**
 		 * Check if plugin's menu item is part of a custom top level menu.
@@ -279,6 +290,18 @@
 		function has_network_menu() {
 			return $this->_network_menu_exists;
 		}
+
+        /**
+         * @author Leo Fajardo (@leorw)
+         *
+         * @param string $menu_slug
+         *
+         * @since 2.1.3
+         */
+		function set_slug_and_network_menu_exists_flag($menu_slug ) {
+		    $this->_menu_slug           = $menu_slug;
+		    $this->_network_menu_exists = false;
+        }
 
 		/**
 		 * @author Vova Feldman (@svovaf)
@@ -407,41 +430,62 @@
 				$this->get_raw_slug();
 		}
 
-		/**
-		 * Is user on plugin's admin activation page.
-		 *
-		 * @author Vova Feldman (@svovaf)
-		 * @since  1.0.8
-		 *
-		 * @return bool
-		 */
-		function is_main_settings_page() {
-			if ( $this->_menu_exists &&
-			     ( fs_is_plugin_page( $this->_menu_slug ) || fs_is_plugin_page( $this->_module_unique_affix ) )
-			) {
-				/**
-				 * Module has a settings menu and the context page is the main settings page, so assume it's in
-				 * activation (doesn't really check if already opted-in/skipped or not).
-				 *
-				 * @since 1.2.2
-				 */
-				return true;
-			}
+        /**
+         * Is user on plugin's admin activation page.
+         *
+         * @author Vova Feldman (@svovaf)
+         * @since  1.0.8
+         *
+         * @param bool $show_opt_in_on_themes_page Since 2.3.1
+         *
+         * @return bool
+         *
+         * @deprecated Please use is_activation_page() instead.
+         */
+        function is_main_settings_page( $show_opt_in_on_themes_page = false ) {
+            return $this->is_activation_page( $show_opt_in_on_themes_page );
+        }
 
-			global $pagenow;
-			if ( ( WP_FS__MODULE_TYPE_THEME === $this->_module_type ) && Freemius::is_themes_page() ) {
-				/**
-				 * In activation only when show_optin query string param is given.
-				 *
-				 * @since 1.2.2
-				 */
-				return fs_request_get_bool( $this->_module_unique_affix . '_show_optin' );
-			}
+        /**
+         * Is user on product's admin activation page.
+         *
+         * @author Vova Feldman (@svovaf)
+         * @since  2.3.1
+         *
+         * @param bool $show_opt_in_on_themes_page Since 2.3.1
+         *
+         * @return bool
+         */
+        function is_activation_page( $show_opt_in_on_themes_page = false ) {
+            if ( $show_opt_in_on_themes_page ) {
+                /**
+                 * In activation only when show_optin query string param is given.
+                 *
+                 * @since 1.2.2
+                 */
+                return (
+                    ( WP_FS__MODULE_TYPE_THEME === $this->_module_type ) &&
+                    Freemius::is_themes_page() &&
+                    fs_request_get_bool( $this->_module_unique_affix . '_show_optin' )
+                );
+            }
 
-			return false;
-		}
+            if ( $this->_menu_exists &&
+                 ( fs_is_plugin_page( $this->_menu_slug ) || fs_is_plugin_page( $this->_module_unique_affix ) )
+            ) {
+                /**
+                 * Module has a settings menu and the context page is the main settings page, so assume it's in
+                 * activation (doesn't really check if already opted-in/skipped or not).
+                 *
+                 * @since 1.2.2
+                 */
+                return true;
+            }
 
-		#region Submenu Override
+            return false;
+        }
+
+        #region Submenu Override
 
 		/**
 		 * Override submenu's action.
