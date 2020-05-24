@@ -35,3 +35,13 @@ pre {
 .copy-the-code-outside {
     text-align: right;
 }
+
+
+#post-body-content .preview {
+    float: none;
+    text-align: center;
+    background: #fff;
+    padding: 1em;
+    margin: 2em;
+    display: inline-block;
+}

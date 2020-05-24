@@ -50,6 +50,69 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 			add_action( 'after_setup_theme', array( $this, 'save_settings' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_assets' ) );
+			add_action( 'init', array( $this, 'register_post_type' ) );
+		}
+
+		/**
+		 * Registers a new post type
+		 * @uses $wp_post_types Inserts new post type object into the list
+		 *
+		 * @param string  Post type key, must not exceed 20 characters
+		 * @param array|string  See optional args description above.
+		 * @return object|WP_Error the registered post type object, or an error object
+		 */
+		function register_post_type() {
+		
+			$labels = array(
+				'name'               => __( 'Copy the Code', 'copy-the-code' ),
+				'singular_name'      => __( 'Copy the Code', 'copy-the-code' ),
+				'add_new'            => _x( 'Add New Copy the Code', 'copy-the-code', 'copy-the-code' ),
+				'add_new_item'       => __( 'Add New Copy the Code', 'copy-the-code' ),
+				'edit_item'          => __( 'Edit Copy the Code', 'copy-the-code' ),
+				'new_item'           => __( 'New Copy the Code', 'copy-the-code' ),
+				'view_item'          => __( 'View Copy the Code', 'copy-the-code' ),
+				'search_items'       => __( 'Search Copy the Code', 'copy-the-code' ),
+				'not_found'          => __( 'No Copy the Code found', 'copy-the-code' ),
+				'not_found_in_trash' => __( 'No Copy the Code found in Trash', 'copy-the-code' ),
+				'parent_item_colon'  => __( 'Parent Copy the Code:', 'copy-the-code' ),
+				'menu_name'          => __( 'Copy the Code', 'copy-the-code' ),
+			);
+		
+			$args = array(
+				'labels'              => $labels,
+				'hierarchical'        => false,
+				'description'         => 'description',
+				'taxonomies'          => array(),
+				'public'              => true,
+				'show_ui'             => true,
+				'show_in_menu'        => true,
+				'show_in_admin_bar'   => true,
+				'menu_position'       => null,
+				'menu_icon'           => null,
+				'show_in_nav_menus'   => true,
+				'publicly_queryable'  => true,
+				'exclude_from_search' => false,
+				'has_archive'         => true,
+				'query_var'           => true,
+				'can_export'          => true,
+				'rewrite'             => true,
+				'capability_type'     => 'post',
+				'supports'            => array(
+					'title',
+					// 'editor',
+					'author',
+					// 'thumbnail',
+					// 'excerpt',
+					'custom-fields',
+					// 'trackbacks',
+					// 'comments',
+					// 'revisions',
+					// 'page-attributes',
+					// 'post-formats',
+				),
+			);
+		
+			register_post_type( 'copy-the-code', $args );
 		}
 
 		/**
@@ -61,6 +124,12 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 		 */
 		function admin_enqueue_assets() {
 			wp_enqueue_script( 'copy-the-code-page', COPY_THE_CODE_URI . 'assets/js/page.js', array( 'jquery' ), COPY_THE_CODE_VER, true );
+
+			wp_localize_script(
+				'copy-the-code-page',
+				'copyTheCode',
+				$this->get_localize_vars()				
+			);
 		}
 
 		/**
@@ -76,17 +145,22 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 			wp_localize_script(
 				'copy-the-code',
 				'copyTheCode',
-				apply_filters(
-					'copy_the_code_localize_vars',
-					array(
-						'selector' => 'pre', // Selector in which have the actual `<code>`.
-						'settings' => $this->get_page_settings(),
-						'string'   => array(
-							'title'  => $this->get_page_setting( 'button-title', __( 'Copy to Clipboard', 'copy-the-code' ) ),
-							'copy'   => $this->get_page_setting( 'button-text', __( 'Copy', 'copy-the-code' ) ),
-							'copied' => $this->get_page_setting( 'button-copy-text', __( 'Copied!', 'copy-the-code' ) ),
-						),
-					)
+				$this->get_localize_vars()				
+			);
+		}
+
+		function get_localize_vars() {
+			return apply_filters(
+				'copy_the_code_localize_vars',
+				array(
+					'selector' => 'pre', // Selector in which have the actual `<code>`.
+					'settings' => $this->get_page_settings(),
+					'string'   => array(
+						'title'  => $this->get_page_setting( 'button-title', __( 'Copy to Clipboard', 'copy-the-code' ) ),
+						'copy'   => $this->get_page_setting( 'button-text', __( 'Copy', 'copy-the-code' ) ),
+						'copied' => $this->get_page_setting( 'button-copy-text', __( 'Copied!', 'copy-the-code' ) ),
+					),
+					'image-url' => COPY_THE_CODE_URI . '/assets/images/copy-1.svg',
 				)
 			);
 		}
@@ -221,16 +295,58 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 						<div id="post-body" class="columns-2">
 							<div id="post-body-content">
 
-								<div class="nav-tab-wrapper">
+
+
+								<table class="wp-list-table widefat striped">
+								    <thead>
+								        <tr>
+								            <th scope="col" id="title" class="manage-column column-title column-primary sortable desc"><span style="padding: 0 10px;">Selector</span></th>
+								            <th scope="col" id="author" class="manage-column column-author">Copy As
+								            </th>
+								            <th scope="col" id="categories" class="manage-column column-categories">Style</th>
+								            <th scope="col" id="date" class="manage-column column-date sortable asc"><a href="http://localhost/dev.test/wp-admin/edit.php?orderby=date&amp;order=desc"><span>Date</span><span class="sorting-indicator"></span></a></th>
+								        </tr>
+								    </thead>
+								    <tbody id="the-list">
+								        <tr id="post-39710" class="iedit author-self level-0 post-39710 type-post status-publish format-standard hentry category-uncategorized">
+								            <td class="title column-title has-row-actions column-primary page-title" data-colname="Title">
+								                <strong>pre</strong>
+								                <div class="row-actions"><span class="edit"><a href="http://localhost/dev.test/wp-admin/post.php?post=39710&amp;action=edit" aria-label="Edit “Image Attribute”">Edit</a> | </span><span class="inline hide-if-no-js"><button type="button" class="button-link editinline" aria-label="Quick edit “Image Attribute” inline" aria-expanded="false">Quick&nbsp;Edit</button> | </span><span class="trash"><a href="http://localhost/dev.test/wp-admin/post.php?post=39710&amp;action=trash&amp;_wpnonce=9116a8d4e5" class="submitdelete" aria-label="Move “Image Attribute” to the Trash">Trash</a> | </span><span class="view"><a href="http://localhost/dev.test/image-attribute/" rel="bookmark" aria-label="View “Image Attribute”">View</a></span></div><button type="button" class="toggle-row"><span class="screen-reader-text">Show more details</span></button>
+								            </td>
+								            <td class="author column-author" data-colname="Author">HTML</td>
+								            <td class="categories column-categories" data-colname="Categories">Button</td>
+								            <td class="date column-date" data-colname="Date">Published<br><span title="2020/05/01 11:30:11 am">6 hours ago</span></td>
+								        </tr>
+								    </tbody>
+								    <tfoot>
+								        <tr>
+								            <th scope="col" class="manage-column column-title column-primary sortable desc" style="padding: 0 10px;">Selector</th>
+								            <th scope="col" class="manage-column column-author">Copy As</th>
+								            <th scope="col" class="manage-column column-categories">Categories</th>
+								            <th scope="col" class="manage-column column-date sortable asc"><a href="http://localhost/dev.test/wp-admin/edit.php?orderby=date&amp;order=desc"><span>Date</span><span class="sorting-indicator"></span></a></th>
+								        </tr>
+								    </tfoot>
+								</table>
+
+
+
+
+
+
+
+
+
+
+								<!-- <div class="nav-tab-wrapper">
 									<?php $tabs = $this->get_tabs(); ?>
-									<?php foreach ($tabs as $tab_slug => $tab_title) { ?>
+									<?php /*foreach ($tabs as $tab_slug => $tab_title) { ?>
 										<a class="nav-tab" style="cursor: pointer;" data-id="tab-<?php echo esc_attr( $tab_slug ); ?>"><?php echo esc_html( $tab_title ); ?></a>
-									<?php } ?>
-								</div>	
+									<?php }*/ ?>
+								</div> -->	
 
 								<form enctype="multipart/form-data" method="post">
 									<div class="tabs">
-										<div id="tab-general" style="padding: 30px;">
+										<div id="tab-general">
 											<table class="form-table">
 												<tr>
 													<th scope="row"><?php _e( 'Selector', 'copy-the-code' ); ?></th>
@@ -255,7 +371,7 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 												</tr>
 											</table>
 										</div>
-										<div id="tab-style" style="padding: 30px; display: none;">
+										<div id="tab-style">
 											<table class="form-table">
 												<tr>
 													<th scope="row"><?php _e( 'Button Text', 'copy-the-code' ); ?></th>
@@ -288,7 +404,13 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 													<th scope="row"><?php _e( 'Button Position', 'copy-the-code' ); ?></th>
 													<td>
 														<fieldset>
-															<select name="button-position">
+															<select name="style" class="style">
+																<option value="normal-button">Normal Button</option>
+																<option value="svg-button">SVG Button</option>
+																<option value="cover">Cover</option>
+															</select>
+
+															<select name="button-position" class="button-position">
 																<option value="inside" <?php selected( $data['button-position'], 'inside' ); ?>><?php echo 'Inside'; ?></option>
 																<option value="outside" <?php selected( $data['button-position'], 'outside' ); ?>><?php echo 'Outside'; ?></option>
 															</select>
@@ -298,6 +420,10 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 												</tr>
 											</table>
 										</div>
+									</div>
+
+									<div class="preview">
+										<pre>&lt;h2&gt;Hello Wrold&lt;/h2&gt;</pre>
 									</div>
 
 									<input type="hidden" name="message" value="saved" />
