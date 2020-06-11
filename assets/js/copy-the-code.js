@@ -104,7 +104,7 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
         copyCode: function( event )
         {
             var btn     = $( this ),
-                source   = btn.parents('.copy-the-code-wrap').find( CopyTheCode.selector ),
+                source   = btn.parents('.copy-the-code-wrap'),
                 oldText = btn.text();
 
             if( 'text' === CopyTheCode.copy_as ) {

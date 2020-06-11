@@ -1,4 +1,9 @@
 
+.copy-the-code-wrap {
+    display: block;
+    position: relative;
+}
+
 /** <pre> tag */
 pre {
 	position: relative;
