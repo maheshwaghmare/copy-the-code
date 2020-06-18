@@ -117,7 +117,7 @@ Yes, We have added `!important` for the Copy button to keep the button style sam
 
 = 1.7.5 =
 
-* Fix: The <br> tag converted into the next line. Reported by Konrad.
+* Fix: The `<br>` tag converted into the next line. Select the `Text` from option `Copy Content As`. Reported by Konrad.
 * Fix: Single level selector copy the selector in clipboard. Reported by Seb.
 
 = 1.7.4 =
