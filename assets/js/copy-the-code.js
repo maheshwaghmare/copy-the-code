@@ -104,10 +104,19 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
         copyCode: function( event )
         {
             var btn     = $( this ),
-                source   = btn.parents('.copy-the-code-wrap'),
                 oldText = btn.text();
 
-            if( 'text' === CopyTheCode.copy_as ) {
+                var reWhiteSpace = new RegExp("/^\s+$/");
+
+                // Fix: nested selectors e.g. `.entry-content pre`
+                if ( CopyTheCode.selector.indexOf(' ') >= 0 ) {
+                    var source = btn.parents('.copy-the-code-wrap');
+                } else {
+                    var source = btn.parents('.copy-the-code-wrap').find( CopyTheCode.selector );
+                }
+
+            // Fix: nested selectors e.g. `.entry-content pre`
+            if( CopyTheCode.selector.indexOf(' ') >= 0 || 'text' === CopyTheCode.copy_as ) {
                 var html = source.text();
 
                 // Remove the 'copy' text.
@@ -123,8 +132,7 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
 
             // Copy the Code.
             var tempPre = $("<textarea id='temp-pre'>"),
-                temp    = $("<textarea>"),
-                brRegex = /<br\s*[\/]?>/gi;
+                temp    = $("<textarea>");
 
             // Append temporary elements to DOM.
             $("body").append(temp);
@@ -133,11 +141,17 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
             // Set temporary HTML markup.
             tempPre.html( tempHTML );
 
+            var content = tempPre.text();
+            if( 'html' === CopyTheCode.copy_as ) {
+                var brRegex = /<br\s*[\/]?>/gi;
+                content = content.replace(brRegex, "\r\n" );
+            }
+
             // Format the HTML markup.
-            temp.val( tempPre.text().replace(brRegex, "\r\n" ) ).select();
+            temp.val( content ).select();
 
             // Support for IOS devices too.
-            CopyTheCodeToClipboard.copy( tempPre.text().replace(brRegex, "\r\n" ) );
+            CopyTheCodeToClipboard.copy( content );
 
             // Remove temporary elements.
             temp.remove();
