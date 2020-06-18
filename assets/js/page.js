@@ -1,3 +1,50 @@
+window.CopyTheCodeToClipboard = (function(window, document, navigator) {
+    var textArea,
+        copy;
+
+    function isOS() {
+        return navigator.userAgent.match(/ipad|iphone/i);
+    }
+
+    function createTextArea(text) {
+        textArea = document.createElement('textArea');
+        textArea.value = text;
+        document.body.appendChild(textArea);
+    }
+
+    function selectText() {
+        var range,
+            selection;
+
+        if (isOS()) {
+            range = document.createRange();
+            range.selectNodeContents(textArea);
+            selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            textArea.setSelectionRange(0, 999999);
+        } else {
+            textArea.select();
+        }
+    }
+
+    function copyToClipboard() {        
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+    }
+
+    copy = function(text) {
+        createTextArea(text);
+        selectText();
+        copyToClipboard();
+    };
+
+    return {
+        copy: copy
+    };
+})(window, document, navigator);
+
+
 /*
  *  Project: Example Plugin
  *  Description: Example Plugin Description
@@ -125,13 +172,13 @@
 
     $(function() {
 
-        $( '.preview pre' ).CopyTheCode({
-            markup: '&lt;pre&gt;Mahesh&lt;/pre&gt;',
-            style: 'normal-button',
-            button_text: 'Copy',
-            button_copy_text: 'Copied!',
-            // position: position,
-        });
+        // $( '.preview pre' ).CopyTheCode({
+        //     markup: '&lt;pre&gt;Mahesh&lt;/pre&gt;',
+        //     style: 'normal-button',
+        //     button_text: 'Copy',
+        //     button_copy_text: 'Copied!',
+        //     // position: position,
+        // });
 
         // updatePreview();
 
@@ -162,12 +209,129 @@
         init: function()
         {
             this._bind();
+            this._preview();
             $('.copy-the-code .nav-tab-wrapper > .nav-tab:first-child').addClass('nav-tab-active');
         },
 
         _bind: function()
         {
-            $( document ).on('click', '.nav-tab', CopyTheCodePage._switch_tab );
+            // $( document ).on('click', '.nav-tab', CopyTheCodePage._switch_tab );
+            $( document ).on('change', 'select[name="copy-as"], [name="style"], [name="button-position"]', CopyTheCodePage._preview );
+
+            $( document ).on('click', '.copy-the-code-button', CopyTheCodePage.copyCode );
+        },
+
+        /**
+         * Copy to Clipboard
+         */
+        copyCode: function( event )
+        {
+            var btn     = $( this ),
+                preview = $('#preview').find('pre'),
+                source   = btn.parents('.copy-the-code-wrap').find( preview ),
+                oldText = btn.text();
+
+            var buttonMarkup = $('.copy-the-code-wrap').html() || '';
+            var copy_as = $( 'select[name="copy-as"]' ).children("option:selected").val() || '';
+            var button_text = $( '[name="button-text"]' ).val() || '';
+            var button_copy_text = $( '[name="button-copy-text"]' ).val() || '';
+
+            if( 'text' === copy_as ) {
+                var html = source.text();
+
+                // Remove the 'copy' text.
+                var tempHTML = html.replace(button_text, '');
+    
+            } else {
+                var html = source.html();
+
+                // Remove the <copy> button.
+                var tempHTML = html.replace(buttonMarkup, '');
+            }
+
+
+            // Copy the Code.
+            var tempPre = $("<textarea id='temp-pre'>"),
+                temp    = $("<textarea>"),
+                brRegex = '/<br\s*[/\]?>/gi';
+
+            // Append temporary elements to DOM.
+            $("body").append(temp);
+            $("body").append(tempPre);
+
+            // Set temporary HTML markup.
+            tempPre.html( tempHTML );
+
+            // Format the HTML markup.
+            temp.val( tempPre.text().replace(brRegex, "\r\n" ) ).select();
+
+            // Support for IOS devices too.
+            CopyTheCodeToClipboard.copy( tempPre.text().replace(brRegex, "\r\n" ) );
+
+            // Remove temporary elements.
+            temp.remove();
+            tempPre.remove();
+
+            // Copied!
+            btn.text( button_copy_text );
+            setTimeout(function() {
+                btn.text( oldText );
+            }, 1000);
+        },
+
+        _preview: function() {
+            var button_position = $( '[name="button-position"]' ).val() || '';
+            var value = $( 'select[name="copy-as"]' ).children("option:selected").val() || '';
+            var style = $( '[name="style"]' ).val() || 'button';
+            var button_text = $( '[name="button-text"]' ).val() || '';
+            var button_copy_text = $( '[name="button-copy-text"]' ).val() || '';
+            var button_title = $( '[name="button-title"]' ).val() || '';
+            var buttonMarkup = copyTheCode.buttonMarkup || '';
+
+            console.log( buttonMarkup );
+
+            $('#preview').html('<pre></pre>');
+
+            if( 'html' === value ) {
+                $('#preview pre').html( copyTheCode.previewMarkup );
+            } else {
+                $('#preview pre').text( copyTheCode.previewMarkup );
+            }
+        
+            if( 'outside' === button_position ) {
+                $('#preview pre').wrap( '<span class="copy-the-code-wrap copy-the-code-outside-wrap"></span>' );
+                $('#preview pre').parent().prepend('<div class="copy-the-code-outside">' + buttonMarkup + '</div>');
+            } else {
+                $('#preview pre').wrap( '<span class="copy-the-code-wrap copy-the-code-inside-wrap"></span>' );
+                $('#preview pre').append( buttonMarkup );
+            }
+
+            console.log( $('#preview').find( '.copy-the-code-button').lehgth );
+
+            $('#preview').find( '.copy-the-code-button').attr('title', button_title);
+            $('#preview').find( '.copy-the-code-button').attr( 'style', style);
+
+            if( 'svg-icon' === style ) {
+                $( '[name="button-copy-text"]' ).parents('tr').hide();
+            } else {
+                $( '[name="button-copy-text"]' ).parents('tr').show();
+            }
+            if( 'cover' === style ) {
+                $( '[name="button-position"]' ).parents('tr').hide();
+            } else {
+                $( '[name="button-position"]' ).parents('tr').show();
+            }
+
+            switch( style ) {
+                case 'svg-icon':
+                        $('#preview pre').find( '.copy-the-code-button').html( copyTheCode.buttonSvg );
+                    break;
+                case 'cover':
+                default:
+                    $('#preview pre').find( '.copy-the-code-button').html( button_text );
+                    break;
+            }
+            
         },
 
         _switch_tab: function( event ) {
@@ -188,4 +352,3 @@
 
 })(jQuery);
 
-		
