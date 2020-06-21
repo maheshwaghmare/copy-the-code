@@ -49,7 +49,7 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
     CopyTheCode = {
 
         selector: copyTheCode.settings.selector || copyTheCode.selector || 'pre',
-        copy_as: copyTheCode.settings['copy-as'] || 'html',
+        copy_as: copyTheCode.settings['copy-as'] || 'text',
         button_position: copyTheCode.settings['button-position'] || 'inside',
 
         /**
@@ -103,10 +103,10 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
          */
         copyCode: function( event )
         {
+            event.preventDefault();
+
             var btn     = $( this ),
                 oldText = btn.text();
-
-                var reWhiteSpace = new RegExp("/^\s+$/");
 
                 // Fix: nested selectors e.g. `.entry-content pre`
                 if ( CopyTheCode.selector.indexOf(' ') >= 0 ) {
@@ -117,10 +117,40 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
 
             // Fix: nested selectors e.g. `.entry-content pre`
             if( CopyTheCode.selector.indexOf(' ') >= 0 || 'text' === CopyTheCode.copy_as ) {
-                var html = source.text();
+                var html = source.html();
+
+                    // Convert the <br/> tags into new line.
+                    var brRegex = /<br\s*[\/]?>/gi;
+                    html = html.replace(brRegex, "\n" );
+
+                    // Convert the <div> tags into new line.
+                    var divRegex = /<div\s*[\/]?>/gi;
+                    html = html.replace(divRegex, "\n" );
+
+                    // Convert the <p> tags into new line.
+                    var pRegex = /<p\s*[\/]?>/gi;
+                    html = html.replace(pRegex, "\n" );
+
+                    // Convert the <li> tags into new line.
+                    var pRegex = /<li\s*[\/]?>/gi;
+                    html = html.replace(pRegex, "\n" );
+
+                    // Remove white spaces.
+                    var reWhiteSpace = new RegExp("/^\s+$/");
+                    html = html.replace(reWhiteSpace, "" );
+
+                    var tempElement = $("<div id='temp-element'></div>");
+                    $("body").append(tempElement);
+                    html = $.trim( html );
+                    $('#temp-element').html( html );
+                    var html = $('#temp-element').text();
+                    $('#temp-element').remove();
 
                 // Remove the 'copy' text.
                 var tempHTML = html.replace(copyTheCode.string.copy, '');
+
+                // Remove the <copy> button.
+                var tempHTML = tempHTML.replace(CopyTheCode._getButtonMarkup(), '');
     
             } else {
                 var html = source.html();
@@ -128,7 +158,6 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
                 // Remove the <copy> button.
                 var tempHTML = html.replace(CopyTheCode._getButtonMarkup(), '');
             }
-
 
             // Copy the Code.
             var tempPre = $("<textarea id='temp-pre'>"),
@@ -142,10 +171,9 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
             tempPre.html( tempHTML );
 
             var content = tempPre.text();
-            if( 'html' === CopyTheCode.copy_as ) {
-                var brRegex = /<br\s*[\/]?>/gi;
-                content = content.replace(brRegex, "\r\n" );
-            }
+
+            content = $.trim( content );
+            console.log( content );
 
             // Format the HTML markup.
             temp.val( content ).select();
