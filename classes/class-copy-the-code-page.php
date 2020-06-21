@@ -114,7 +114,7 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 					// New settings.
 					$new_data = array(
 						'selector'         => ( isset( $_REQUEST['selector'] ) ) ? $_REQUEST['selector'] : 'pre',
-						'copy-as'          => ( isset( $_REQUEST['copy-as'] ) ) ? $_REQUEST['copy-as'] : 'html',
+						'copy-as'          => ( isset( $_REQUEST['copy-as'] ) ) ? $_REQUEST['copy-as'] : 'text',
 						'button-text'      => ( isset( $_REQUEST['button-text'] ) ) ? $_REQUEST['button-text'] : 'Copy',
 						'button-title'     => ( isset( $_REQUEST['button-title'] ) ) ? $_REQUEST['button-title'] : 'Copy',
 						'button-copy-text' => ( isset( $_REQUEST['button-copy-text'] ) ) ? $_REQUEST['button-copy-text'] : 'Copied!',
@@ -155,7 +155,7 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 				'copy_the_code_default_page_settings',
 				array(
 					'selector'         => 'pre',
-					'copy-as'          => 'html',
+					'copy-as'          => 'text',
 					'button-text'      => __( 'Copy', 'copy-the-code' ),
 					'button-title'     => __( 'Copy to Clipboard', 'copy-the-code' ),
 					'button-copy-text' => __( 'Copied!', 'copy-the-code' ),
