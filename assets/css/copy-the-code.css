@@ -1,36 +1,35 @@
+.copy-the-code-inside-wrap .copy-the-code-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
 
+.copy-the-code-inside .copy-the-code-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
 .copy-the-code-wrap {
     display: block;
     position: relative;
 }
 
-/** <pre> tag */
-pre {
-	position: relative;
+.copy-the-code-wrap .copy-the-code-button {
+    background: #e1e3e8;
+    padding: 10px 20px;
+    cursor: pointer;
+    box-shadow: none;
+    color: #424242;
+    font-size: 14px;
+    font-weight: normal;
+    border-radius: 0;
+    text-transform: capitalize;
+    border: none;
+    outline: none;
 }
 
-/** 'Copy' button and JS. */
-.copy-the-code-inside-wrap .copy-the-code-button {
-    position: absolute !important;
-    right: 0 !important;
-    top: 0 !important;
-}
-
-.copy-the-code-button {
-    background: #e1e3e8 !important;
-    padding: 10px 20px !important;
-    cursor: pointer !important;
-    box-shadow: none !important;
-    color: #424242 !important;
-    font-size: 14px !important;
-    font-weight: normal !important;
-    border-radius: 0 !important;
-    text-transform: capitalize !important;
-    border: none !important;
-}
-
-.copy-the-code-button:hover {
-    background: #d0d1d6 !important;
+.copy-the-code-wrap .copy-the-code-button:hover {
+    background: #d0d1d6;
 }
 
 .copy-the-code-outside + * {
@@ -41,12 +40,48 @@ pre {
     text-align: right;
 }
 
+/** Styles */
+.copy-the-code-wrap.copy-the-code-style-svg-icon .copy-the-code-button {
+    background: transparent;
+    padding: 0;
+}
+.copy-the-code-wrap.copy-the-code-style-svg-icon .copy-the-code-button svg {
+    height: auto;
+    width: 20px;
+    fill: #23282d;
+}
+.copy-the-code-wrap.copy-the-code-style-cover .copy-the-code-button {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    opacity: 0;
+    background: rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+    color: #fff;
+    transition: all 0.3s ease-in-out;
+    padding: 0;
+    font-size: 12px;
+}
 
-#post-body-content .preview {
-    float: none;
-    text-align: center;
-    background: #fff;
-    padding: 1em;
-    margin: 2em;
+.copy-the-code-wrap.copy-the-code-style-cover:hover .copy-the-code-button {
+    opacity: 1;
+}
+
+.copy-the-code-inside-wrap.copy-the-code-style-svg-icon .copy-the-code-button {
+    padding: 10px;
+}
+
+.copy-the-code-wrap.copy-the-code-style-cover {
     display: inline-block;
+}
+
+.copy-the-code-wrap .copy-the-code-target {
+    margin-top: 0;
+}
+
+.copy-the-code-style-svg-icon .copy-the-code-outside {
+    height: 32px;
 }

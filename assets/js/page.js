@@ -216,8 +216,8 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
         _bind: function()
         {
             // $( document ).on('click', '.nav-tab', CopyTheCodePage._switch_tab );
-            $( document ).on('change', 'select[name="copy-as"], [name="style"], [name="button-position"]', CopyTheCodePage._preview );
-
+            $( document ).on('input', '[name="button-text"], [name="button-copy-text"], [name="button-title"]', CopyTheCodePage._preview );
+            $( document ).on('change', /*select[name="copy-as"],*/ ' [name="style"], [name="button-position"]', CopyTheCodePage._preview );
             $( document ).on('click', '.copy-the-code-button', CopyTheCodePage.copyCode );
         },
 
@@ -232,9 +232,10 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
                 oldText = btn.text();
 
             var buttonMarkup = $('.copy-the-code-wrap').html() || '';
-            var copy_as = $( 'select[name="copy-as"]' ).children("option:selected").val() || '';
+            var copy_as = 'text'; // $( 'select[name="copy-as"]' ).children("option:selected").val() || '';
             var button_text = $( '[name="button-text"]' ).val() || '';
             var button_copy_text = $( '[name="button-copy-text"]' ).val() || '';
+            var style = $( '[name="style"]' ).val() || 'button';
 
             if( 'text' === copy_as ) {
                 var html = source.text();
@@ -275,13 +276,17 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
             // Copied!
             btn.text( button_copy_text );
             setTimeout(function() {
-                btn.text( oldText );
+                if( 'svg-icon' === style ) {
+                    btn.html( copyTheCode.buttonSvg );
+                } else {
+                    btn.text( oldText );
+                }
             }, 1000);
         },
 
         _preview: function() {
             var button_position = $( '[name="button-position"]' ).val() || '';
-            var value = $( 'select[name="copy-as"]' ).children("option:selected").val() || '';
+            // var value = $( 'select[name="copy-as"]' ).children("option:selected").val() || '';
             var style = $( '[name="style"]' ).val() || 'button';
             var button_text = $( '[name="button-text"]' ).val() || '';
             var button_copy_text = $( '[name="button-copy-text"]' ).val() || '';
@@ -290,15 +295,25 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
 
             console.log( buttonMarkup );
 
-            $('#preview').html('<pre></pre>');
+            var markup = '<div class="outer">';
+            markup += '<div class="inner copy-as-text">';
+            markup += '<p>Sample Preview 1</p>';
+            markup += '<pre id="pre-html"></pre>';
+            // markup += '<p class="description">Here, We don\'t see the HTML markup of above content. On click on copy the with its actual HTML markup.</p>';
+            markup += '</div>';
 
-            if( 'html' === value ) {
-                $('#preview pre').html( copyTheCode.previewMarkup );
-            } else {
-                $('#preview pre').text( copyTheCode.previewMarkup );
-            }
-        
-            if( 'outside' === button_position ) {
+            markup += '<div class="inner copy-as-html">';
+            markup += '<p>Sample Preview 2</p>';
+            markup += '<pre id="pre-text"></pre>';
+            markup += '</div>';
+
+            markup += '</div>';
+
+            $('#preview').html( markup );
+            $('#preview #pre-html').html( copyTheCode.previewMarkup );
+            $('#preview #pre-text').text( copyTheCode.previewMarkup );
+ 
+           if( 'cover' !== style && 'outside' === button_position ) {
                 $('#preview pre').wrap( '<span class="copy-the-code-wrap copy-the-code-outside-wrap"></span>' );
                 $('#preview pre').parent().prepend('<div class="copy-the-code-outside">' + buttonMarkup + '</div>');
             } else {
@@ -306,15 +321,15 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
                 $('#preview pre').append( buttonMarkup );
             }
 
-            console.log( $('#preview').find( '.copy-the-code-button').lehgth );
-
             $('#preview').find( '.copy-the-code-button').attr('title', button_title);
             $('#preview').find( '.copy-the-code-button').attr( 'style', style);
 
             if( 'svg-icon' === style ) {
-                $( '[name="button-copy-text"]' ).parents('tr').hide();
+                $( '[name="button-text"]' ).parents('tr').hide();
+                $( '[name="button-position"]' ).parents('tr').hide();
             } else {
-                $( '[name="button-copy-text"]' ).parents('tr').show();
+                $( '[name="button-text"]' ).parents('tr').show();
+                $( '[name="button-position"]' ).parents('tr').show();
             }
             if( 'cover' === style ) {
                 $( '[name="button-position"]' ).parents('tr').hide();
@@ -324,11 +339,12 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
 
             switch( style ) {
                 case 'svg-icon':
-                        $('#preview pre').find( '.copy-the-code-button').html( copyTheCode.buttonSvg );
+                        $('#preview').find( '.copy-the-code-button').html( copyTheCode.buttonSvg );
                     break;
                 case 'cover':
+                case 'button':
                 default:
-                    $('#preview pre').find( '.copy-the-code-button').html( button_text );
+                    $('#preview').find( '.copy-the-code-button').html( button_text );
                     break;
             }
             

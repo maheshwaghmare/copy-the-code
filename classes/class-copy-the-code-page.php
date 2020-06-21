@@ -45,12 +45,101 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 		 * @since 1.2.0
 		 */
 		public function __construct() {
+			add_filter( 'admin_url', array( $this, 'admin_url' ), 10, 3 );
+
 			add_action( 'admin_menu', array( $this, 'register_admin_menu' ) );
 			add_action( 'plugin_action_links_' . COPY_THE_CODE_BASE, array( $this, 'action_links' ) );
-			add_action( 'after_setup_theme', array( $this, 'save_settings' ) );
+			add_action( 'init', array( $this, 'save_settings' ), 11 );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_assets' ) );
 			add_action( 'init', array( $this, 'register_post_type' ) );
+			add_action( 'after_setup_theme', array( $this, 'init_admin_settings' ) );
+
+		}
+
+		/**
+		 * Filters the admin area URL.
+		 *
+		 * @since 1.0.2
+		 *
+		 * @param string   $url     The complete admin area URL including scheme and path.
+		 * @param string   $path    Path relative to the admin area URL. Blank string if no path is specified.
+		 * @param int|null $blog_id Site ID, or null for the current site.
+		 */
+		public function admin_url( $url, $path, $blog_id ) {
+
+			if ( 'post-new.php?post_type=copy-to-clipboard' !== $path ) {
+				return $url;
+			}
+
+			$url  = get_site_url( $blog_id, 'wp-admin/', 'admin' );
+			$path = 'edit.php?post_type=copy-to-clipboard&page=copy-to-clipboard-add-new';
+
+			if ( $path && is_string( $path ) ) {
+				$url .= ltrim( $path, '/' );
+			}
+
+			return $url;
+		}
+
+		function init_admin_settings() {
+			if ( current_user_can( 'edit_posts' ) ) {
+				add_action( 'admin_menu', array( $this, 'register' ) );
+				add_action( 'submenu_file', array( $this, 'submenu_file' ), 999, 2 );
+			}
+		}
+
+		/**
+		 * Sets the active menu item for the builder admin submenu.
+		 *
+		 * @since 1.0.2
+		 *
+		 * @param string $submenu_file  Submenu file.
+		 * @param string $parent_file   Parent file.
+		 * @return string               Submenu file.
+		 */
+		public function submenu_file( $submenu_file, $parent_file ) {
+			global $pagenow;
+
+			$screen = get_current_screen();
+
+			if ( isset( $_GET['page'] ) && 'copy-to-clipboard-add-new' === $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				$submenu_file = 'copy-to-clipboard-add-new';
+			} elseif ( 'post.php' === $pagenow && 'copy-to-clipboard' === $screen->post_type ) {
+				$submenu_file = 'edit.php?post_type=copy-to-clipboard';
+			}
+
+			return $submenu_file;
+		}
+
+		/**
+		 * Registers the add new portfolio form admin menu for adding portfolios.
+		 *
+		 * @since 1.0.2
+		 *
+		 * @return void
+		 */
+		public function register() {
+			global $submenu, $_registered_pages;
+
+			$parent        = 'edit.php?post_type=copy-to-clipboard';
+			$add_new_hook  = 'copy-to-clipboard_page_copy-to-clipboard-add-new';
+
+			$submenu[ $parent ]     = array(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+			$submenu[ $parent ][10] = array( __( 'All Items', 'copy-the-code' ), 'edit_posts', $parent ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+			$submenu[ $parent ][20] = array( __( 'Add New', 'copy-the-code' ), 'edit_posts', 'copy-to-clipboard-add-new', '' ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+			add_action( $add_new_hook, array( $this, 'add_new_page' ) );
+			$_registered_pages[ $add_new_hook ] = true; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+		}
+
+		/**
+		 * Add new page
+		 *
+		 * @since 1.0.2
+		 */
+		public function add_new_page() {
+			$data = $this->get_page_settings();
+			require_once COPY_THE_CODE_DIR . 'includes/add-new-form.php';
 		}
 
 		/**
@@ -112,7 +201,7 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 				),
 			);
 		
-			register_post_type( 'copy-the-code', $args );
+			register_post_type( 'copy-to-clipboard', $args );
 		}
 
 		/**
@@ -150,12 +239,43 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 		}
 
 		function get_localize_vars() {
+
+			$query_args = array(
+				'post_type'      => 'copy-to-clipboard',
+			
+				// Query performance optimization.
+				'fields'         => 'ids',
+				'no_found_rows'  => true,
+				'posts_per_page' => -1,
+			);
+			
+			$query = new WP_Query( $query_args );
+			$selectors = array();
+			// vl( $query->posts );
+			// wp_die();
+			if ( $query->posts ) {
+				foreach ( $query->posts as $key => $post_id ) {
+					$selectors[] = array(
+						'selector' => get_post_meta( $post_id, 'selector', true ),
+						'style' => get_post_meta( $post_id, 'style', true ),
+						// '/ $copy_as' => get_post_meta( $post_id, 'copy-as', true ),
+						'button_text' => get_post_meta( $post_id, 'button-text', true ),
+						'button_title' => get_post_meta( $post_id, 'button-title', true ),
+						'button_copy_text' => get_post_meta( $post_id, 'button-copy-text', true ),
+						'button_position' => get_post_meta( $post_id, 'button-position', true ),
+					);
+				}
+			}
+
+			// vl( $selectors );
+			// wp_die();
 			return apply_filters(
 				'copy_the_code_localize_vars',
 				array(
-					'previewMarkup' => '&lt;h2&gt;Hello Wrold&lt;/h2&gt;',
+					'previewMarkup' => '&lt;h2&gt;Hello World&lt;/h2&gt;',
 					'buttonMarkup' => '<button class="copy-the-code-button" title=""></button>',
 					'buttonSvg' => '<svg viewBox="-21 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m186.667969 416c-49.984375 0-90.667969-40.683594-90.667969-90.667969v-218.664062h-37.332031c-32.363281 0-58.667969 26.300781-58.667969 58.664062v288c0 32.363281 26.304688 58.667969 58.667969 58.667969h266.664062c32.363281 0 58.667969-26.304688 58.667969-58.667969v-37.332031zm0 0"></path><path d="m469.332031 58.667969c0-32.40625-26.261719-58.667969-58.664062-58.667969h-224c-32.40625 0-58.667969 26.261719-58.667969 58.667969v266.664062c0 32.40625 26.261719 58.667969 58.667969 58.667969h224c32.402343 0 58.664062-26.261719 58.664062-58.667969zm0 0"></path></svg>',
+					'selectors' => $selectors,
 					'selector' => 'pre', // Selector in which have the actual `<code>`.
 					'settings' => $this->get_page_settings(),
 					'string'   => array(
@@ -175,36 +295,74 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 		 */
 		function save_settings() {
 
-			if ( isset( $_REQUEST['page'] ) && strpos( $_REQUEST['page'], 'copy-the-code' ) !== false ) {
-
-				// Only admins can save settings.
-				if ( ! current_user_can( 'manage_options' ) ) {
-					return;
-				}
-
-				// Make sure we have a valid nonce.
-				if ( isset( $_REQUEST['copy-the-code'] ) && wp_verify_nonce( $_REQUEST['copy-the-code'], 'copy-the-code-nonce' ) ) {
-
-					// Stored Settings.
-					$stored_data = $this->get_page_settings();
-
-					// New settings.
-					$new_data = array(
-						'selector'         => ( isset( $_REQUEST['selector'] ) ) ? $_REQUEST['selector'] : 'pre',
-						'copy-as'          => ( isset( $_REQUEST['copy-as'] ) ) ? $_REQUEST['copy-as'] : 'text',
-						'button-text'      => ( isset( $_REQUEST['button-text'] ) ) ? $_REQUEST['button-text'] : 'Copy',
-						'button-title'     => ( isset( $_REQUEST['button-title'] ) ) ? $_REQUEST['button-title'] : 'Copy',
-						'button-copy-text' => ( isset( $_REQUEST['button-copy-text'] ) ) ? $_REQUEST['button-copy-text'] : 'Copied!',
-						'button-position'  => ( isset( $_REQUEST['button-position'] ) ) ? $_REQUEST['button-position'] : 'inside',
-					);
-
-					// Merge settings.
-					$data = wp_parse_args( $new_data, $stored_data );
-
-					// Update settings.
-					update_option( 'copy-the-code-settings', $data );
-				}
+			if( ! isset( $_REQUEST['page'] ) || ! isset( $_REQUEST['copy-the-code'] ) ) {
+				return;
 			}
+
+			if (  strpos( $_REQUEST['page'], 'copy-to-clipboard-add-new' ) === false ) {
+				return;
+			}
+
+			// Only admins can save settings.
+			if ( ! current_user_can( 'manage_options' ) ) {
+				return;
+			}
+
+			// Make sure we have a valid nonce.
+			if ( ! wp_verify_nonce( $_REQUEST['copy-the-code'], 'copy-the-code-nonce' ) ) {
+				return;
+			}
+
+			$selector = ( isset( $_REQUEST['selector'] ) ) ? $_REQUEST['selector'] : 'pre';
+
+			$query_args = array(
+				'post_type'      => 'copy-to-clipboard',
+			
+				// Query performance optimization.
+				'fields'         => 'ids',
+				'no_found_rows'  => true,
+				'posts_per_page' => -1,
+				'meta_key' => 'selector',
+				'meta_value' => $selector,
+			);
+			
+			$query = new WP_Query( $query_args );
+			if( $query->post_count ) {
+				add_action( 'admin_notices', array( $this, 'selector_exist_notice' ) );
+				return;
+			}
+
+			
+
+			// Stored Settings.
+			// $stored_data = $this->get_page_settings();
+
+			// New settings.
+			$new_data = array(
+				'selector'         => $selector,
+				'style'         => ( isset( $_REQUEST['style'] ) ) ? $_REQUEST['style'] : 'button',
+				// 'copy-as'          => ( isset( $_REQUEST['copy-as'] ) ) ? $_REQUEST['copy-as'] : 'text',
+				'button-text'      => ( isset( $_REQUEST['button-text'] ) ) ? $_REQUEST['button-text'] : 'Copy',
+				'button-title'     => ( isset( $_REQUEST['button-title'] ) ) ? $_REQUEST['button-title'] : 'Copy',
+				'button-copy-text' => ( isset( $_REQUEST['button-copy-text'] ) ) ? $_REQUEST['button-copy-text'] : 'Copied!',
+				'button-position'  => ( isset( $_REQUEST['button-position'] ) ) ? $_REQUEST['button-position'] : 'inside',
+			);
+
+			// copy-to-clipboard
+			$data = array(
+				'post_type'   => 'copy-to-clipboard',
+				'post_status' => 'publish',
+				'post_title'  => $new_data['selector'],
+				'meta_input'  => $new_data,
+			);
+			wp_insert_post( $data );
+			// vl( $new_data );
+			// wp_die();
+
+			wp_safe_redirect( admin_url( 'edit.php?post_type=copy-to-clipboard' ) );
+
+			exit();
+
 		}
 
 		/**
@@ -222,6 +380,14 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 			return $default_value;
 		}
 
+		function selector_exist_notice() {
+			?>
+			<div class="notice notice-error">
+				<p>The selector is already exist! Please try another selector.</p>
+			</div>
+			<?php
+		}
+
 		/**
 		 * Settings
 		 *
@@ -232,7 +398,7 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 				'copy_the_code_default_page_settings',
 				array(
 					'selector'         => 'pre',
-					'copy-as'          => 'text',
+					// 'copy-as'          => 'text',
 					'button-text'      => __( 'Copy', 'copy-the-code' ),
 					'button-title'     => __( 'Copy to Clipboard', 'copy-the-code' ),
 					'button-copy-text' => __( 'Copied!', 'copy-the-code' ),
@@ -266,7 +432,7 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 		 * @return void
 		 */
 		function register_admin_menu() {
-			add_submenu_page( 'options-general.php', __( 'Copy to Clipboard', 'copy-the-code' ), __( 'Copy to Clipboard', 'copy-the-code' ), 'manage_options', 'copy-the-code', array( $this, 'options_page' ) );
+			add_submenu_page( 'edit.php?post_type=copy-to-clipboard', __( 'Settings', 'copy-the-code' ), __( 'Settings', 'copy-the-code' ), 'manage_options', 'copy-the-code', array( $this, 'options_page' )  );
 		}
 
 		/**
@@ -289,313 +455,9 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 		 * @return void
 		 */
 		function options_page() {
-			$data = $this->get_page_settings();
-			$current_tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : 'general';
-			$tabs = array(
-				'general' => 'General',
-				'add-new' => 'Add new',
-			);
+			
 
-			?>
-			<div class="wrap copy-the-code" id="sync-post">
-				<div class="wrap">
-					<h1><?php echo esc_html( COPY_THE_CODE_TITLE ); ?> <small>v<?php echo esc_html( COPY_THE_CODE_VER ); ?></small></h1>
-
-					<div class="nav-tab-wrapper">
-						<?php foreach ($tabs as $slug => $name) {
-							$active = ( $current_tab === $slug ) ? 'nav-tab-active' : '';
-							?>
-							<a class="nav-tab <?php echo $active; ?>" href="<?php echo admin_url( 'options-general.php?page=copy-the-code&tab='. $slug ); ?>"><?php echo $name; ?></a>
-						<?php }  ?>
-					</div>
-					<div id="poststuff">
-						<div id="post-body" class="columns-2">
-								<?php if ( 'general' === $current_tab ) { ?>
-
-									<div id="post-body-content">
-
-										<table class="wp-list-table widefat striped">
-										    <thead>
-										        <tr>
-										            <th scope="col" id="title" class="manage-column column-title column-primary sortable desc"><span style="padding: 0 10px;">Selector</span></th>
-										            <th scope="col" id="author" class="manage-column column-author">Copy As
-										            </th>
-										            <th scope="col" id="categories" class="manage-column column-categories">Style</th>
-										            <th scope="col" id="date" class="manage-column column-date sortable asc"><a href="http://localhost/dev.test/wp-admin/edit.php?orderby=date&amp;order=desc"><span>Date</span><span class="sorting-indicator"></span></a></th>
-										        </tr>
-										    </thead>
-										    <tbody id="the-list">
-										        <tr id="post-39710" class="iedit author-self level-0 post-39710 type-post status-publish format-standard hentry category-uncategorized">
-										            <td class="title column-title has-row-actions column-primary page-title" data-colname="Title">
-										                <strong>pre</strong>
-										                <div class="row-actions"><span class="edit"><a href="http://localhost/dev.test/wp-admin/post.php?post=39710&amp;action=edit" aria-label="Edit “Image Attribute”">Edit</a> | </span><span class="inline hide-if-no-js"><button type="button" class="button-link editinline" aria-label="Quick edit “Image Attribute” inline" aria-expanded="false">Quick&nbsp;Edit</button> | </span><span class="trash"><a href="http://localhost/dev.test/wp-admin/post.php?post=39710&amp;action=trash&amp;_wpnonce=9116a8d4e5" class="submitdelete" aria-label="Move “Image Attribute” to the Trash">Trash</a> | </span><span class="view"><a href="http://localhost/dev.test/image-attribute/" rel="bookmark" aria-label="View “Image Attribute”">View</a></span></div><button type="button" class="toggle-row"><span class="screen-reader-text">Show more details</span></button>
-											            </td>
-											            <td class="author column-author" data-colname="Author">HTML</td>
-											            <td class="categories column-categories" data-colname="Categories">Button</td>
-											            <td class="date column-date" data-colname="Date">Published<br><span title="2020/05/01 11:30:11 am">6 hours ago</span></td>
-											        </tr>
-											    </tbody>
-											    <tfoot>
-											        <tr>
-											            <th scope="col" class="manage-column column-title column-primary sortable desc" style="padding: 0 10px;">Selector</th>
-											            <th scope="col" class="manage-column column-author">Copy As</th>
-											            <th scope="col" class="manage-column column-categories">Categories</th>
-											            <th scope="col" class="manage-column column-date sortable asc"><a href="http://localhost/dev.test/wp-admin/edit.php?orderby=date&amp;order=desc"><span>Date</span><span class="sorting-indicator"></span></a></th>
-											        </tr>
-											    </tfoot>
-											</table>
-											
-									</div>
-
-									<div class="postbox-container" id="postbox-container-1">
-										<div id="side-sortables" style="">
-											<div class="postbox">
-												<h2 class="hndle"><span><?php _e( 'Getting Started', 'copy-the-code' ); ?></span></h2>
-												<div class="inside">
-													<ul class="items">
-														<li>» <a style="text-decoration: none;" target="_blank" href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#how-does-it-work"><?php esc_html_e( 'How does it work?', 'copy-the-code' ); ?></a></li>
-														<li>» <a style="text-decoration: none;" target="_blank" href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#what-is-the-selector"><?php esc_html_e( 'What is the selector?', 'copy-the-code' ); ?></a></li>
-														<li>» <a style="text-decoration: none;" target="_blank" href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#example-1-using-html-tag-as-a-selector"><?php esc_html_e( 'Example 1 - Using HTML tag as a selector', 'copy-the-code' ); ?></a></li>
-														<li>» <a style="text-decoration: none;" target="_blank" href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#example-2-using-class-as-a-selector"><?php esc_html_e( 'Example 2 - Using class as a selector', 'copy-the-code' ); ?></a></li>
-														<li>» <a style="text-decoration: none;" target="_blank" href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#example-3-using-id-as-a-selector"><?php esc_html_e( 'Example 3 - Using ID as a selector', 'copy-the-code' ); ?></a></li>
-														<li>» <a style="text-decoration: none;" target="_blank" href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#example-4-using-nested-selector"><?php esc_html_e( 'Example 4 - Using nested selector', 'copy-the-code' ); ?></a></li>
-														<li>» <a style="text-decoration: none;" target="_blank" href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#example-5-copy-content-as-html-as-text"><?php esc_html_e( 'Example 5 - Copy content as HTML as Text', 'copy-the-code' ); ?></a></li>
-													</ul>
-												</div>
-											</div>
-
-											<div class="postbox">
-												<h2 class="hndle"><span><?php _e( 'Support', 'copy-the-code' ); ?></span></h2>
-												<div class="inside">
-													<p><?php _e( 'Do you have any issue with this plugin? Or Do you have any suggessions?', 'copy-the-code' ); ?></p>
-													<p><?php _e( 'Please don\'t hesitate to <a href="http://maheshwaghmare.wordpress.com/?p=999" target="_blank">send request »</a>.', 'copy-the-code' ); ?></p>
-												</div>
-											</div>
-
-											<?php
-											$response = wp_dev_remote_request_get( 'https://maheshwaghmare.com/wp-json/wp/v2/posts/?_fields=id,title,link&per_page=5' );
-											if( $response['success'] ) {
-											?>
-												<div class="postbox">
-													<h2 class="hndle"><span><?php _e( 'Latest News', 'copy-the-code' ); ?></span></h2>
-													<div class="inside">
-														<ul>
-															<?php foreach ($response['data'] as $key => $item) { ?>
-																<li data-id="<?php echo esc_attr( $item['id'] ); ?>">
-																	» <a style="text-decoration: none;" href="<?php echo esc_attr( $item['link'] ); ?>?utm_source=copy-the-code&utm_medium=plugin&utm_campaign=wp.org" target="_blank"><?php echo esc_html( $item['title']['rendered'] ); ?>
-																	</a>
-																</li>
-															<?php } ?>
-														</ul>
-														<p><a href="https://maheshwaghmare.com/blog/?utm_source=copy-the-code&utm_medium=plugin&utm_campaign=wp.org" target="_blank"><?php esc_html_e( 'Read More »', 'copy-the-code' ); ?></a></p>
-													</div>
-												</div>
-											<?php } ?>
-
-											<div class="postbox">
-												<h2 class="hndle"><span><?php _e( 'Donate', 'copy-the-code' ); ?></span></h2>
-												<div class="inside">
-													<p><?php _e( 'Would you like to support the advancement of this plugin?', 'copy-the-code' ); ?></p>
-													<a href="https://www.paypal.me/mwaghmare7/" target="_blank" class="button button-primary"><?php _e( 'Donate Now!', 'copy-the-code' ); ?></a>
-												</div>
-											</div>
-										</div>
-									</div>
-
-								<?php } else if ( 'add-new' === $current_tab ) { ?>
-									<div id="post-body-content">
-
-
-									<!-- <div class="nav-tab-wrapper">
-										<?php $tabs = $this->get_tabs(); ?>
-										<?php /*foreach ($tabs as $tab_slug => $tab_title) { ?>
-											<a class="nav-tab" style="cursor: pointer;" data-id="tab-<?php echo esc_attr( $tab_slug ); ?>"><?php echo esc_html( $tab_title ); ?></a>
-										<?php }*/ ?>
-									</div> -->	
-
-									<style type="text/css">
-										#preview {
-										    border: 2px solid #ccd0d4;
-										    position: relative;
-										}
-
-										/** <pre> tag */
-										#preview pre {
-										    padding: 1em 2em 1em 2em;
-										    margin: 0;
-											position: relative;
-										}
-
-										/** 'Copy' button and JS. */
-										.copy-the-code-inside-wrap .copy-the-code-button {
-										    position: absolute !important;
-										    right: 0 !important;
-										    top: 0 !important;
-										}
-
-										.copy-the-code-button {
-										    background: #e1e3e8 !important;
-										    padding: 10px 20px !important;
-										    cursor: pointer !important;
-										    box-shadow: none !important;
-										    color: #424242 !important;
-										    font-size: 14px !important;
-										    font-weight: normal !important;
-										    border-radius: 0 !important;
-										    text-transform: capitalize !important;
-										    border: none !important;
-										    position: absolute;
-											right: 0;
-											top: 0;
-										}
-
-										.copy-the-code-button:hover {
-										    background: #d0d1d6 !important;
-										}
-
-										.copy-the-code-outside + * {
-										    margin-top: 0;
-										}
-
-										.copy-the-code-outside {
-										    text-align: right;
-										}
-
-										/** Styles */
-										.copy-the-code-button[style="svg-icon"] svg {
-										    height: auto;
-										    width: 20px;
-										    fill: #23282d !important;
-										}
-										.copy-the-code-button[style="cover"] {
-										    position: absolute;
-										    left: 0;
-										    right: 0;
-										    top: 0;
-										    bottom: 0;
-										    width: 100%;
-										    opacity: 0;
-										    background: rgba(0, 0, 0, 0.5) !important;
-										    font-weight: bold !important;
-										    color: #fff !important;
-										    transition: all 0.3s ease-in-out;
-										}
-
-										pre:hover .copy-the-code-button[style="cover"] {
-										    opacity: 1;
-										}
-										
-										.copy-the-code-button[style="svg-icon"] {
-										    background: transparent !important;
-										    padding: 10px 15px !important;
-										}
-
-									</style>
-
-									<form enctype="multipart/form-data" method="post">
-										<div class="tabs">
-											<div id="tab-general">
-												<table class="form-table">
-													
-													<tr>
-														<th scope="row"><?php _e( 'Copy Content As', 'copy-the-code' ); ?></th>
-														<td>
-															<fieldset>
-																<select name="copy-as">
-																	<option value="html" <?php selected( $data['copy-as'], 'html' ); ?>><?php echo 'HTML'; ?></option>
-																	<option value="text" <?php selected( $data['copy-as'], 'text' ); ?>><?php echo 'Text'; ?></option>
-																</select>
-																<p class="description"><?php _e( 'Copy the content as Text or HTML.', 'copy-the-code' ); ?></p>
-															</fieldset>
-														</td>
-													</tr>
-													<tr>
-														<th scope="row"><?php _e( 'Style', 'copy-the-code' ); ?></th>
-														<td>
-															<fieldset>
-																<select name="style" class="style">
-																	<option value="button">Button</option>
-																	<option value="svg-icon">SVG Icon</option>
-																	<option value="cover">Cover</option>
-																</select>
-
-																<!-- <select name="button-position" class="button-position">
-																	<option value="inside" <?php selected( $data['button-position'], 'inside' ); ?>><?php echo 'Inside'; ?></option>
-																	<option value="outside" <?php selected( $data['button-position'], 'outside' ); ?>><?php echo 'Outside'; ?></option>
-																</select> -->
-															</fieldset>
-														</td>
-													</tr>
-													
-												</table>
-											</div>
-											<div id="tab-style">
-												<table class="form-table">
-													<tr>
-														<th scope="row"><?php _e( 'Button Text', 'copy-the-code' ); ?></th>
-														<td>
-															<fieldset>
-																<input type="text" name="button-text" class="regular-text" value="<?php echo esc_attr( $data['button-text'] ); ?>" />
-																<p class="description"><?php _e( 'Copy button text. Default \'Copy\'.', 'copy-the-code' ); ?></p>
-															</fieldset>
-														</td>
-													</tr>
-													<tr>
-														<th scope="row"><?php _e( 'Button Copy Text', 'copy-the-code' ); ?></th>
-														<td>
-															<fieldset>
-																<input type="text" name="button-copy-text" class="regular-text" value="<?php echo esc_attr( $data['button-copy-text'] ); ?>" />
-																<p class="description"><?php _e( 'Copy button text which appear after click on it. Default \'Copied!\'.', 'copy-the-code' ); ?></p>
-															</fieldset>
-														</td>
-													</tr>
-													<tr>
-														<th scope="row"><?php _e( 'Button Title', 'copy-the-code' ); ?></th>
-														<td>
-															<fieldset>
-																<input type="text" name="button-title" class="regular-text" value="<?php echo esc_attr( $data['button-title'] ); ?>" />
-																<p class="description"><?php _e( 'It is showing on hover on the button. Default \'Copy to Clipboard\'.', 'copy-the-code' ); ?></p>
-															</fieldset>
-														</td>
-													</tr>
-													<tr>
-														<th scope="row"><?php _e( 'Button Position', 'copy-the-code' ); ?></th>
-														<td>
-															<fieldset>
-																<select name="button-position" class="button-position">
-																	<option value="inside" <?php selected( $data['button-position'], 'inside' ); ?>><?php echo 'Inside'; ?></option>
-																	<option value="outside" <?php selected( $data['button-position'], 'outside' ); ?>><?php echo 'Outside'; ?></option>
-																</select>
-																<p class="description"><?php _e( 'Button Position Inside/Outside. Default Inside.', 'copy-the-code' ); ?></p>
-															</fieldset>
-														</td>
-													</tr>
-												</table>
-											</div>
-										</div>
-
-										<input type="hidden" name="message" value="saved" />
-										<?php wp_nonce_field( 'copy-the-code-nonce', 'copy-the-code' ); ?>
-
-										<?php submit_button(); ?>
-									</form>
-									</div>
-									<div class="postbox-container" id="postbox-container-1">
-										<h3>Preview:</h3>
-										<div id="preview" class="copy-the-code-inside">
-											<pre></pre>
-										</div>
-										<!-- <p class="description copy-as-text-tip">Do you have a code snippet as above then, On click on the copy button the content is copy as Text like <code>&lt;h2&gt;Hello World&lt;/h2&gt;</code></p>
-										<p class="description copy-as-html-tip">On click on the copy button the content is copy as HTML like <code><b>Hello World</b></code></p> -->
-										
-									</div>
-								<?php } ?>
-
-						</div>
-					</div>
-				</div>
-			</div>
-			<?php
+			
 		}
 	}
 
@@ -604,4 +466,91 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 	 */
 	Copy_The_Code_Page::get_instance();
 
+endif;
+
+
+
+
+
+/**
+ * Add custom column
+ * 
+ * @todo Change the `prefix_` and with your own unique prefix.
+ * 
+ * @since 1.0.0
+ */
+if( ! function_exists( 'prefix_add_custom_column' ) ) :
+	function prefix_add_custom_column( $columns = array() ) {
+		
+		if( isset( $columns['author'] ) ) {
+			unset( $columns['author'] );
+		}
+		
+		if( isset( $columns['date'] ) ) {
+			unset( $columns['date'] );
+		}
+		
+		$new_columns = array(
+			'style' => __( 'Style', 'copy-the-code' ),
+			'settings' => __( 'Settings', 'copy-the-code' ),
+			'author' => 'Author',
+			'date' => 'Date',
+		);
+
+    	return wp_parse_args( $new_columns, $columns );
+   }
+   add_filter('manage_copy-to-clipboard_posts_columns', 'prefix_add_custom_column', 10);
+endif;
+
+/**
+ * Column markup
+ * 
+ * @todo Change the `prefix_` and with your own unique prefix.
+ * 
+ * @since 1.0.0
+ *
+ * @param  string Column slug.
+ * @param  integer Post ID.
+ * @return void
+ */
+if( ! function_exists( 'prefix_custom_column_markup' ) ) :
+	function prefix_custom_column_markup( $column_name = '', $post_id = 0 ) {
+
+		if ( $column_name == 'style') {
+	        $style = get_post_meta( $post_id, 'style', true );
+	        if( $style ) {
+	        	switch ( $style) {
+	        		case 'cover':
+	        					echo 'Cover';
+	        			break;
+	        		case 'svg-icon':
+	        					echo 'SVG Icon';
+	        			break;
+	        		case 'button':
+	        					echo 'Button';
+	        			break;
+	        	}
+	        }
+	    }
+	    if ( $column_name == 'settings') {
+			$button_text = get_post_meta( $post_id, 'button-text', true );
+			if( ! empty( $button_text  ) ) {
+				echo '<i>Button Text: </i><b>' . $button_text . '</b><br/>';
+			}
+		    $button_title = get_post_meta( $post_id, 'button-title', true );
+			if( ! empty( $button_title  ) ) {
+				echo '<i>Button Title: </i><b>' . $button_title . '</b><br/>';
+			}
+		    $button_copy_text = get_post_meta( $post_id, 'button-copy-text', true );
+			if( ! empty( $button_copy_text  ) ) {
+				echo '<i>Button Copy Text: </i><b>' . $button_copy_text . '</b><br/>';
+			}
+		    $button_position = get_post_meta( $post_id, 'button-position', true );
+			if( ! empty( $button_position  ) ) {
+				echo '<i>Button Position: </i><b>' . $button_position . '</b><br/>';
+			}
+	    }
+
+   }
+   add_action('manage_copy-to-clipboard_posts_custom_column', 'prefix_custom_column_markup', 10, 2);
 endif;
