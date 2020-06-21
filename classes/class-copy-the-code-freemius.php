@@ -27,7 +27,7 @@ function ctc_fs() {
 				'menu'            => array(
 					'slug'           => 'copy-the-code',
 					'override_exact' => true,
-					'first-path'     => 'options-general.php?page=copy-the-code',
+					'first-path'     => 'edit.php?post_type=copy-to-clipboard&page=copy-to-clipboard-add-new',
 					'network'        => true,
 					'parent'         => array(
 						'slug' => 'options-general.php',
@@ -46,7 +46,7 @@ ctc_fs();
 do_action( 'ctc_fs_loaded' );
 
 function ctc_fs_settings_url() {
-	return admin_url( 'options-general.php?page=copy-the-code' );
+	return admin_url( 'edit.php?post_type=copy-to-clipboard&page=copy-to-clipboard-add-new' );
 }
 
 ctc_fs()->add_filter( 'connect_url', 'ctc_fs_settings_url' );

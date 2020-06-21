@@ -419,7 +419,7 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 		 */
 		function action_links( $links ) {
 			$action_links = array(
-				'settings' => '<a href="' . admin_url( 'options-general.php?page=copy-the-code' ) . '" aria-label="' . esc_attr__( 'Settings', 'copy-the-code' ) . '">' . esc_html__( 'Settings', 'copy-the-code' ) . '</a>',
+				'settings' => '<a href="' . admin_url( 'edit.php?post_type=copy-to-clipboard&page=copy-to-clipboard-add-new' ) . '" aria-label="' . esc_attr__( 'Settings', 'copy-the-code' ) . '">' . esc_html__( 'Settings', 'copy-the-code' ) . '</a>',
 			);
 
 			return array_merge( $action_links, $links );
