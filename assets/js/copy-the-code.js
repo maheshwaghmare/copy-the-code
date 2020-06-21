@@ -49,7 +49,7 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
     CopyTheCode = {
 
         selector: copyTheCode.settings.selector || copyTheCode.selector || 'pre',
-        copy_as: copyTheCode.settings['copy-as'] || 'html',
+        copy_as: copyTheCode.settings['copy-as'] || 'text',
         button_position: copyTheCode.settings['button-position'] || 'inside',
 
         /**
@@ -103,15 +103,54 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
          */
         copyCode: function( event )
         {
+            event.preventDefault();
+
             var btn     = $( this ),
-                source   = btn.parents('.copy-the-code-wrap').find( CopyTheCode.selector ),
                 oldText = btn.text();
 
-            if( 'text' === CopyTheCode.copy_as ) {
-                var html = source.text();
+                // Fix: nested selectors e.g. `.entry-content pre`
+                if ( CopyTheCode.selector.indexOf(' ') >= 0 ) {
+                    var source = btn.parents('.copy-the-code-wrap');
+                } else {
+                    var source = btn.parents('.copy-the-code-wrap').find( CopyTheCode.selector );
+                }
+
+            // Fix: nested selectors e.g. `.entry-content pre`
+            if( CopyTheCode.selector.indexOf(' ') >= 0 || 'text' === CopyTheCode.copy_as ) {
+                var html = source.html();
+
+                    // Convert the <br/> tags into new line.
+                    var brRegex = /<br\s*[\/]?>/gi;
+                    html = html.replace(brRegex, "\n" );
+
+                    // Convert the <div> tags into new line.
+                    var divRegex = /<div\s*[\/]?>/gi;
+                    html = html.replace(divRegex, "\n" );
+
+                    // Convert the <p> tags into new line.
+                    var pRegex = /<p\s*[\/]?>/gi;
+                    html = html.replace(pRegex, "\n" );
+
+                    // Convert the <li> tags into new line.
+                    var pRegex = /<li\s*[\/]?>/gi;
+                    html = html.replace(pRegex, "\n" );
+
+                    // Remove white spaces.
+                    var reWhiteSpace = new RegExp("/^\s+$/");
+                    html = html.replace(reWhiteSpace, "" );
+
+                    var tempElement = $("<div id='temp-element'></div>");
+                    $("body").append(tempElement);
+                    html = $.trim( html );
+                    $('#temp-element').html( html );
+                    var html = $('#temp-element').text();
+                    $('#temp-element').remove();
 
                 // Remove the 'copy' text.
                 var tempHTML = html.replace(copyTheCode.string.copy, '');
+
+                // Remove the <copy> button.
+                var tempHTML = tempHTML.replace(CopyTheCode._getButtonMarkup(), '');
     
             } else {
                 var html = source.html();
@@ -120,11 +159,9 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
                 var tempHTML = html.replace(CopyTheCode._getButtonMarkup(), '');
             }
 
-
             // Copy the Code.
             var tempPre = $("<textarea id='temp-pre'>"),
-                temp    = $("<textarea>"),
-                brRegex = '/<br\s*[/\]?>/gi';
+                temp    = $("<textarea>");
 
             // Append temporary elements to DOM.
             $("body").append(temp);
@@ -133,11 +170,16 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
             // Set temporary HTML markup.
             tempPre.html( tempHTML );
 
+            var content = tempPre.text();
+
+            content = $.trim( content );
+            console.log( content );
+
             // Format the HTML markup.
-            temp.val( tempPre.text().replace(brRegex, "\r\n" ) ).select();
+            temp.val( content ).select();
 
             // Support for IOS devices too.
-            CopyTheCodeToClipboard.copy( tempPre.text().replace(brRegex, "\r\n" ) );
+            CopyTheCodeToClipboard.copy( content );
 
             // Remove temporary elements.
             temp.remove();
