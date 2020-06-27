@@ -3,12 +3,14 @@ Contributors: Mahesh901122
 Donate link: https://www.paypal.me/mwaghmare7/
 Tags: Copy to Clipboard, Clipboard, Copy Anything to Clipboard
 Tested up to: 5.4
-Stable tag: 1.8.0
-Requires PHP: 5.6
+Stable tag: 2.0.0
 Requires at least: 4.4
 
-== Description ==
+Copy the Text or HTML into the clipboard 📋 (clipboard). You can use it for code snippets, special symbols, discount codes, or anything which you want. By default it add the copy to clipboard button to the <code>&lt;pre&gt;</code> tag.
 
+Documentations and more visit <a href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/"> on Quick Guide</a>.
+
+== Description ==
 === Copy Anything to Clipboard: the #1 WordPress Copy to Clipboard plugin
 
 Add a copy button anywhere and simply copy it into the clipboard (📋).
@@ -25,7 +27,10 @@ Reasons why people love the Copy Anything to Clipboard
 
 - Zero configuration
 - Easy to use
-- Customization options
+- Add multiple buttons with different selectors.
+- Add copy with [button style](https://maheshwaghmare.com/doc/copy-anything-to-clipboard/)
+- Add copy with [svg icon style](https://maheshwaghmare.com/doc/copy-anything-to-clipboard/)
+- Add copy with [cover style](https://maheshwaghmare.com/doc/copy-anything-to-clipboard/)
 - Quick support
 
 **Welcome for featured requests**
@@ -44,10 +49,24 @@ For more info check out the following:
 * The [Contact Me](https://maheshwaghmare.com/say-hello/).
 * The [Getting started guide](https://maheshwaghmare.com/doc/copy-anything-to-clipboard/).
 * Other my [WordPress Plugins](https://wordpress.org/plugins/search/mahesh901122/).
+* Contribute with [development](https://github.com/maheshwaghmare/copy-the-code/).
+* Make a [small donation](https://www.paypal.me/mwaghmare7/).
+
+== Image Copyrights
+
+Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel perfect</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
 
 == Installation ==
 
 1. Install the <code>Copy Anything to Clipboard</code> plugin either via the WordPress plugin directory, or by uploading the files to your server at <code>wp-content/plugins</code>.
+
+== Screenshots ==
+
+1. Button style with inside position preview
+2. Button style with outside position preview
+3. SVG Icon style with inside position preview
+4. SVG Icon style with outside position preview
+4. Cover style with preview
 
 == Frequently Asked Questions ==
 
@@ -108,15 +127,16 @@ Yes, We have added `!important` for the Copy button to keep the button style sam
 
 == Changelog ==
 
-= 1.8.0 =
+= 2.0.0 =
 
-* New: Set the `Copy Content As` default option with `text`.
-* Improvements: Converted the `<br>` tags into the new line if the option "Copy Content As" selected as `Text`.
-* Improvements: Converted the `<div>` tags into the new line if the option "Copy Content As" selected as `Text`.
-* Improvements: Converted the `<p>` tags into the new line if the option "Copy Content As" selected as `Text`.
-* Improvements: Converted the `<li>` tags into the new line if the option "Copy Content As" selected as `Text`.
-* Improvements: Remove the white spaces and trim the content if the option "Copy Content As" selected as `Text`.
-* Fix: Copy the content as text works different on Chrome, Firefox and Internet Explorer browsers.
+* Tweak: Create a new post copy to clipboard post depends on the old user settings.
+* Deprecated: Removed the filter `copy_the_code_enabled` which is no more useful.
+* Deprecated: Removed the option `Copy the content` which is no more useful. Will add the support though filter if required.
+* New: Added custom post type support to add multiple copy to clipboard buttons with different selectors and styles.
+* New: Improve the UI with live preview.
+* New: Added the new `SVG Icon` button style to show the SVG icon instead of button.
+* New: Added inside and outside position support for the new style SVG Icon.
+* New: Added the new `Cover` style to copy the small element in which we could not add the copy button. Such as Emoji and Symbols.
 
 = 1.7.5 =
 
