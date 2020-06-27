@@ -11,104 +11,11 @@ $tabs = array(
 	<div class="wrap">
 		<h1><?php echo esc_html( COPY_THE_CODE_TITLE ); ?> <small>v<?php echo esc_html( COPY_THE_CODE_VER ); ?></small></h1>
 
+		<p class="description"><?php _e( 'Add the new button as per your requirement. See more with <a href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/" target="_blank">getting started guide</a>', 'copy-the-code' ); ?></p>
+
 		<div id="poststuff">
 			<div id="post-body" class="columns-2">
 				<div id="post-body-content">
-
-					<style type="text/css">
-
-						#preview {
-						    position: relative;
-						}
-						#preview .inner pre {
-						    border: 2px solid #ccd0d4;
-						    margin-bottom: 2em;
-						}
-
-						/** <pre> tag */
-						#preview pre {
-						    padding: 1em 2em 1em 2em;
-						    margin: 0;
-							position: relative;
-						}
-
-						/** 'Copy' button and JS. */
-						.copy-the-code-inside-wrap .copy-the-code-button {
-						    position: absolute;
-						    right: 0;
-						    top: 0;
-						}
-
-						.copy-the-code-inside .copy-the-code-button {
-							position: absolute;
-							right: 0;
-							top: 0;
-						}
-						.copy-the-code-wrap {
-						    display: block;
-						    position: relative;
-						}
-
-						.copy-the-code-button {
-						    background: #e1e3e8;
-						    padding: 10px 20px;
-						    cursor: pointer;
-						    box-shadow: none;
-						    color: #424242;
-						    font-size: 14px;
-						    font-weight: normal;
-						    border-radius: 0;
-						    text-transform: capitalize;
-						    border: none;
-						    outline: none;
-						}
-
-						.copy-the-code-button:hover {
-						    background: #d0d1d6;
-						}
-
-						.copy-the-code-outside + * {
-						    margin-top: 0;
-						}
-
-						.copy-the-code-outside {
-						    text-align: right;
-						}
-
-						/** Styles */
-						.copy-the-code-button[style="svg-icon"] {
-						    background: transparent;
-						    padding: 0;
-						    height: 25px;
-						}
-						.copy-the-code-button[style="svg-icon"] svg {
-						    height: auto;
-						    width: 20px;
-						    fill: #23282d;
-						}
-						.copy-the-code-button[style="cover"] {
-						    position: absolute;
-						    left: 0;
-						    right: 0;
-						    top: 0;
-						    bottom: 0;
-						    width: 100%;
-						    opacity: 0;
-						    background: rgba(0, 0, 0, 0.5);
-						    font-weight: bold;
-						    color: #fff;
-						    transition: all 0.3s ease-in-out;
-						}
-
-						pre:hover .copy-the-code-button[style="cover"] {
-						    opacity: 1;
-						}
-
-						.copy-the-code-inside-wrap .copy-the-code-button[style="svg-icon"] {
-						    padding: 10px;
-						}
-
-					</style>
 
 					<form enctype="multipart/form-data" method="post">
 						<div class="tabs">
@@ -208,6 +115,37 @@ $tabs = array(
 				<div class="postbox-container" id="postbox-container-1">
 					<h3>Preview:</h3>
 					<div id="preview"></div>
+
+
+					<div class="postbox">
+										<h2 class="hndle"><span><?php _e( 'Getting Started', 'copy-the-code' ); ?></span></h2>
+										<div class="inside">
+											<ul class="items">
+												<li>» <a style="text-decoration: none;" target="_blank" href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#how-does-it-work"><?php esc_html_e( 'How does it work?', 'copy-the-code' ); ?></a></li>
+												<li>» <a style="text-decoration: none;" target="_blank" href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#what-is-the-selector"><?php esc_html_e( 'What is the selector?', 'copy-the-code' ); ?></a></li>
+												<li>» <a style="text-decoration: none;" target="_blank" href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#example-1-using-html-tag-as-a-selector"><?php esc_html_e( 'Example 1 - Using HTML tag as a selector', 'copy-the-code' ); ?></a></li>
+												<li>» <a style="text-decoration: none;" target="_blank" href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#example-2-using-class-as-a-selector"><?php esc_html_e( 'Example 2 - Using class as a selector', 'copy-the-code' ); ?></a></li>
+												<li>» <a style="text-decoration: none;" target="_blank" href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#example-3-using-id-as-a-selector"><?php esc_html_e( 'Example 3 - Using ID as a selector', 'copy-the-code' ); ?></a></li>
+												<li>» <a style="text-decoration: none;" target="_blank" href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#example-4-using-nested-selector"><?php esc_html_e( 'Example 4 - Using nested selector', 'copy-the-code' ); ?></a></li>
+											</ul>
+										</div>
+									</div>
+
+									<div class="postbox">
+										<h2 class="hndle"><span><?php _e( 'Support', 'copy-the-code' ); ?></span></h2>
+										<div class="inside">
+											<p><?php _e( 'Do you have any issue with this plugin? Or Do you have any suggessions?', 'copy-the-code' ); ?></p>
+											<p><?php _e( 'Please don\'t hesitate to <a href="http://maheshwaghmare.wordpress.com/?p=999" target="_blank">send request »</a>.', 'copy-the-code' ); ?></p>
+										</div>
+									</div>
+
+									<div class="postbox">
+										<h2 class="hndle"><span><?php _e( 'Donate', 'copy-the-code' ); ?></span></h2>
+										<div class="inside">
+											<p><?php _e( 'Would you like to support the advancement of this plugin?', 'copy-the-code' ); ?></p>
+											<a href="https://www.paypal.me/mwaghmare7/" target="_blank" class="button button-primary"><?php _e( 'Donate Now!', 'copy-the-code' ); ?></a>
+										</div>
+									</div>
 				</div>
 			</div>
 		</div>

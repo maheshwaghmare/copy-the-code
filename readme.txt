@@ -3,51 +3,70 @@ Contributors: Mahesh901122
 Donate link: https://www.paypal.me/mwaghmare7/
 Tags: Copy to Clipboard, Clipboard, Copy Anything to Clipboard
 Tested up to: 5.4
-Stable tag: 1.8.0
-Requires PHP: 5.6
+Stable tag: 1.7.5
 Requires at least: 4.4
+
+Copy the Text or HTML into the clipboard 📋 (clipboard). You can use it for code snippets, special symbols, discount codes, or anything which you want. By default it add the copy to clipboard button to the <code>&lt;pre&gt;</code> tag.
+
+Documentations and more visit <a href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/"> on Quick Guide</a>.
 
 == Description ==
 
-=== Copy Anything to Clipboard: the #1 WordPress Copy to Clipboard plugin
+Simply copy the content into the clipboard.
 
-Add a copy button anywhere and simply copy it into the clipboard (📋).
+Copy the Text or HTML into the clipboard 📋 (clipboard). You can use it for code snippets, special symbols, discount codes, or anything which you want. By default it add the copy to clipboard button to the `<pre>` tag.
 
-You can copy to clipboard: code snippets, special symbols, discount codes, or anything which you want.
+Documentations and more visit <a href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/"> on Quick Guide</a>.
 
-By default, the copy button is added to the `<pre>` tag. You can easily change the `pre` tag selector with any other selector. You can read more [about selector](https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#what-is-the-selector).
+By default, the Copy to Clipboard button is added to the `<pre>` tag. So, After plugin installs and activates the plugin add the Copy to Clipboard button to all pre tags.
 
-**FREE And Popular Copy to Clipboard Plugin**
+In plugin we have a setting page in which we can change the `<pre>` selector.
 
-Over 1k+ users are empowering their websites with "Copy Anything to Clipboard" – 100% compatible for all themes and plugins.
+Below is the list of manually testing themes:
 
-Reasons why people love the Copy Anything to Clipboard
+- Twenty Twelve – By WordPress.org
+- Twenty Sixteen – By WordPress.org
+- Twenty Seventeen – By WordPress.org
+- Twenty Nineteen – By WordPress.org
+- Velux – By GoDaddy
+- Hello Elementor – By Elementor
+- OceanWP – By oceanwp
+- Astra – By Brainstorm Force
+- Ascension – By GoDaddy
+- Twenty Sixteen – By WordPress.org
+- Twenty Fifteen – By WordPress.org
+- Hestia – By Themeisle
+- Neve – By Themeisle
+- Escapade – By GoDaddy
+- Shapely – By Silkalns
+- Sydney – By athemes
+- Storefront – By Automattic
+- Twenty Fourteen – By WordPress.org
+- Futurio – By FuturioWP
+- Zakra – By ThemeGrill
+- GeneratePress – By Tom
+- Mesmerize – By Extend Themes
+- Highlight – By Extend Themes
+- Customify – By PressMaximum
+- Ashe – By WP Royal
 
-- Zero configuration
-- Easy to use
-- Customization options
-- Quick support
+Extend the plugin on [Github](https://github.com/maheshwaghmare/copy-the-code/)
 
-**Welcome for featured requests**
+== Image Copyrights
 
-If you have any suggestion or any featured request then don't hesitate to [contact](https://maheshwaghmare.com/say-hello/).
-
-=== Bug reports
-
-Bug reports for "Copy Anything to Clipboard" are welcomed in our [repository on GitHub](https://github.com/maheshwaghmare/copy-the-code/). Please note that GitHub is not a support forum, and that issues that are not properly qualified as bugs will be closed.
-
-=== Further reading
-
-For more info check out the following:
-
-* The [maheshwaghmare.com](https://maheshwaghmare.com/) official website.
-* The [Contact Me](https://maheshwaghmare.com/say-hello/).
-* The [Getting started guide](https://maheshwaghmare.com/doc/copy-anything-to-clipboard/).
-* Other my [WordPress Plugins](https://wordpress.org/plugins/search/mahesh901122/).
+Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel perfect</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
 
 == Installation ==
 
 1. Install the <code>Copy Anything to Clipboard</code> plugin either via the WordPress plugin directory, or by uploading the files to your server at <code>wp-content/plugins</code>.
+
+== Screenshots ==
+
+1. Button style with inside position preview
+2. Button style with outside position preview
+3. SVG Icon style with inside position preview
+4. SVG Icon style with outside position preview
+4. Cover style with preview
 
 == Frequently Asked Questions ==
 
@@ -107,16 +126,6 @@ function my_slug_copy_the_code_localize_vars( $defaults )
 Yes, We have added `!important` for the Copy button to keep the button style same for each theme. We have tested below themes.
 
 == Changelog ==
-
-= 1.8.0 =
-
-* New: Set the `Copy Content As` default option with `text`.
-* Improvements: Converted the `<br>` tags into the new line if the option "Copy Content As" selected as `Text`.
-* Improvements: Converted the `<div>` tags into the new line if the option "Copy Content As" selected as `Text`.
-* Improvements: Converted the `<p>` tags into the new line if the option "Copy Content As" selected as `Text`.
-* Improvements: Converted the `<li>` tags into the new line if the option "Copy Content As" selected as `Text`.
-* Improvements: Remove the white spaces and trim the content if the option "Copy Content As" selected as `Text`.
-* Fix: Copy the content as text works different on Chrome, Firefox and Internet Explorer browsers.
 
 = 1.7.5 =
 
