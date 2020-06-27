@@ -1,3 +1,12 @@
+<?php
+/**
+ * Add new Page
+ *
+ * @package Copy the Code
+ * @since 2.0.0
+ */
+
+?>
 <div class="wrap copy-the-code">
 	<div class="wrap">
 		<h1><?php echo esc_html( COPY_THE_CODE_TITLE ); ?> <small>v<?php echo esc_html( COPY_THE_CODE_VER ); ?></small></h1>
@@ -12,7 +21,6 @@
 						<div class="tabs">
 							<div id="tab-general">
 								<table class="form-table">
-									
 										<tr>
 										<th scope="row"><?php _e( 'Selector', 'copy-the-code' ); ?></th>
 										<td>
@@ -48,8 +56,7 @@
 												<p class="description"><?php _e( 'Button Position Inside/Outside. Default Inside.', 'copy-the-code' ); ?></p>
 											</fieldset>
 										</td>
-									</tr>
-									
+									</tr>									
 								</table>
 							</div>
 							<div id="tab-style">

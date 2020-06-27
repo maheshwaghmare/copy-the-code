@@ -52,32 +52,31 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_assets' ) );
 			add_action( 'init', array( $this, 'register_post_type' ) );
 			add_action( 'after_setup_theme', array( $this, 'init_admin_settings' ) );
-			add_action( 'manage_copy-to-clipboard_posts_custom_column', array( $this, 'column_markup' ), 10, 2);
+			add_action( 'manage_copy-to-clipboard_posts_custom_column', array( $this, 'column_markup' ), 10, 2 );
 			add_action( 'manage_copy-to-clipboard_posts_columns', array( $this, 'add_column' ), 10 );
 		}
 
 		/**
 		 * Add custom column
-		 * 
-		 * @todo Change the `prefix_` and with your own unique prefix.
-		 * 
-		 * @since 1.0.0
+		 *
+		 * @param array $columns Columns.
+		 * @since 2.0.0
 		 */
 		function add_column( $columns = array() ) {
-			
-			if( isset( $columns['author'] ) ) {
+
+			if ( isset( $columns['author'] ) ) {
 				unset( $columns['author'] );
 			}
-			
-			if( isset( $columns['date'] ) ) {
+
+			if ( isset( $columns['date'] ) ) {
 				unset( $columns['date'] );
 			}
-			
+
 			$new_columns = array(
-				'style' => __( 'Style', 'copy-the-code' ),
+				'style'    => __( 'Style', 'copy-the-code' ),
 				'settings' => __( 'Settings', 'copy-the-code' ),
-				'author' => 'Author',
-				'date' => 'Date',
+				'author'   => 'Author',
+				'date'     => 'Date',
 			);
 
 			return wp_parse_args( $new_columns, $columns );
@@ -85,51 +84,49 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 
 		/**
 		 * Column markup
-		 * 
+		 *
 		 * @since 2.0.0
 		 *
-		 * @param  string Column slug.
-		 * @param  integer Post ID.
+		 * @param  string  $column_name     Column slug.
+		 * @param  integer $post_id         Post ID.
 		 * @return void
 		 */
 		function column_markup( $column_name = '', $post_id = 0 ) {
 
-			if ( $column_name == 'style') {
-		        $style = get_post_meta( $post_id, 'style', true );
-		        if( $style ) {
-		        	switch ( $style) {
-		        		case 'cover':
-		        					echo 'Cover';
-		        			break;
-		        		case 'svg-icon':
-		        					echo 'SVG Icon';
-		        			break;
-		        		case 'button':
-		        					echo 'Button';
-		        			break;
-		        	}
-		        }
-		    }
-		    if ( $column_name == 'settings') {
+			if ( 'style' === $column_name ) {
+				$style = get_post_meta( $post_id, 'style', true );
+				switch ( $style ) {
+					case 'cover':
+								echo 'Cover';
+						break;
+					case 'svg-icon':
+								echo 'SVG Icon';
+						break;
+					case 'button':
+								echo 'Button';
+						break;
+				}
+			}
+			if ( 'settings' === $column_name ) {
 				$button_text = get_post_meta( $post_id, 'button-text', true );
-				if( ! empty( $button_text  ) ) {
+				if ( ! empty( $button_text ) ) {
 					echo '<i>Button Text: </i><b>' . $button_text . '</b><br/>';
 				}
-			    $button_title = get_post_meta( $post_id, 'button-title', true );
-				if( ! empty( $button_title  ) ) {
+				$button_title = get_post_meta( $post_id, 'button-title', true );
+				if ( ! empty( $button_title ) ) {
 					echo '<i>Button Title: </i><b>' . $button_title . '</b><br/>';
 				}
-			    $button_copy_text = get_post_meta( $post_id, 'button-copy-text', true );
-				if( ! empty( $button_copy_text  ) ) {
+				$button_copy_text = get_post_meta( $post_id, 'button-copy-text', true );
+				if ( ! empty( $button_copy_text ) ) {
 					echo '<i>Button Copy Text: </i><b>' . $button_copy_text . '</b><br/>';
 				}
-			    $button_position = get_post_meta( $post_id, 'button-position', true );
-				if( ! empty( $button_position  ) ) {
+				$button_position = get_post_meta( $post_id, 'button-position', true );
+				if ( ! empty( $button_position ) ) {
 					echo '<i>Button Position: </i><b>' . $button_position . '</b><br/>';
 				}
-		    }
+			}
 
-	   	}
+		}
 
 		/**
 		 * Filters the admin area URL.
@@ -202,8 +199,8 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 		public function register() {
 			global $submenu, $_registered_pages;
 
-			$parent        = 'edit.php?post_type=copy-to-clipboard';
-			$add_new_hook  = 'copy-to-clipboard_page_copy-to-clipboard-add-new';
+			$parent       = 'edit.php?post_type=copy-to-clipboard';
+			$add_new_hook = 'copy-to-clipboard_page_copy-to-clipboard-add-new';
 
 			$submenu[ $parent ]     = array(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 			$submenu[ $parent ][10] = array( __( 'All Items', 'copy-the-code' ), 'edit_posts', $parent ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
@@ -224,14 +221,11 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 
 		/**
 		 * Registers a new post type
-		 * @uses $wp_post_types Inserts new post type object into the list
 		 *
-		 * @param string  Post type key, must not exceed 20 characters
-		 * @param array|string  See optional args description above.
-		 * @return object|WP_Error the registered post type object, or an error object
+		 * @since 2.0.0
 		 */
 		function register_post_type() {
-		
+
 			$labels = array(
 				'name'               => __( 'Copy to Clipboard', 'copy-the-code' ),
 				'singular_name'      => __( 'Copy to Clipboard', 'copy-the-code' ),
@@ -246,7 +240,7 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 				'parent_item_colon'  => __( 'Parent Copy to Clipboard:', 'copy-the-code' ),
 				'menu_name'          => __( 'Copy to Clipboard', 'copy-the-code' ),
 			);
-		
+
 			$args = array(
 				'labels'              => $labels,
 				'hierarchical'        => false,
@@ -272,7 +266,7 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 					'custom-fields',
 				),
 			);
-		
+
 			register_post_type( 'copy-to-clipboard', $args );
 		}
 
@@ -281,11 +275,12 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 		 *
 		 * @version 1.7.0
 		 *
-		 * @return void
+		 * @param  string $hook Current hook name.
+		 * @return mixed
 		 */
 		function admin_enqueue_assets( $hook = '' ) {
 
-			if( 'copy-to-clipboard_page_copy-to-clipboard-add-new' !== $hook ) {
+			if ( 'copy-to-clipboard_page_copy-to-clipboard-add-new' !== $hook ) {
 				return;
 			}
 
@@ -312,7 +307,7 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 			wp_localize_script(
 				'copy-the-code',
 				'copyTheCode',
-				$this->get_localize_vars()				
+				$this->get_localize_vars()
 			);
 		}
 
@@ -325,25 +320,25 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 
 			$query_args = array(
 				'post_type'      => 'copy-to-clipboard',
-			
+
 				// Query performance optimization.
 				'fields'         => 'ids',
 				'no_found_rows'  => true,
 				'posts_per_page' => -1,
 			);
-			
-			$query = new WP_Query( $query_args );
+
+			$query     = new WP_Query( $query_args );
 			$selectors = array();
 			if ( $query->posts ) {
 				foreach ( $query->posts as $key => $post_id ) {
 					$selectors[] = array(
-						'selector' => get_post_meta( $post_id, 'selector', true ),
-						'style' => get_post_meta( $post_id, 'style', true ),
+						'selector'         => get_post_meta( $post_id, 'selector', true ),
+						'style'            => get_post_meta( $post_id, 'style', true ),
 						// '/ $copy_as' => get_post_meta( $post_id, 'copy-as', true ),
-						'button_text' => get_post_meta( $post_id, 'button-text', true ),
-						'button_title' => get_post_meta( $post_id, 'button-title', true ),
+						'button_text'      => get_post_meta( $post_id, 'button-text', true ),
+						'button_title'     => get_post_meta( $post_id, 'button-title', true ),
 						'button_copy_text' => get_post_meta( $post_id, 'button-copy-text', true ),
-						'button_position' => get_post_meta( $post_id, 'button-position', true ),
+						'button_position'  => get_post_meta( $post_id, 'button-position', true ),
 					);
 				}
 			}
@@ -352,17 +347,17 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 				'copy_the_code_localize_vars',
 				array(
 					'previewMarkup' => '&lt;h2&gt;Hello World&lt;/h2&gt;',
-					'buttonMarkup' => '<button class="copy-the-code-button" title=""></button>',
-					'buttonSvg' => '<svg viewBox="-21 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m186.667969 416c-49.984375 0-90.667969-40.683594-90.667969-90.667969v-218.664062h-37.332031c-32.363281 0-58.667969 26.300781-58.667969 58.664062v288c0 32.363281 26.304688 58.667969 58.667969 58.667969h266.664062c32.363281 0 58.667969-26.304688 58.667969-58.667969v-37.332031zm0 0"></path><path d="m469.332031 58.667969c0-32.40625-26.261719-58.667969-58.664062-58.667969h-224c-32.40625 0-58.667969 26.261719-58.667969 58.667969v266.664062c0 32.40625 26.261719 58.667969 58.667969 58.667969h224c32.402343 0 58.664062-26.261719 58.664062-58.667969zm0 0"></path></svg>',
-					'selectors' => $selectors,
-					'selector' => 'pre', // Selector in which have the actual `<code>`.
-					'settings' => $this->get_page_settings(),
-					'string'   => array(
+					'buttonMarkup'  => '<button class="copy-the-code-button" title=""></button>',
+					'buttonSvg'     => '<svg viewBox="-21 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m186.667969 416c-49.984375 0-90.667969-40.683594-90.667969-90.667969v-218.664062h-37.332031c-32.363281 0-58.667969 26.300781-58.667969 58.664062v288c0 32.363281 26.304688 58.667969 58.667969 58.667969h266.664062c32.363281 0 58.667969-26.304688 58.667969-58.667969v-37.332031zm0 0"></path><path d="m469.332031 58.667969c0-32.40625-26.261719-58.667969-58.664062-58.667969h-224c-32.40625 0-58.667969 26.261719-58.667969 58.667969v266.664062c0 32.40625 26.261719 58.667969 58.667969 58.667969h224c32.402343 0 58.664062-26.261719 58.664062-58.667969zm0 0"></path></svg>',
+					'selectors'     => $selectors,
+					'selector'      => 'pre', // Selector in which have the actual `<code>`.
+					'settings'      => $this->get_page_settings(),
+					'string'        => array(
 						'title'  => $this->get_page_setting( 'button-title', __( 'Copy to Clipboard', 'copy-the-code' ) ),
 						'copy'   => $this->get_page_setting( 'button-text', __( 'Copy', 'copy-the-code' ) ),
 						'copied' => $this->get_page_setting( 'button-copy-text', __( 'Copied!', 'copy-the-code' ) ),
 					),
-					'image-url' => COPY_THE_CODE_URI . '/assets/images/copy-1.svg',
+					'image-url'     => COPY_THE_CODE_URI . '/assets/images/copy-1.svg',
 				)
 			);
 		}
@@ -374,11 +369,11 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 		 */
 		function save_settings() {
 
-			if( ! isset( $_REQUEST['page'] ) || ! isset( $_REQUEST['copy-the-code'] ) ) {
+			if ( ! isset( $_REQUEST['page'] ) || ! isset( $_REQUEST['copy-the-code'] ) ) {
 				return;
 			}
 
-			if (  strpos( $_REQUEST['page'], 'copy-to-clipboard-add-new' ) === false ) {
+			if ( strpos( $_REQUEST['page'], 'copy-to-clipboard-add-new' ) === false ) {
 				return;
 			}
 
@@ -396,33 +391,31 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 
 			$query_args = array(
 				'post_type'      => 'copy-to-clipboard',
-			
+
 				// Query performance optimization.
 				'fields'         => 'ids',
 				'no_found_rows'  => true,
 				'posts_per_page' => -1,
-				'meta_key' => 'selector',
-				'meta_value' => $selector,
+				'meta_key'       => 'selector',
+				'meta_value'     => $selector,
 			);
-			
+
 			$query = new WP_Query( $query_args );
-			if( $query->post_count ) {
+			if ( $query->post_count ) {
 				add_action( 'admin_notices', array( $this, 'selector_exist_notice' ) );
 				return;
 			}
 
-			
 			// New settings.
 			$new_data = array(
 				'selector'         => $selector,
-				'style'         => ( isset( $_REQUEST['style'] ) ) ? $_REQUEST['style'] : 'button',
+				'style'            => ( isset( $_REQUEST['style'] ) ) ? $_REQUEST['style'] : 'button',
 				'button-text'      => ( isset( $_REQUEST['button-text'] ) ) ? $_REQUEST['button-text'] : 'Copy',
 				'button-title'     => ( isset( $_REQUEST['button-title'] ) ) ? $_REQUEST['button-title'] : 'Copy',
 				'button-copy-text' => ( isset( $_REQUEST['button-copy-text'] ) ) ? $_REQUEST['button-copy-text'] : 'Copied!',
 				'button-position'  => ( isset( $_REQUEST['button-position'] ) ) ? $_REQUEST['button-position'] : 'inside',
 			);
 
-			// copy-to-clipboard
 			$data = array(
 				'post_type'   => 'copy-to-clipboard',
 				'post_status' => 'publish',
@@ -439,6 +432,8 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 		/**
 		 * Get Setting
 		 *
+		 * @param  string $key           Setting key.
+		 * @param  string $default_value Setting default value.
 		 * @return mixed Single Setting.
 		 */
 		function get_page_setting( $key = '', $default_value = '' ) {
@@ -451,6 +446,12 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 			return $default_value;
 		}
 
+		/**
+		 * Selector is exist notice.
+		 *
+		 * @since 2.0.0
+		 * @return void
+		 */
 		function selector_exist_notice() {
 			?>
 			<div class="notice notice-error">

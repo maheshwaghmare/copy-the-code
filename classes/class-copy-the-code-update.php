@@ -89,8 +89,8 @@ if ( ! class_exists( 'Copy_The_Code_Update' ) ) :
 		public static function v_2_0_0() {
 
 			$defaults = array(
-				'selector' => 'pre',
-				'style'    => 'button',
+				'selector'         => 'pre',
+				'style'            => 'button',
 				'button-text'      => 'Copy',
 				'button-title'     => 'Copy',
 				'button-copy-text' => 'Copied!',
@@ -98,7 +98,7 @@ if ( ! class_exists( 'Copy_The_Code_Update' ) ) :
 			);
 
 			$stored_data = Copy_The_Code_Page::get_instance()->get_page_settings();
-			$data = wp_parse_args( $stored_data, $defaults );
+			$data        = wp_parse_args( $stored_data, $defaults );
 
 			$args = array(
 				'post_type'   => 'copy-to-clipboard',
