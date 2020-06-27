@@ -44,6 +44,12 @@ For more info check out the following:
 * The [Contact Me](https://maheshwaghmare.com/say-hello/).
 * The [Getting started guide](https://maheshwaghmare.com/doc/copy-anything-to-clipboard/).
 * Other my [WordPress Plugins](https://wordpress.org/plugins/search/mahesh901122/).
+* Contribute with [development](https://github.com/maheshwaghmare/copy-the-code/).
+* Make a [small donation](https://www.paypal.me/mwaghmare7/).
+
+== Image Copyrights
+
+Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel perfect</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
 
 == Installation ==
 
