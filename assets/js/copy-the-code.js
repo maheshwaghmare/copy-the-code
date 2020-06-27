@@ -49,7 +49,6 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
     CopyTheCode = {
 
         selector: copyTheCode.settings.selector || copyTheCode.selector || 'pre',
-        // copy_as: copyTheCode.settings['copy-as'] || 'text',
         button_position: copyTheCode.settings['button-position'] || 'inside',
 
         /**
@@ -87,11 +86,9 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
                 var selector = el['selector'] || '';
                 var style = el['style'] || '';
 
-
                 $( selector ).each(function(index, single_selector) {
                     
                     var buttonMarkup = CopyTheCode._getButtonMarkup( button_title, button_text, style );
-                    console.log( buttonMarkup );
 
                     $( single_selector ).addClass('copy-the-code-target');
 
@@ -155,13 +152,9 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
                 } else {
                     var source = btn.parents('.copy-the-code-wrap').find( selector );
                 }
+            
 
-                console.log( 'source' );
-                console.log( source );
-            // // Fix: nested selectors e.g. `.entry-content pre`
-            // if( selector.indexOf(' ') >= 0 /*|| 'text' === CopyTheCode.copy_as*/ ) {
                 var html = source.html();
-                console.log( html );
 
                 // Convert the <br/> tags into new line.
                 var brRegex = /<br\s*[\/]?>/gi;
@@ -197,13 +190,6 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
 
                 // Remove the <copy> button.
                 var tempHTML = tempHTML.replace(buttonMarkup, '');
-    
-            // } else {
-            //     var html = source.html();
-
-            //     // Remove the <copy> button.
-            //     var tempHTML = html.replace(CopyTheCode._getButtonMarkup(), '');
-            // }
 
             // Copy the Code.
             var tempPre = $("<textarea id='temp-pre'>"),
@@ -219,7 +205,6 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
             var content = tempPre.text();
 
             content = $.trim( content );
-            console.log( content );
 
             // Format the HTML markup.
             temp.val( content ).select();

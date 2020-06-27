@@ -1,13 +1,4 @@
-<?php
-
-$current_tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : 'general';
-$tabs = array(
-	'general' => 'General',
-	'add-new' => 'Add new',
-);
-
-?>
-<div class="wrap copy-the-code" id="sync-post">
+<div class="wrap copy-the-code">
 	<div class="wrap">
 		<h1><?php echo esc_html( COPY_THE_CODE_TITLE ); ?> <small>v<?php echo esc_html( COPY_THE_CODE_VER ); ?></small></h1>
 
@@ -32,18 +23,6 @@ $tabs = array(
 										</td>
 									</tr>
 
-									<!-- <tr>
-										<th scope="row"><?php _e( 'Copy Content As', 'copy-the-code' ); ?></th>
-										<td>
-											<fieldset>
-												<select name="copy-as">
-													<option value="html" <?php selected( $data['copy-as'], 'html' ); ?>><?php echo 'HTML'; ?></option>
-													<option value="text" <?php selected( $data['copy-as'], 'text' ); ?>><?php echo 'Text'; ?></option>
-												</select>
-												<p class="description"><?php _e( 'Copy the content as Text or HTML.', 'copy-the-code' ); ?></p>
-											</fieldset>
-										</td>
-									</tr> -->
 									<tr>
 										<th scope="row"><?php _e( 'Style', 'copy-the-code' ); ?></th>
 										<td>
@@ -150,4 +129,3 @@ $tabs = array(
 		</div>
 	</div>
 </div>
-<?php
