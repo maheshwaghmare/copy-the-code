@@ -41,11 +41,8 @@ if ( ! class_exists( 'Copy_The_Code' ) ) :
 		 * Constructor
 		 */
 		public function __construct() {
-			if ( apply_filters( 'copy_the_code_enabled', true ) ) {
-				// Plugin Files.
-				require_once COPY_THE_CODE_DIR . 'classes/class-copy-the-code-update.php';
-				require_once COPY_THE_CODE_DIR . 'classes/class-copy-the-code-page.php';
-			}
+			require_once COPY_THE_CODE_DIR . 'classes/class-copy-the-code-update.php';
+			require_once COPY_THE_CODE_DIR . 'classes/class-copy-the-code-page.php';
 		}
 
 	}

@@ -116,36 +116,35 @@ $tabs = array(
 					<h3>Preview:</h3>
 					<div id="preview"></div>
 
+					<div class="postbox">
+						<h2 class="hndle"><span><?php _e( 'Getting Started', 'copy-the-code' ); ?></span></h2>
+						<div class="inside">
+							<ul class="items">
+								<li>» <a style="text-decoration: none;" target="_blank" href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#how-does-it-work"><?php esc_html_e( 'How does it work?', 'copy-the-code' ); ?></a></li>
+								<li>» <a style="text-decoration: none;" target="_blank" href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#what-is-the-selector"><?php esc_html_e( 'What is the selector?', 'copy-the-code' ); ?></a></li>
+								<li>» <a style="text-decoration: none;" target="_blank" href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#example-1-using-html-tag-as-a-selector"><?php esc_html_e( 'Example 1 - Using HTML tag as a selector', 'copy-the-code' ); ?></a></li>
+								<li>» <a style="text-decoration: none;" target="_blank" href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#example-2-using-class-as-a-selector"><?php esc_html_e( 'Example 2 - Using class as a selector', 'copy-the-code' ); ?></a></li>
+								<li>» <a style="text-decoration: none;" target="_blank" href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#example-3-using-id-as-a-selector"><?php esc_html_e( 'Example 3 - Using ID as a selector', 'copy-the-code' ); ?></a></li>
+								<li>» <a style="text-decoration: none;" target="_blank" href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#example-4-using-nested-selector"><?php esc_html_e( 'Example 4 - Using nested selector', 'copy-the-code' ); ?></a></li>
+							</ul>
+						</div>
+					</div>
 
 					<div class="postbox">
-										<h2 class="hndle"><span><?php _e( 'Getting Started', 'copy-the-code' ); ?></span></h2>
-										<div class="inside">
-											<ul class="items">
-												<li>» <a style="text-decoration: none;" target="_blank" href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#how-does-it-work"><?php esc_html_e( 'How does it work?', 'copy-the-code' ); ?></a></li>
-												<li>» <a style="text-decoration: none;" target="_blank" href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#what-is-the-selector"><?php esc_html_e( 'What is the selector?', 'copy-the-code' ); ?></a></li>
-												<li>» <a style="text-decoration: none;" target="_blank" href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#example-1-using-html-tag-as-a-selector"><?php esc_html_e( 'Example 1 - Using HTML tag as a selector', 'copy-the-code' ); ?></a></li>
-												<li>» <a style="text-decoration: none;" target="_blank" href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#example-2-using-class-as-a-selector"><?php esc_html_e( 'Example 2 - Using class as a selector', 'copy-the-code' ); ?></a></li>
-												<li>» <a style="text-decoration: none;" target="_blank" href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#example-3-using-id-as-a-selector"><?php esc_html_e( 'Example 3 - Using ID as a selector', 'copy-the-code' ); ?></a></li>
-												<li>» <a style="text-decoration: none;" target="_blank" href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#example-4-using-nested-selector"><?php esc_html_e( 'Example 4 - Using nested selector', 'copy-the-code' ); ?></a></li>
-											</ul>
-										</div>
-									</div>
+						<h2 class="hndle"><span><?php _e( 'Support', 'copy-the-code' ); ?></span></h2>
+						<div class="inside">
+							<p><?php _e( 'Do you have any issue with this plugin? Or Do you have any suggessions?', 'copy-the-code' ); ?></p>
+							<p><?php _e( 'Please don\'t hesitate to <a href="http://maheshwaghmare.wordpress.com/?p=999" target="_blank">send request »</a>.', 'copy-the-code' ); ?></p>
+						</div>
+					</div>
 
-									<div class="postbox">
-										<h2 class="hndle"><span><?php _e( 'Support', 'copy-the-code' ); ?></span></h2>
-										<div class="inside">
-											<p><?php _e( 'Do you have any issue with this plugin? Or Do you have any suggessions?', 'copy-the-code' ); ?></p>
-											<p><?php _e( 'Please don\'t hesitate to <a href="http://maheshwaghmare.wordpress.com/?p=999" target="_blank">send request »</a>.', 'copy-the-code' ); ?></p>
-										</div>
-									</div>
-
-									<div class="postbox">
-										<h2 class="hndle"><span><?php _e( 'Donate', 'copy-the-code' ); ?></span></h2>
-										<div class="inside">
-											<p><?php _e( 'Would you like to support the advancement of this plugin?', 'copy-the-code' ); ?></p>
-											<a href="https://www.paypal.me/mwaghmare7/" target="_blank" class="button button-primary"><?php _e( 'Donate Now!', 'copy-the-code' ); ?></a>
-										</div>
-									</div>
+					<div class="postbox">
+						<h2 class="hndle"><span><?php _e( 'Donate', 'copy-the-code' ); ?></span></h2>
+						<div class="inside">
+							<p><?php _e( 'Would you like to support the advancement of this plugin?', 'copy-the-code' ); ?></p>
+							<a href="https://www.paypal.me/mwaghmare7/" target="_blank" class="button button-primary"><?php _e( 'Donate Now!', 'copy-the-code' ); ?></a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

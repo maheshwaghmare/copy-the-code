@@ -3,7 +3,7 @@ Contributors: Mahesh901122
 Donate link: https://www.paypal.me/mwaghmare7/
 Tags: Copy to Clipboard, Clipboard, Copy Anything to Clipboard
 Tested up to: 5.4
-Stable tag: 1.7.5
+Stable tag: 2.0.0
 Requires at least: 4.4
 
 Copy the Text or HTML into the clipboard 📋 (clipboard). You can use it for code snippets, special symbols, discount codes, or anything which you want. By default it add the copy to clipboard button to the <code>&lt;pre&gt;</code> tag.
@@ -126,6 +126,17 @@ function my_slug_copy_the_code_localize_vars( $defaults )
 Yes, We have added `!important` for the Copy button to keep the button style same for each theme. We have tested below themes.
 
 == Changelog ==
+
+= 2.0.0 =
+
+* Tweak: Create a new post copy to clipboard post depends on the old user settings.
+* Deprecated: Removed the filter `copy_the_code_enabled` which is no more useful.
+* Deprecated: Removed the option `Copy the content` which is no more useful. Will add the support though filter if required.
+* New: Added custom post type support to add multiple copy to clipboard buttons with different selectors and styles.
+* New: Improve the UI with live preview.
+* New: Added the new `SVG Icon` button style to show the SVG icon instead of button.
+* New: Added inside and outside position support for the new style SVG Icon.
+* New: Added the new `Cover` style to copy the small element in which we could not add the copy button. Such as Emoji and Symbols.
 
 = 1.7.5 =
 

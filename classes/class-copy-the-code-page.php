@@ -156,6 +156,12 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 			return $url;
 		}
 
+		/**
+		 * Register menus
+		 *
+		 * @since 2.0.0
+		 * @return void
+		 */
 		function init_admin_settings() {
 			if ( current_user_can( 'edit_posts' ) ) {
 				add_action( 'admin_menu', array( $this, 'register' ) );
@@ -166,7 +172,7 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 		/**
 		 * Sets the active menu item for the builder admin submenu.
 		 *
-		 * @since 1.0.2
+		 * @since 2.0.0
 		 *
 		 * @param string $submenu_file  Submenu file.
 		 * @param string $parent_file   Parent file.
@@ -189,7 +195,7 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 		/**
 		 * Registers the add new portfolio form admin menu for adding portfolios.
 		 *
-		 * @since 1.0.2
+		 * @since 2.0.0
 		 *
 		 * @return void
 		 */
@@ -209,7 +215,7 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 		/**
 		 * Add new page
 		 *
-		 * @since 1.0.2
+		 * @since 2.0.0
 		 */
 		public function add_new_page() {
 			$data = $this->get_page_settings();
@@ -277,7 +283,12 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 		 *
 		 * @return void
 		 */
-		function admin_enqueue_assets() {
+		function admin_enqueue_assets( $hook = '' ) {
+
+			if( 'copy-to-clipboard_page_copy-to-clipboard-add-new' !== $hook ) {
+				return;
+			}
+
 			wp_enqueue_script( 'copy-the-code-page', COPY_THE_CODE_URI . 'assets/js/page.js', array( 'jquery' ), COPY_THE_CODE_VER, true );
 			wp_enqueue_style( 'copy-the-code-page', COPY_THE_CODE_URI . 'assets/css/page.css', null, COPY_THE_CODE_VER, 'all' );
 
@@ -305,6 +316,11 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 			);
 		}
 
+		/**
+		 * Localize Vars
+		 *
+		 * @return array
+		 */
 		function get_localize_vars() {
 
 			$query_args = array(
@@ -318,8 +334,6 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 			
 			$query = new WP_Query( $query_args );
 			$selectors = array();
-			// vl( $query->posts );
-			// wp_die();
 			if ( $query->posts ) {
 				foreach ( $query->posts as $key => $post_id ) {
 					$selectors[] = array(
@@ -334,8 +348,6 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 				}
 			}
 
-			// vl( $selectors );
-			// wp_die();
 			return apply_filters(
 				'copy_the_code_localize_vars',
 				array(
@@ -442,7 +454,7 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 		function selector_exist_notice() {
 			?>
 			<div class="notice notice-error">
-				<p>The selector is already exist! Please try another selector.</p>
+				<p><?php esc_html__( 'The selector is already exist! Please try another selector.', 'copy-the-code' ); ?></p>
 			</div>
 			<?php
 		}
@@ -478,23 +490,10 @@ if ( ! class_exists( 'Copy_The_Code_Page' ) ) :
 		 */
 		function action_links( $links ) {
 			$action_links = array(
-				'settings' => '<a href="' . admin_url( 'edit.php?post_type=copy-to-clipboard&page=copy-to-clipboard-add-new' ) . '" aria-label="' . esc_attr__( 'Settings', 'copy-the-code' ) . '">' . esc_html__( 'Settings', 'copy-the-code' ) . '</a>',
+				'add-new' => '<a href="' . admin_url( 'edit.php?post_type=copy-to-clipboard&page=copy-to-clipboard-add-new' ) . '" aria-label="' . esc_attr__( 'Add new', 'copy-the-code' ) . '">' . esc_html__( 'Add new', 'copy-the-code' ) . '</a>',
 			);
 
 			return array_merge( $action_links, $links );
-		}
-
-		/**
-		 * Tabs
-		 *
-		 * @since 1.7.0
-		 * @return array
-		 */
-		function get_tabs() {
-			return array(
-				'general' => esc_html__( 'General', 'copy-the-code' ),
-				'style' => esc_html__( 'Style', 'copy-the-code' ),
-			);
 		}
 
 	}
