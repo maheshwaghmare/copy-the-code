@@ -2,8 +2,8 @@
 Contributors: Mahesh901122
 Donate link: https://www.paypal.me/mwaghmare7/
 Tags: Copy to Clipboard, Clipboard, Copy Anything to Clipboard
-Tested up to: 5.4
-Stable tag: 2.1.0
+Tested up to: 5.7
+Stable tag: 2.1.1
 Requires PHP: 5.6
 Requires at least: 4.4
 
@@ -113,6 +113,10 @@ function my_slug_copy_the_code_localize_vars( $defaults )
 Yes, We have added `!important` for the Copy button to keep the button style same for each theme. We have tested below themes.
 
 == Changelog ==
+
+= 2.1.1 =
+
+* Improvement - Compatibility to WordPress 5.7.
 
 = 2.1.0 =
 
