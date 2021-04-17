@@ -43,6 +43,7 @@ if ( ! class_exists( 'Copy_The_Code' ) ) :
 		public function __construct() {
 			require_once COPY_THE_CODE_DIR . 'classes/class-copy-the-code-update.php';
 			require_once COPY_THE_CODE_DIR . 'classes/class-copy-the-code-page.php';
+			require_once COPY_THE_CODE_DIR . 'classes/class-copy-the-code-shortcode.php';
 		}
 
 	}
