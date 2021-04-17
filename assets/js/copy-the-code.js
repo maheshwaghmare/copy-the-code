@@ -1,4 +1,4 @@
-window.CopyTheCodeToClipboard = (function(window, document, navigator) {
+window.CopyTheCodeToClipboard = (function (window, document, navigator) {
     var textArea,
         copy;
 
@@ -28,12 +28,12 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
         }
     }
 
-    function copyToClipboard() {        
+    function copyToClipboard() {
         document.execCommand('copy');
         document.body.removeChild(textArea);
     }
 
-    copy = function(text) {
+    copy = function (text) {
         createTextArea(text);
         selectText();
         copyToClipboard();
@@ -44,7 +44,7 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
     };
 })(window, document, navigator);
 
-(function($) {
+(function ($) {
 
     CopyTheCode = {
 
@@ -54,8 +54,7 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
         /**
          * Init
          */
-        init: function()
-        {
+        init: function () {
             this._bind();
             this._initialize();
         },
@@ -63,22 +62,20 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
         /**
          * Binds events
          */
-        _bind: function()
-        {
-            $( document ).on('click', '.copy-the-code-button', CopyTheCode.copyCode );
+        _bind: function () {
+            $(document).on('click', '.copy-the-code-button', CopyTheCode.copyCode);
+            $(document).on('click', '.copy-the-code-shortcode', CopyTheCode.copyShortcode);
         },
 
         /**
          * Initialize the Button
          */
-        _initialize: function()
-        {
-            if( ! $( copyTheCode.selectors ).length )
-            {
+        _initialize: function () {
+            if (!$(copyTheCode.selectors).length) {
                 return;
             }
 
-            $( copyTheCode.selectors ).each(function(index, el) {
+            $(copyTheCode.selectors).each(function (index, el) {
                 var button_copy_text = el['button_copy_text'] || '';
                 var button_position = el['button_position'] || '';
                 var button_text = el['button_text'] || '';
@@ -86,28 +83,28 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
                 var selector = el['selector'] || '';
                 var style = el['style'] || '';
 
-                $( selector ).each(function(index, single_selector) {
-                    
-                    var buttonMarkup = CopyTheCode._getButtonMarkup( button_title, button_text, style );
+                $(selector).each(function (index, single_selector) {
 
-                    $( single_selector ).addClass('copy-the-code-target');
+                    var buttonMarkup = CopyTheCode._getButtonMarkup(button_title, button_text, style);
 
-                    if( 'cover' !== style && 'outside' === button_position ) {
-                        $( single_selector ).wrap( '<span data-button-text="'+button_text+'" data-button-position="'+button_position+'" data-button-copy-text="'+button_copy_text+'" data-style="'+style+'" data-button-title="'+button_title+'" data-selector="'+selector+'" class="copy-the-code-wrap copy-the-code-style-'+style+' copy-the-code-outside-wrap"></span>' );
-                        $( single_selector ).parent().prepend('<div class="copy-the-code-outside">' + buttonMarkup + '</div>');
+                    $(single_selector).addClass('copy-the-code-target');
+
+                    if ('cover' !== style && 'outside' === button_position) {
+                        $(single_selector).wrap('<span data-button-text="' + button_text + '" data-button-position="' + button_position + '" data-button-copy-text="' + button_copy_text + '" data-style="' + style + '" data-button-title="' + button_title + '" data-selector="' + selector + '" class="copy-the-code-wrap copy-the-code-style-' + style + ' copy-the-code-outside-wrap"></span>');
+                        $(single_selector).parent().prepend('<div class="copy-the-code-outside">' + buttonMarkup + '</div>');
                     } else {
-                        $( single_selector ).wrap( '<span data-button-text="'+button_text+'" data-button-position="'+button_position+'" data-button-copy-text="'+button_copy_text+'" data-style="'+style+'" data-button-title="'+button_title+'" data-selector="'+selector+'" class="copy-the-code-wrap copy-the-code-style-'+style+' copy-the-code-inside-wrap"></span>' );
-                        $( single_selector ).append( buttonMarkup );
+                        $(single_selector).wrap('<span data-button-text="' + button_text + '" data-button-position="' + button_position + '" data-button-copy-text="' + button_copy_text + '" data-style="' + style + '" data-button-title="' + button_title + '" data-selector="' + selector + '" class="copy-the-code-wrap copy-the-code-style-' + style + ' copy-the-code-inside-wrap"></span>');
+                        $(single_selector).append(buttonMarkup);
                     }
 
-                    switch( style ) {
+                    switch (style) {
                         case 'svg-icon':
-                                $( single_selector ).find( '.copy-the-code-button').html( copyTheCode.buttonSvg );
+                            $(single_selector).find('.copy-the-code-button').html(copyTheCode.buttonSvg);
                             break;
                         case 'cover':
                         case 'button':
                         default:
-                            $( single_selector ).find( '.copy-the-code-button').html( button_text );
+                            $(single_selector).find('.copy-the-code-button').html(button_text);
                             break;
                     }
 
@@ -120,119 +117,245 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
         /**
          * Get Copy Button Markup
          */
-        _getButtonMarkup: function( button_title, button_text, style )
-        {
-            if( 'svg-icon' === style ) {
+        _getButtonMarkup: function (button_title, button_text, style) {
+            if ('svg-icon' === style) {
                 button_text = copyTheCode.buttonSvg;
             }
 
-            return '<button class="copy-the-code-button" data-style="'+style+'" title="' + button_title + '">' + button_text + '</button>';
+            return '<button class="copy-the-code-button" data-style="' + style + '" title="' + button_title + '">' + button_text + '</button>';
+        },
+
+        format: function (html) {
+            var tab = '\t';
+            var result = '';
+            var indent = '';
+
+            html.split(/>\s*</).forEach(function (element) {
+                if (element.match(/^\/\w/)) {
+                    indent = indent.substring(tab.length);
+                }
+
+                result += indent + '<' + element + '>\r\n';
+
+                if (element.match(/^<?\w[^>]*[^\/]$/) && !element.startsWith("input")) {
+                    indent += tab;
+                }
+            });
+
+            return result.substring(1, result.length - 3);
         },
 
         /**
          * Copy to Clipboard
          */
-        copyCode: function( event )
-        {
+        copyShortcode: function (event) {
             event.preventDefault();
 
-            var btn     = $( this ),
+            var btn = $(this),
                 oldText = btn.text(),
-                parent = btn.parents('.copy-the-code-wrap'),
-                selector = parent.attr( 'data-selector' ) || '',
-                button_text = parent.attr( 'data-button-text' ) || '',
-                button_position = parent.attr( 'data-button-position' ) || '',
-                button_copy_text = parent.attr( 'data-button-copy-text' ) || '',
-                button_title = parent.attr( 'data-button-title' ) || '',
-                style = parent.attr( 'data-style' ) || '';
+                target = btn.attr('data-target') || '',
+                copy_content_as = btn.attr('data-copy-as') || copyTheCode.copy_content_as,
+                button_copy_text = btn.attr('data-button-copy-text') || '',
+                content = btn.attr('data-content') || '';
 
-                // Fix: nested selectors e.g. `.entry-content pre`
-                if ( selector.indexOf(' ') >= 0 ) {
-                    var source = btn.parents('.copy-the-code-wrap');
-                } else {
-                    var source = btn.parents('.copy-the-code-wrap').find( selector );
-                }
+            // Copy the secrate content.
+            if (content) {
+                CopyTheCodeToClipboard.copy(content);
+                // Copied!
+                btn.text(button_copy_text);
+                setTimeout(function () {
+                    btn.text(oldText);
+                }, 1000);
+                return;
+            }
 
-                var html = source.html();
+            var source = $(target);
 
-                if( 'html' !== copyTheCode.copy_content_as ) {
-                    // Convert the <br/> tags into new line.
-                    var brRegex = /<br\s*[\/]?>/gi;
-                    html = html.replace(brRegex, "\n" );
+            if (!source.length) {
+                btn.text('Not found!');
+                setTimeout(function () {
+                    btn.text(oldText);
+                }, 1000);
+                return;
+            }
 
-                    // Convert the <div> tags into new line.
-                    var divRegex = /<div\s*[\/]?>/gi;
-                    html = html.replace(divRegex, "\n" );
+            var html = source.html();
 
-                    // Convert the <p> tags into new line.
-                    var pRegex = /<p\s*[\/]?>/gi;
-                    html = html.replace(pRegex, "\n" );
+            html = CopyTheCode.format(html);
 
-                    // Convert the <li> tags into new line.
-                    var pRegex = /<li\s*[\/]?>/gi;
-                    html = html.replace(pRegex, "\n" );
+            if ('html' !== copy_content_as) {
 
-                    // Remove all tags.
-                    html = html.replace( /(<([^>]+)>)/ig, '');
-                }
+                // Convert the <br/> tags into new line.
+                var brRegex = /<br\s*[\/]?>/gi;
+                html = html.replace(brRegex, "\n");
 
-                // Remove white spaces.
+                // Convert the <div> tags into new line.
+                var divRegex = /<div\s*[\/]?>/gi;
+                html = html.replace(divRegex, "\n");
+
+                // Convert the <p> tags into new line.
+                var pRegex = /<p\s*[\/]?>/gi;
+                html = html.replace(pRegex, "\n");
+
+                // Convert the <li> tags into new line.
+                var pRegex = /<li\s*[\/]?>/gi;
+                html = html.replace(pRegex, "\n");
+
+                // Remove all tags.
+                html = html.replace(/(<([^>]+)>)/ig, '');
+            }
+
+            if ('html' !== copy_content_as) {
+                html = html.replace(/[\t\n]+/gm, ' ').trim();
+            } else {
                 var reWhiteSpace = new RegExp("/^\s+$/");
-                html = html.replace(reWhiteSpace, "" );
+                html = html.replace(reWhiteSpace, "");
+            }
 
-                var tempElement = $("<div id='temp-element'></div>");
-                $("body").append(tempElement);
-                html = $.trim( html );
-                $('#temp-element').html( html );
-                var html = $('#temp-element').html();
-                $('#temp-element').remove();
+            var tempElement = $("<div id='temp-element'></div>");
+            $("body").append(tempElement);
+            html = $.trim(html);
+            $('#temp-element').html(html);
+            var html = $('#temp-element').html();
+            $('#temp-element').remove();
 
-                var tempHTML = html;
-                console.log( tempHTML );
-
-                var buttonMarkup = CopyTheCode._getButtonMarkup( button_title, button_text, style );
-                console.log( buttonMarkup );
-
-                // Remove the <copy> button.
-                tempHTML = tempHTML.replace(buttonMarkup, '');
-                // console.log( buttonMarkup );
-                // console.log( tempHTML );
-
-                // Remove button text.
-                tempHTML = tempHTML.replace(button_text, '');
+            var tempHTML = html;
 
             // Copy the Code.
             var tempPre = $("<textarea id='temp-pre'>"),
-                temp    = $("<textarea>");
+                temp = $("<textarea>");
 
             // Append temporary elements to DOM.
             $("body").append(temp);
             $("body").append(tempPre);
 
             // Set temporary HTML markup.
-            tempPre.html( tempHTML );
+            tempPre.html(tempHTML);
 
             var content = tempPre.text();
 
-            content = $.trim( content );
+            content = $.trim(content);
 
             // Format the HTML markup.
-            temp.val( content ).select();
+            temp.val(content).select();
 
             // Support for IOS devices too.
-            CopyTheCodeToClipboard.copy( content );
+            CopyTheCodeToClipboard.copy(content);
 
             // Remove temporary elements.
             temp.remove();
             tempPre.remove();
 
             // Copied!
-            btn.text( button_copy_text );
-            setTimeout(function() {
-                if( 'svg-icon' === style ) {
-                    btn.html( copyTheCode.buttonSvg );
+            btn.text(button_copy_text);
+            setTimeout(function () {
+                btn.text(oldText);
+            }, 1000);
+        },
+
+        /**
+         * Copy to Clipboard
+         */
+        copyCode: function (event) {
+            event.preventDefault();
+
+            var btn = $(this),
+                oldText = btn.text(),
+                parent = btn.parents('.copy-the-code-wrap'),
+                selector = parent.attr('data-selector') || '',
+                button_text = parent.attr('data-button-text') || '',
+                button_position = parent.attr('data-button-position') || '',
+                button_copy_text = parent.attr('data-button-copy-text') || '',
+                button_title = parent.attr('data-button-title') || '',
+                style = parent.attr('data-style') || '';
+
+            // Fix: nested selectors e.g. `.entry-content pre`
+            if (selector.indexOf(' ') >= 0) {
+                var source = btn.parents('.copy-the-code-wrap');
+            } else {
+                var source = btn.parents('.copy-the-code-wrap').find(selector);
+            }
+
+            var html = source.html();
+
+            if ('html' !== copyTheCode.copy_content_as) {
+                // Convert the <br/> tags into new line.
+                var brRegex = /<br\s*[\/]?>/gi;
+                html = html.replace(brRegex, "\n");
+
+                // Convert the <div> tags into new line.
+                var divRegex = /<div\s*[\/]?>/gi;
+                html = html.replace(divRegex, "\n");
+
+                // Convert the <p> tags into new line.
+                var pRegex = /<p\s*[\/]?>/gi;
+                html = html.replace(pRegex, "\n");
+
+                // Convert the <li> tags into new line.
+                var pRegex = /<li\s*[\/]?>/gi;
+                html = html.replace(pRegex, "\n");
+
+                // Remove all tags.
+                html = html.replace(/(<([^>]+)>)/ig, '');
+            }
+
+            // Remove white spaces.
+            var reWhiteSpace = new RegExp("/^\s+$/");
+            html = html.replace(reWhiteSpace, "");
+
+            var tempElement = $("<div id='temp-element'></div>");
+            $("body").append(tempElement);
+            html = $.trim(html);
+            $('#temp-element').html(html);
+            var html = $('#temp-element').html();
+            $('#temp-element').remove();
+
+            var tempHTML = html;
+            console.log(tempHTML);
+
+            var buttonMarkup = CopyTheCode._getButtonMarkup(button_title, button_text, style);
+            console.log(buttonMarkup);
+
+            // Remove the <copy> button.
+            tempHTML = tempHTML.replace(buttonMarkup, '');
+            // console.log( buttonMarkup );
+            // console.log( tempHTML );
+
+            // Remove button text.
+            tempHTML = tempHTML.replace(button_text, '');
+
+            // Copy the Code.
+            var tempPre = $("<textarea id='temp-pre'>"),
+                temp = $("<textarea>");
+
+            // Append temporary elements to DOM.
+            $("body").append(temp);
+            $("body").append(tempPre);
+
+            // Set temporary HTML markup.
+            tempPre.html(tempHTML);
+
+            var content = tempPre.text();
+
+            content = $.trim(content);
+
+            // Format the HTML markup.
+            temp.val(content).select();
+
+            // Support for IOS devices too.
+            CopyTheCodeToClipboard.copy(content);
+
+            // Remove temporary elements.
+            temp.remove();
+            tempPre.remove();
+
+            // Copied!
+            btn.text(button_copy_text);
+            setTimeout(function () {
+                if ('svg-icon' === style) {
+                    btn.html(copyTheCode.buttonSvg);
                 } else {
-                    btn.text( oldText );
+                    btn.text(oldText);
                 }
             }, 1000);
         }
@@ -241,7 +364,7 @@ window.CopyTheCodeToClipboard = (function(window, document, navigator) {
     /**
      * Initialization
      */
-    $(function() {
+    $(function () {
         CopyTheCode.init();
     });
 

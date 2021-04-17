@@ -21,7 +21,7 @@
 						<div class="tabs">
 							<div id="tab-general">
 								<table class="form-table">
-										<tr>
+									<tr>
 										<th scope="row"><?php _e( 'Selector', 'copy-the-code' ); ?></th>
 										<td>
 											<fieldset>

@@ -1,16 +1,14 @@
 === Copy Anything to Clipboard ===
 Contributors: Mahesh901122
 Donate link: https://www.paypal.me/mwaghmare7/
-Tags: Copy to Clipboard, Clipboard, Copy Anything to Clipboard
+Tags: Copy, Paste, Copy to Clipboard, Clipboard, Copy Anything to Clipboard
 Tested up to: 5.7
-Stable tag: 2.1.1
+Stable tag: 2.2.0
+Requires PHP: 5.6
 Requires at least: 4.4
 
-Copy the Text or HTML into the clipboard 📋 (clipboard). You can use it for code snippets, special symbols, discount codes, or anything which you want. By default it add the copy to clipboard button to the <code>&lt;pre&gt;</code> tag.
-
-Documentations and more visit <a href="https://maheshwaghmare.com/doc/copy-anything-to-clipboard/"> on Quick Guide</a>.
-
 == Description ==
+
 === Copy Anything to Clipboard: the #1 WordPress Copy to Clipboard plugin
 
 Add a copy button anywhere and simply copy it into the clipboard (📋).
@@ -19,18 +17,37 @@ You can copy to clipboard: code snippets, special symbols, discount codes, or an
 
 By default, the copy button is added to the `<pre>` tag. You can easily change the `pre` tag selector with any other selector. You can read more [about selector](https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#what-is-the-selector).
 
+Just use the shortcode as:
+
+<pre>
+[copy]hello world[/copy]
+</pre>
+
+Above shortcode show the link with text "Copy" and on click on that link the text "hello world" copied into the clipboard.
+
+We see the text "Copied" after clicking on the link which indicate user something is copied to clipboard.
+
+See short video:
+https://videos.files.wordpress.com/Mo6nR60h/copy-content-with-shortcode_mp4_hd.mp4
+
+Thats it.
+
+If you want to show the button instead of link then use:
+[copy tag="button"]hello world[/copy]
+
+Read more at [copy with shortcode](https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#shortcode).
+
+
 **FREE And Popular Copy to Clipboard Plugin**
 
-Over 1k+ users are empowering their websites with "Copy Anything to Clipboard" – 100% compatible for all themes and plugins.
+Over 4k+ users are empowering their websites with "Copy Anything to Clipboard" – 100% compatible for all themes and plugins.
 
 Reasons why people love the Copy Anything to Clipboard
 
 - Zero configuration
 - Easy to use
-- Add multiple buttons with different selectors.
-- Add copy with [button style](https://maheshwaghmare.com/doc/copy-anything-to-clipboard/)
-- Add copy with [svg icon style](https://maheshwaghmare.com/doc/copy-anything-to-clipboard/)
-- Add copy with [cover style](https://maheshwaghmare.com/doc/copy-anything-to-clipboard/)
+- Copy with shortcode
+- Customization options
 - Quick support
 
 **Welcome for featured requests**
@@ -60,14 +77,6 @@ Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pi
 
 1. Install the <code>Copy Anything to Clipboard</code> plugin either via the WordPress plugin directory, or by uploading the files to your server at <code>wp-content/plugins</code>.
 
-== Screenshots ==
-
-1. Button style with inside position preview
-2. Button style with outside position preview
-3. SVG Icon style with inside position preview
-4. SVG Icon style with outside position preview
-4. Cover style with preview
-
 == Frequently Asked Questions ==
 
 = How does it Works? =
@@ -75,6 +84,77 @@ Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pi
 After plugin install and activate, By default on front-end the `Copy` button is added for all the `<pre>` tags.
 
 On click on it the content within the `pre` tags is copy in clipboard.
+
+= How to use shortcode? =
+
+How to change the default link with a button, heading, or different tag?
+
+To change the default copy link use the shortcode attribute "tag". E.g.
+
+To show the button use shortcode:
+
+<pre>
+[copy tag='button']
+</pre>
+
+To show the h1 heading use shortcode:
+
+<pre>
+[copy tag='h1']
+</pre>
+
+See short video https://www.dropbox.com/s/ruguotkdd25xloo/KKoUoh1Ug1.mp4?dl=0
+
+Some examples:
+
+1. Copy the hidden text.
+
+<pre>
+[copy]12345[/copy]
+</pre>
+
+2. Diffetn copy text.
+
+<pre>
+[copy text="Copy the Text"]12345[/copy]
+</pre>
+
+3. Diffetn copied text.
+
+<pre>
+[copy text="Copy the Text" text="Text Copied!"]12345[/copy]
+</pre>
+
+4. Show the copy link as a button
+
+<pre>
+[copy text="Copy the Text" text="Text Copied!" tag="button"]12345[/copy]
+</pre>
+
+5. Show the copy link as a button
+
+<pre>
+[copy text="Copy the Text" text="Text Copied!" tag="h2"]12345[/copy]
+</pre>
+
+6. Copy the footer text
+
+<pre>
+[copy target="#colophon"]
+</pre>
+
+7. Copy the footer text
+
+<pre>
+[copy target="#colophon"]
+</pre>
+
+8. Copy the footer markup/HTML
+
+<pre>
+[copy target="#colophon" copy-as="html"]
+</pre>
+
 
 = What is the selector? =
 
@@ -127,6 +207,10 @@ Yes, We have added `!important` for the Copy button to keep the button style sam
 
 == Changelog ==
 
+= 2.2.0 =
+
+* New - Added shortcode [copy] to copy the content. E.g. [copy]12345[/copy]. Read more at https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#shortcode
+
 = 2.1.1 =
 
 * Improvement - Compatibility to WordPress 5.7.
@@ -145,6 +229,16 @@ Yes, We have added `!important` for the Copy button to keep the button style sam
 * New: Added the new `SVG Icon` button style to show the SVG icon instead of button.
 * New: Added inside and outside position support for the new style SVG Icon.
 * New: Added the new `Cover` style to copy the small element in which we could not add the copy button. Such as Emoji and Symbols.
+
+= 1.8.0 =
+
+* New: Set the `Copy Content As` default option with `text`.
+* Improvements: Converted the `<br>` tags into the new line if the option "Copy Content As" selected as `Text`.
+* Improvements: Converted the `<div>` tags into the new line if the option "Copy Content As" selected as `Text`.
+* Improvements: Converted the `<p>` tags into the new line if the option "Copy Content As" selected as `Text`.
+* Improvements: Converted the `<li>` tags into the new line if the option "Copy Content As" selected as `Text`.
+* Improvements: Remove the white spaces and trim the content if the option "Copy Content As" selected as `Text`.
+* Fix: Copy the content as text works different on Chrome, Firefox and Internet Explorer browsers.
 
 = 1.7.5 =
 

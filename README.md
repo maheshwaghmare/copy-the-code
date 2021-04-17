@@ -3,7 +3,7 @@ Contributors: Mahesh901122
 Donate link: https://www.paypal.me/mwaghmare7/
 Tags: Copy to Clipboard, Clipboard, Copy Anything to Clipboard
 Tested up to: 5.7
-Stable tag: 2.1.1
+Stable tag: 2.2.0
 Requires PHP: 5.6
 Requires at least: 4.4
 
@@ -17,14 +17,36 @@ You can copy to clipboard: code snippets, special symbols, discount codes, or an
 
 By default, the copy button is added to the `<pre>` tag. You can easily change the `pre` tag selector with any other selector. You can read more [about selector](https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#what-is-the-selector).
 
+Just use the shortcode as:
+
+<pre>
+[copy]hello world[/copy]
+</pre>
+
+Above shortcode show the link with text "Copy" and on click on that link the text "hello world" copied into the clipboard.
+
+We see the text "Copied" after clicking on the link which indicate user something is copied to clipboard.
+
+See short video:
+https://videos.files.wordpress.com/Mo6nR60h/copy-content-with-shortcode_mp4_hd.mp4
+
+Thats it.
+
+If you want to show the button instead of link then use:
+[copy tag="button"]hello world[/copy]
+
+Read more at [copy with shortcode](https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#shortcode).
+
+
 **FREE And Popular Copy to Clipboard Plugin**
 
-Over 1k+ users are empowering their websites with "Copy Anything to Clipboard" – 100% compatible for all themes and plugins.
+Over 4k+ users are empowering their websites with "Copy Anything to Clipboard" – 100% compatible for all themes and plugins.
 
 Reasons why people love the Copy Anything to Clipboard
 
 - Zero configuration
 - Easy to use
+- Copy with shortcode
 - Customization options
 - Quick support
 
@@ -62,6 +84,77 @@ Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pi
 After plugin install and activate, By default on front-end the `Copy` button is added for all the `<pre>` tags.
 
 On click on it the content within the `pre` tags is copy in clipboard.
+
+= How to use shortcode? =
+
+How to change the default link with a button, heading, or different tag?
+
+To change the default copy link use the shortcode attribute "tag". E.g.
+
+To show the button use shortcode:
+
+<pre>
+[copy tag='button']
+</pre>
+
+To show the h1 heading use shortcode:
+
+<pre>
+[copy tag='h1']
+</pre>
+
+See short video https://www.dropbox.com/s/ruguotkdd25xloo/KKoUoh1Ug1.mp4?dl=0
+
+Some examples:
+
+1. Copy the hidden text.
+
+<pre>
+[copy]12345[/copy]
+</pre>
+
+2. Diffetn copy text.
+
+<pre>
+[copy text="Copy the Text"]12345[/copy]
+</pre>
+
+3. Diffetn copied text.
+
+<pre>
+[copy text="Copy the Text" text="Text Copied!"]12345[/copy]
+</pre>
+
+4. Show the copy link as a button
+
+<pre>
+[copy text="Copy the Text" text="Text Copied!" tag="button"]12345[/copy]
+</pre>
+
+5. Show the copy link as a button
+
+<pre>
+[copy text="Copy the Text" text="Text Copied!" tag="h2"]12345[/copy]
+</pre>
+
+6. Copy the footer text
+
+<pre>
+[copy target="#colophon"]
+</pre>
+
+7. Copy the footer text
+
+<pre>
+[copy target="#colophon"]
+</pre>
+
+8. Copy the footer markup/HTML
+
+<pre>
+[copy target="#colophon" copy-as="html"]
+</pre>
+
 
 = What is the selector? =
 
@@ -113,6 +206,10 @@ function my_slug_copy_the_code_localize_vars( $defaults )
 Yes, We have added `!important` for the Copy button to keep the button style same for each theme. We have tested below themes.
 
 == Changelog ==
+
+= 2.2.0 =
+
+* New - Added shortcode [copy] to copy the content. E.g. [copy]12345[/copy]. Read more at https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#shortcode
 
 = 2.1.1 =
 
