@@ -33,14 +33,17 @@ https://videos.files.wordpress.com/Mo6nR60h/copy-content-with-shortcode_mp4_hd.m
 Thats it.
 
 If you want to show the button instead of link then use:
+
+<pre>
 [copy tag="button"]hello world[/copy]
+</pre>
 
 Read more at [copy with shortcode](https://maheshwaghmare.com/doc/copy-anything-to-clipboard/#shortcode).
 
 
 **FREE And Popular Copy to Clipboard Plugin**
 
-Over 4k+ users are empowering their websites with "Copy Anything to Clipboard" – 100% compatible for all themes and plugins.
+Over 5k+ users are empowering their websites with "Copy Anything to Clipboard" – 100% compatible for all themes and plugins.
 
 Reasons why people love the Copy Anything to Clipboard
 
