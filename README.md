@@ -2,7 +2,7 @@
 Contributors: Mahesh901122
 Donate link: https://www.paypal.me/mwaghmare7/
 Tags: Copy to Clipboard, Clipboard, Copy Anything to Clipboard
-Tested up to: 5.7
+Tested up to: 5.8
 Stable tag: 2.2.0
 Requires PHP: 5.6
 Requires at least: 4.4
@@ -40,7 +40,7 @@ Read more at [copy with shortcode](https://maheshwaghmare.com/doc/copy-anything-
 
 **FREE And Popular Copy to Clipboard Plugin**
 
-Over 4k+ users are empowering their websites with "Copy Anything to Clipboard" – 100% compatible for all themes and plugins.
+Over 6k+ users are empowering their websites with "Copy Anything to Clipboard" – 100% compatible for all themes and plugins.
 
 Reasons why people love the Copy Anything to Clipboard
 
