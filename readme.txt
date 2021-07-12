@@ -2,7 +2,7 @@
 Contributors: Mahesh901122
 Donate link: https://www.paypal.me/mwaghmare7/
 Tags: Copy, Paste, Copy to Clipboard, Clipboard, Copy Anything to Clipboard
-Tested up to: 5.7
+Tested up to: 5.8
 Stable tag: 2.2.0
 Requires PHP: 5.6
 Requires at least: 4.4
